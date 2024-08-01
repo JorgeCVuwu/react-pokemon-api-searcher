@@ -1,7 +1,7 @@
 import { POKEAPI_PREFIX } from '../constants/constants'
 import { useSelectorData } from '../hooks/useSelectorData.js'
 
-export function PokemonSelectorFilter ({ id, filter, ignoreResults }) {
+export function PokemonSelectorFilter ({ id, filter, ignoreResults, disabled }) {
   const url = `${POKEAPI_PREFIX}${filter}`
   const { data, error, loading } = useSelectorData(url)
 
@@ -18,8 +18,8 @@ export function PokemonSelectorFilter ({ id, filter, ignoreResults }) {
   }
 
   return (
-    <select id={id} name={filter} selected>
-        <option value=''>Select {filter}...</option>
+    <select id={id} name={filter} disabled={disabled}>
+        <option value=''>None</option>
         {ignoreResults
           ? data.results.filter(result => !ignoreResults.includes(result.name)).map(result => (
             <option key={result.id} value={result.id}>{result.name}</option>
