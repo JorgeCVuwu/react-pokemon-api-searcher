@@ -1,3 +1,7 @@
+const mappedPokemon = (json) => {
+  return json.map()
+}
+
 export function PokemonCard (pokemonJson) {
   const typeSrcPrefix = '../../media/types/sword-shield/'
 

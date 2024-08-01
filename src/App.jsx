@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { PokemonSelectorFilter } from './components/PokemonSelecterFilter.jsx'
+import { IGNORED_TYPES } from './constants/constants.js'
 
 const ChargingGif = () => {
   return (
@@ -16,19 +18,15 @@ async function searchPokemon (event) {
 
 }
 
-function usePokemonForm () {
-  const [values, setValues] = useState({})
+function PokemonForm () {
+  // const { pokemon, loading, getPokemon } = usePokemon()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    searchPokemon(event)
+    const fields = new window.FormData(event.target)
+    const query = fields.get('query')
+    console.log(query)
   }
-
-  return { values, handleSubmit }
-}
-
-const PokemonForm = () => {
-  const { values, handleSubmit } = usePokemonForm()
 
   return (
     <div className="pokemon-form-container">
@@ -37,8 +35,8 @@ const PokemonForm = () => {
           <input id="pokemon-name" name="name" placeholder="Ingresa un Pokémon"/>
 
           <label htmlFor="pokemon-type">Pokémon types:</label>
-          <select id="pokemon-type-1" name="type1"></select>
-          <select id="pokemon-type-2" name="type2"></select>
+          <PokemonSelectorFilter id="pokemon-type-1" filter="type" ignoreResults={IGNORED_TYPES}/>
+          <PokemonSelectorFilter id="pokemon-type-2" filter="type" ignoreResults={IGNORED_TYPES}/>
 
           <label htmlFor="pokemon-move">Pokémon move:</label>
           <input id="pokemon-move" name="move" placeholder="Put a move"/>
@@ -46,8 +44,8 @@ const PokemonForm = () => {
           <label htmlFor="pokemon-ability">Pokémon ability:</label>
           <input id="pokemon-ability" name="ability" placeholder="Put an ability"/>
 
-          <label htmlFor="Pokémon generation:">Pokémon generation:</label>
-          <select id="pokemon-generation" name="generation"></select>
+          <label htmlFor="Pokémon generation">Pokémon generation:</label>
+          <PokemonSelectorFilter id="pokemon-generation" filter="generation"/>
 
           <div className="check-pokemon-forms-container">
               <label htmlFor="check-pokemon-forms">Include alternative Pokémon forms?</label>
