@@ -1,36 +1,5 @@
 import { useState } from 'react'
 
-const PokemonCard = (pokemonJson) => {
-  const typeSrcPrefix = '../../media/types/sword-shield/'
-
-  return (
-    <div id='pokemon-card' className='pokemon-card'>
-      <p className='pokemon-name'>{pokemonJson.name}</p>
-      <img className='pokemon-img' src={pokemonJson?.sprites?.front_default ?? ''}/>
-      <p className='pokemon-dex-number'>#{pokemonJson.id}</p>
-
-      <div className='pokemon-type-container'>
-        {pokemonJson.types.map((type) => {
-          <img className='pokemon-type-img' src={typeSrcPrefix + type.type.url.split('/').at(-2) + '.png'} />
-        })}
-      </div>
-
-      <div className='pokemon-audio-container'>
-        <button className='pokemon-audio-button'>
-          <img className='audio-icon' src='../media/speaker_icon.svg' />
-        </button>
-        <audio src={pokemonJson.cries.latest} />
-      </div>
-    </div>
-  )
-}
-
-const NotPokemonMessage = () => {
-  return (
-    <p className='no-pokemon-found'>No se pudo encontrar el Pokémon solicitado.</p>
-  )
-}
-
 const ChargingGif = () => {
   return (
     <img className='charging-gif' src='./media/gifs/charging.gif' />
@@ -50,20 +19,16 @@ async function searchPokemon (event) {
 function usePokemonForm () {
   const [values, setValues] = useState({})
 
-  const handleChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value })
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault()
     searchPokemon(event)
   }
 
-  return { values, handleChange, handleSubmit }
+  return { values, handleSubmit }
 }
 
 const PokemonForm = () => {
-  const { values, handleChange, handleSubmit } = usePokemonForm()
+  const { values, handleSubmit } = usePokemonForm()
 
   return (
     <div className="pokemon-form-container">
@@ -72,8 +37,8 @@ const PokemonForm = () => {
           <input id="pokemon-name" name="name" placeholder="Ingresa un Pokémon"/>
 
           <label htmlFor="pokemon-type">Pokémon types:</label>
-          <select id="pokemon-type-1" name="type" onChange={handleChange} ></select>
-          <select id="pokemon-type-2" name="type"></select>
+          <select id="pokemon-type-1" name="type1"></select>
+          <select id="pokemon-type-2" name="type2"></select>
 
           <label htmlFor="pokemon-move">Pokémon move:</label>
           <input id="pokemon-move" name="move" placeholder="Put a move"/>
@@ -86,10 +51,10 @@ const PokemonForm = () => {
 
           <div className="check-pokemon-forms-container">
               <label htmlFor="check-pokemon-forms">Include alternative Pokémon forms?</label>
-              <input id="check-pokemon-forms" type="checkbox"/>
+              <input id="check-pokemon-forms" type="checkbox" name="checkbox"/>
           </div>
 
-          <button id="pokemon-submit" type="submit" onClick={searchPokemon}>Search</button>
+          <button id="pokemon-submit" type="submit">Search</button>
       </form>
     </div>
   )
