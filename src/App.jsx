@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { PokemonSelectorFilter } from './components/PokemonSelecterFilter.jsx'
 import { IGNORED_TYPES } from './constants/constants.js'
+import { ResponseContainer } from './components/ResponseContainer.jsx'
+import { useBlockInputs } from './hooks/useBlockInputs.js'
 
 const ChargingGif = () => {
   return (
@@ -21,14 +23,10 @@ async function searchPokemon (event) {
 function PokemonForm () {
   // const { pokemon, loading, getPokemon } = usePokemon()
 
-  const [disabledInput, setDisabledInput] = useState(false)
-
-  const blockOtherInputs = (event) => {
-    const name = event.target.value
-    setDisabledInput(name !== '')
-  }
+  const { disabledInput, blockOtherInputs, formRef } = useBlockInputs()
 
   const handleSubmit = (event) => {
+    const [loadingSearch, setLoadingSearch] = useState(true)
     event.preventDefault()
     const fields = new window.FormData(event.target)
     const pokemonName = fields.get('name')
@@ -36,7 +34,7 @@ function PokemonForm () {
 
   return (
     <div className="pokemon-form-container">
-      <form id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
+      <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
           <label htmlFor="pokemon-name">Pokémon name:</label>
           <input id="pokemon-name" name="name" onInput={blockOtherInputs} placeholder="Ingresa un Pokémon"/>
 
@@ -68,8 +66,7 @@ function App () {
   return (
     <>
       <PokemonForm/>
-      <div id="response-container" className="response-container">
-      </div>
+       <ResponseContainer/>
     </>
   )
 }

@@ -21,9 +21,10 @@ export function PokemonSelectorFilter ({ id, filter, ignoreResults, disabled }) 
     <select id={id} name={filter} disabled={disabled}>
         <option value=''>None</option>
         {ignoreResults
-          ? data.results.filter(result => !ignoreResults.includes(result.name)).map(result => (
+          ? data.results.filter(result => !ignoreResults.includes(result.name))
+            .map(result => (
             <option key={result.id} value={result.id}>{result.name}</option>
-          ))
+            ))
           : data.results.map(result => (
             <option key={result.id} value={result.id}>{result.name}</option>
           ))
