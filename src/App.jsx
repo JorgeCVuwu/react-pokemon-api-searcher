@@ -23,7 +23,7 @@ async function searchPokemon (event) {
 function PokemonForm () {
   // const { pokemon, loading, getPokemon } = usePokemon()
 
-  const { disabledInput, blockOtherInputs, formRef } = useBlockInputs()
+  const { disabledInput, formRef, nameRef, blockOtherInputs } = useBlockInputs()
 
   const handleSubmit = (event) => {
     const [loadingSearch, setLoadingSearch] = useState(true)
@@ -36,7 +36,7 @@ function PokemonForm () {
     <div className="pokemon-form-container">
       <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
           <label htmlFor="pokemon-name">Pokémon name:</label>
-          <input id="pokemon-name" name="name" onInput={blockOtherInputs} placeholder="Ingresa un Pokémon"/>
+          <input ref={nameRef} id="pokemon-name" name="name" onInput={blockOtherInputs} placeholder="Ingresa un Pokémon"/>
 
           <label htmlFor="pokemon-type">Pokémon types:</label>
           <PokemonSelectorFilter id="pokemon-type-1" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
