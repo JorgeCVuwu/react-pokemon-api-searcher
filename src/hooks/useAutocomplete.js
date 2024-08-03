@@ -10,7 +10,7 @@ export function useAutocomplete (url) {
   const inputRef = useRef()
 
   useEffect(() =>
-    setShowAutocomplete(autocompleteOptions.length > 0 && focusedInput)
+    setShowAutocomplete(autocompleteOptions.length > 0)
   , [autocompleteOptions]
   )
 
