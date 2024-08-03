@@ -12,7 +12,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
     filterAutocomplete(event.target.value)
   }
 
-  const handleClick = (event) => {
+  const handleMouseDown = (event) => {
     changeInputValue(event.target.textContent)
   }
 
@@ -25,20 +25,24 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
   }
 
   const autocompletePosition = () => {
-    const leftPosition = inputRef.current.offsetLeft
-    const topPosition = inputRef.current.offsetTop + inputRef.current.offsetHeight
-    const width = inputRef.offsetWidth
-    return { leftPosition, topPosition, width }
+    if (inputRef.current) {
+      const topPosition = inputRef.current.offsetTop + inputRef.current.offsetHeight
+
+      return { topPosition }
+    }
+    return null
   }
+
+  const autoCompPosition = autocompletePosition()
 
   return (
     <>
       <label htmlFor={`pokemon-${filter}`}>{`Pokémon ${name}:`}</label>
       <input ref={inputRef} id={`pokemon-${name}`} name={name} placeholder={`Put a ${name}`} disabled={disabled} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} autoComplete="off"/>
       { showAutoComplete &&
-        <ul className='autocomplete-container' style={{ left: autocompletePosition().leftPosition, top: autocompletePosition().topPosition, width: autocompletePosition().width }}>
+        <ul className='autocomplete-container' style={{ top: autoCompPosition.topPosition }}>
           {autocompleteOptions.map((json) => (
-            <li key={json.id} className='autocomplete-element' onClick={handleClick}>{json.name}</li>
+            <li key={json.id} className='autocomplete-element' onMouseDown={handleMouseDown}>{json.name}</li>
           ))}
         </ul>
       }

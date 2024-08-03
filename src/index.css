@@ -5,7 +5,6 @@ h1 {
 .pokemon-form-container {
   display: flex;
   justify-content: center;
-  position: relative;
 }
 
 .pokemon-card {
@@ -34,12 +33,14 @@ h1 {
 
 .pokemon-form {
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 20px;
   min-width: 400px;
   width: 40%;
   border: 2px solid gray;
   padding: 10px;
+  --form-padding-left-right: 10px;
   border-radius: 5px;
   justify-content: center;
 }
@@ -102,14 +103,20 @@ h1 {
 .autocomplete-container {
   list-style-type: none;
   position: absolute;
-  background: whitesmoke;
+  background: white;
   border: 1px solid black;
   padding: 0;
   margin: 0;
   z-index: 1;
-  width: 100%;
+  left: var(--form-padding-left-right);
+  right: var(--form-padding-left-right);
+}
+
+.autocomplete-element {
+  cursor: default;
+  padding: 2px;
 }
 
 .autocomplete-element:hover {
-  background: white;
+  background: whitesmoke;
 }

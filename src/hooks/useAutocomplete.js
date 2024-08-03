@@ -9,9 +9,16 @@ export function useAutocomplete (url) {
   const { data } = useSelectorData(url)
   const inputRef = useRef()
 
+  useEffect(() =>
+    setShowAutocomplete(autocompleteOptions.length > 0 && focusedInput)
+  , [autocompleteOptions]
+  )
+
   useEffect(() => {
-    setShowAutocomplete(autocompleteOptions && autocompleteOptions.length > 0 && focusedInput)
-  }, [autocompleteOptions, focusedInput])
+    setTimeout(() => {
+      setShowAutocomplete(current => current && focusedInput)
+    }, 100)
+  }, [focusedInput])
 
   const filterAutocomplete = (input) => {
     input === ''
@@ -20,6 +27,7 @@ export function useAutocomplete (url) {
   }
 
   const changeInputValue = (value) => {
+    console.log(value)
     inputRef.current.value = value
     setAutocompleteOptions([])
   }
