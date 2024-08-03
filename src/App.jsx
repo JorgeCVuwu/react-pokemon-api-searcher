@@ -46,8 +46,6 @@ function PokemonQuery () {
     <main>
       <div className="pokemon-form-container">
         <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
-            <label htmlFor="pokemon-name">Pokémon name:</label>
-            {/* <input id="pokemon-name" name="name" onInput={blockOtherInputs} placeholder="Ingresa un Pokémon"/> */}
             <InputFilter name="name" filter="pokemon" onInput={blockOtherInputs}/>
 
             <label htmlFor="pokemon-type-1">Pokémon types:</label>
@@ -58,7 +56,8 @@ function PokemonQuery () {
 
             <InputFilter name="ability" filter="ability" disabled={disabledInput}/>
 
-            <InputFilter name="generation" filter="generation" disabled={disabledInput}/>
+            <label htmlFor="pokemon-generation">Pokémon generation:</label>
+            <PokemonSelectorFilter id="pokemon-generation" filter="generation" disabled={disabledInput}/>
 
             <div className="check-pokemon-forms-container">
                 <label htmlFor="check-pokemon-forms">Include alternative Pokémon forms?</label>

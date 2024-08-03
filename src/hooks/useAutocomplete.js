@@ -7,18 +7,10 @@ export function useAutocomplete (url) {
   const { data } = useSelectorData(url)
   const inputRef = useRef()
 
-  //   useEffect(() => {
-  //     if (data) {
-  //       setAutocompleteOptions(data.results)
-  //     }
-  //   }
-  //   , [data])
-
-  //   useEffect(() => {
-  //   }, [autocompleteOptions])
-
   const filterAutocomplete = (input) => {
-    setAutocompleteOptions(data.results.filter((value) => value.name.startsWith(input)).slice(0, 10))
+    input === ''
+      ? setAutocompleteOptions([])
+      : setAutocompleteOptions(data.results.filter((value) => value.name.startsWith(input)).slice(0, 10))
   }
 
   const changeInputValue = (value) => {
