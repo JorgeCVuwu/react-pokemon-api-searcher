@@ -1,11 +1,17 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import { useSelectorData } from '../hooks/useSelectorData.js'
 
 export function useAutocomplete (url) {
   const [autocompleteOptions, setAutocompleteOptions] = useState([])
+  const [showAutoComplete, setShowAutocomplete] = useState(false)
+  const [focusedInput, setFocusedInput] = useState(false)
   const { data } = useSelectorData(url)
   const inputRef = useRef()
+
+  useEffect(() => {
+    setShowAutocomplete(autocompleteOptions && autocompleteOptions.length > 0 && focusedInput)
+  }, [autocompleteOptions, focusedInput])
 
   const filterAutocomplete = (input) => {
     input === ''
@@ -18,5 +24,9 @@ export function useAutocomplete (url) {
     setAutocompleteOptions([])
   }
 
-  return { inputRef, autocompleteOptions, filterAutocomplete, changeInputValue }
+  const checkFocusStatus = (isFocused) => {
+    setFocusedInput(isFocused)
+  }
+
+  return { inputRef, autocompleteOptions, showAutoComplete, filterAutocomplete, changeInputValue, checkFocusStatus }
 }
