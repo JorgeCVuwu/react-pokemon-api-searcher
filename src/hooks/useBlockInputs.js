@@ -1,16 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 
-export function useBlockInputs () {
+export function useBlockInputs (inputRefId) {
   const [disabledInput, setDisabledInput] = useState(false)
-  const nameRef = useRef()
   const formRef = useRef()
 
   useEffect(() => {
     if (disabledInput) {
       const inputs = formRef.current.querySelectorAll('input, select')
-
+      const nameRef = formRef.current.querySelector(`#${inputRefId}`)
       inputs.forEach((input) => {
-        if (input !== nameRef.current) {
+        if (input !== nameRef) {
           input.value = ''
         }
       })
@@ -22,5 +21,5 @@ export function useBlockInputs () {
     setDisabledInput(name !== '')
   }
 
-  return { disabledInput, blockOtherInputs, nameRef, formRef }
+  return { disabledInput, blockOtherInputs, formRef }
 }
