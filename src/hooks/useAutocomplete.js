@@ -17,7 +17,7 @@ export function useAutocomplete (url) {
   useEffect(() => {
     setTimeout(() => {
       setShowAutocomplete(current => current && focusedInput)
-    }, 100)
+    }, 10)
   }, [focusedInput])
 
   const filterAutocomplete = (input) => {
@@ -27,7 +27,6 @@ export function useAutocomplete (url) {
   }
 
   const changeInputValue = (value) => {
-    console.log(value)
     inputRef.current.value = value
     setAutocompleteOptions([])
   }
