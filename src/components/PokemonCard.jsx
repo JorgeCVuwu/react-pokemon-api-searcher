@@ -1,3 +1,5 @@
+import { capitalizeStr } from '../utils/utils.js'
+
 export function PokemonCard ({ pokemonJson }) {
   const typeSrcPrefix = './media/types/sword-shield/'
 
@@ -8,7 +10,7 @@ export function PokemonCard ({ pokemonJson }) {
 
   return (
       <div id='pokemon-card' className='pokemon-card'>
-        <p className='pokemon-name'>{pokemonJson.name}</p>
+        <p className='pokemon-name'>{capitalizeStr(pokemonJson.is_default ? pokemonJson.species.name : pokemonJson.name)}</p>
         <img className='pokemon-img' src={pokemonJson.front_sprite}/>
         <p className='pokemon-dex-number'>#{pokemonJson.dex_number}</p>
 

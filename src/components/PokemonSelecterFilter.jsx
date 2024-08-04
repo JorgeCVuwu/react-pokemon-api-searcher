@@ -1,9 +1,19 @@
 import { POKEAPI_PREFIX } from '../constants/constants'
 import { useSelectorData } from '../hooks/useSelectorData.js'
 
-export function PokemonSelectorFilter ({ id, filter, ignoreResults, disabled }) {
+import { capitalizeStr, capitalizeRomanNumerals } from '../utils/utils.js'
+
+export function PokemonSelectorFilter ({ id, filter, ignoreResults, disabled, romanNumerals = false }) {
   const url = `${POKEAPI_PREFIX}${filter}`
   const { data, error, loading } = useSelectorData(url)
+
+  const renderOption = (results) => {
+    return (
+      results.map(result => (
+        <option key={result.id} value={result.id}>{capitalizeStr(romanNumerals ? capitalizeRomanNumerals(result.name) : result.name)}</option>
+      ))
+    )
+  }
 
   if (loading) {
     return (
@@ -21,13 +31,8 @@ export function PokemonSelectorFilter ({ id, filter, ignoreResults, disabled }) 
     <select id={id} name={filter} disabled={disabled}>
         <option value=''>None</option>
         {ignoreResults
-          ? data.results.filter(result => !ignoreResults.includes(result.name))
-            .map(result => (
-            <option key={result.id} value={result.id}>{result.name}</option>
-            ))
-          : data.results.map(result => (
-            <option key={result.id} value={result.id}>{result.name}</option>
-          ))
+          ? renderOption(data.results.filter(result => !ignoreResults.includes(result.name)))
+          : renderOption(data.results)
         }
     </select>
   )

@@ -6,6 +6,8 @@ import { PokemonSelectorFilter } from './components/PokemonSelecterFilter.jsx'
 import { PokemonCard } from './components/PokemonCard.jsx'
 import { InputFilter } from './components/InputFilter.jsx'
 
+import { toKebabCase } from './utils/utils.js'
+
 // const ChargingGif = () => {
 //   return (
 //     <img className='charging-gif' src='./media/gifs/charging.gif' />
@@ -29,13 +31,13 @@ function PokemonQuery () {
 
     // for filters with multiple fields you should use digits (ability1, ability2, ability3...)
     const queryFields = {
-      name: fields.get('name'),
-      move: fields.get('move'),
+      name: toKebabCase(fields.get('name')),
+      move: toKebabCase(fields.get('move')),
       // type: fields.getAll('type').filter(type => type !== ''),
-      type1: types[0],
-      type2: types[1],
-      ability: fields.get('ability'),
-      generation: fields.get('generation'),
+      type1: toKebabCase(types[0]),
+      type2: toKebabCase(types[1]),
+      ability: toKebabCase(fields.get('ability')),
+      generation: toKebabCase(fields.get('generation')),
       include_pokemon_forms: fields.get('pokemon-form-checkbox')
     }
 
@@ -57,7 +59,7 @@ function PokemonQuery () {
             <InputFilter name="ability" filter="ability" disabled={disabledInput}/>
 
             <label htmlFor="pokemon-generation">Pokémon generation:</label>
-            <PokemonSelectorFilter id="pokemon-generation" filter="generation" disabled={disabledInput}/>
+            <PokemonSelectorFilter id="pokemon-generation" filter="generation" disabled={disabledInput} romanNumerals/>
 
             <div className="check-pokemon-forms-container">
                 <label htmlFor="check-pokemon-forms">Include alternative Pokémon forms?</label>

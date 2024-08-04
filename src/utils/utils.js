@@ -24,3 +24,22 @@ export function pushFilteringSpecialForms (urls) {
 export function removeDigits (str) {
   return str.replace(/\d+/g, '')
 }
+
+export function toKebabCase (str) {
+  if (!str) return str
+  return str
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+}
+
+export function capitalizeStr (str) {
+  if (!str) return str
+  return str.replace(/\b\w/g, char => char.toUpperCase())
+    .replace(/-/g, ' ')
+}
+
+export function capitalizeRomanNumerals (str) {
+  const romanNumeralRegex = /\b(M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))\b/gi
+
+  return str.replace(romanNumeralRegex, match => match.toUpperCase())
+}

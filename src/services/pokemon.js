@@ -15,6 +15,8 @@ export async function searchPokemon (url) {
         url: type.type.url,
         order: type.slot
       }
-    })
+    }),
+    is_default: pokemonJson.is_default,
+    species: { name: pokemonJson.species.name, url: pokemonJson.species.url }
   }
 }

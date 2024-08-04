@@ -1,9 +1,12 @@
 import { POKEAPI_PREFIX } from '../constants/constants.js'
+
 import { useAutocomplete } from '../hooks/useAutocomplete.js'
+
+import { capitalizeStr } from '../utils/utils.js'
 
 export function InputFilter ({ name, filter, disabled, onChange }) {
   const url = `${POKEAPI_PREFIX}${filter}`
-  const { inputRef, autocompleteOptions, showAutoComplete, filterAutocomplete, changeInputValue, checkFocusStatus } = useAutocomplete(url)
+  const { inputRef, autocompleteOptions, showAutoComplete, filterAutocomplete, autocompleteInputValue, checkFocusStatus } = useAutocomplete(url)
 
   const handleChange = (event) => {
     if (onChange) {
@@ -13,7 +16,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
   }
 
   const handleMouseDown = (event) => {
-    changeInputValue(event.target.textContent)
+    autocompleteInputValue(event.target.textContent)
   }
 
   const handleFocus = () => {
@@ -42,7 +45,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
       { showAutoComplete &&
         <ul className='autocomplete-container' style={{ top: autoCompPosition.topPosition }}>
           {autocompleteOptions.map((json) => (
-            <li key={json.id} className='autocomplete-element' onMouseDown={handleMouseDown}>{json.name}</li>
+            <li key={json.id} className='autocomplete-element' onMouseDown={handleMouseDown}>{capitalizeStr(json.name)}</li>
           ))}
         </ul>
       }
