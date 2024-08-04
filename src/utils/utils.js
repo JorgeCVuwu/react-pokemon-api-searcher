@@ -32,10 +32,12 @@ export function toKebabCase (str) {
     .replace(/\s+/g, '-')
 }
 
-export function capitalizeStr (str) {
+export function capitalizeStr (str, keepBar = false) {
   if (!str) return str
-  return str.replace(/\b\w/g, char => char.toUpperCase())
-    .replace(/-/g, ' ')
+  const res = str.replace(/\b\w/g, char => char.toUpperCase())
+  return keepBar
+    ? res
+    : res.replace(/-/g, ' ')
 }
 
 export function capitalizeRomanNumerals (str) {

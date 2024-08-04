@@ -15,7 +15,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
     filterAutocomplete(event.target.value)
   }
 
-  const handleMouseDown = (event) => {
+  const handlePointerDown = (event) => {
     autocompleteInputValue(event.target.textContent)
   }
 
@@ -37,6 +37,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
   }
 
   const autoCompPosition = autocompletePosition()
+  const isName = name === 'name'
 
   return (
     <>
@@ -45,7 +46,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
       { showAutoComplete &&
         <ul className='autocomplete-container' style={{ top: autoCompPosition.topPosition }}>
           {autocompleteOptions.map((json) => (
-            <li key={json.id} className='autocomplete-element' onMouseDown={handleMouseDown}>{capitalizeStr(json.name)}</li>
+            <li key={json.id} className='autocomplete-element' onPointerDown={handlePointerDown}>{capitalizeStr(json.name, isName)}</li>
           ))}
         </ul>
       }
