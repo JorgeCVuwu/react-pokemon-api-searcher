@@ -3,7 +3,7 @@ import { useBlockInputs } from './hooks/useBlockInputs.js'
 import { useSearchPokemon } from './hooks/useSearchPokemon.js'
 
 import { PokemonSelectorFilter } from './components/PokemonSelecterFilter.jsx'
-import { PokemonCard } from './components/PokemonCard.jsx'
+import { PokemonCard, NotPokemonMessage } from './components/PokemonCard.jsx'
 import { InputFilter } from './components/InputFilter.jsx'
 
 import { toKebabCase } from './utils/utils.js'
@@ -77,7 +77,7 @@ function PokemonQuery () {
                   <PokemonCard key={pokemon.dex_number} pokemonJson={pokemon} />
                 )))}
               </div>
-            : (<>XD</>)
+            : (<NotPokemonMessage/>)
           }
         </div>
       )}
