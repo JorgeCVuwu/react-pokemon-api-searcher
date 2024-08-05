@@ -2,9 +2,10 @@ h1 {
   text-align: center;
 }
 
-.pokemon-form-container {
+.pokemon-search-page-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pokemon-card {
@@ -50,11 +51,12 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .pokemon-response-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 5px;
   justify-items: center;
   align-self: stretch;
@@ -94,11 +96,9 @@ h1 {
 }
 
 .charging-gif {
-  height: 20px;
-  width: auto;
+  width: 20px;
+  height: auto;
 }
-
-
 
 .autocomplete-container {
   list-style-type: none;

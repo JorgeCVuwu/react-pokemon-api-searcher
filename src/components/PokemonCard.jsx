@@ -35,3 +35,9 @@ export function NotPokemonMessage () {
       <p className='no-pokemon-found'>No se pudo encontrar el Pokémon solicitado.</p>
   )
 }
+
+export function ChargingGif ({ className = '' }) {
+  return (
+    <img className={`charging-gif ${className}`} src='./media/gifs/charging.gif' />
+  )
+}

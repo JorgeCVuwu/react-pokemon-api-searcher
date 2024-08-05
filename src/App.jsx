@@ -3,16 +3,10 @@ import { useBlockInputs } from './hooks/useBlockInputs.js'
 import { useSearchPokemon } from './hooks/useSearchPokemon.js'
 
 import { PokemonSelectorFilter } from './components/PokemonSelecterFilter.jsx'
-import { PokemonCard, NotPokemonMessage } from './components/PokemonCard.jsx'
+import { PokemonCard, NotPokemonMessage, ChargingGif } from './components/PokemonCard.jsx'
 import { InputFilter } from './components/InputFilter.jsx'
 
 import { toKebabCase } from './utils/utils.js'
-
-// const ChargingGif = () => {
-//   return (
-//     <img className='charging-gif' src='./media/gifs/charging.gif' />
-//   )
-// }
 
 // const ExpandButton = () => {
 //   return (
@@ -22,7 +16,7 @@ import { toKebabCase } from './utils/utils.js'
 
 function PokemonQuery () {
   const { disabledInput, formRef, blockOtherInputs } = useBlockInputs('pokemon-name')
-  const { foundedPokemon, loadingStarted, queryPokemon } = useSearchPokemon()
+  const { foundedPokemon, loading, loadingStarted, queryPokemon } = useSearchPokemon()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -42,10 +36,15 @@ function PokemonQuery () {
     }
 
     queryPokemon(queryFields)
+
+    // const { validation, validationMessage } = validateForm(queryFields)
+    // validation
+    //   ? queryPokemon(queryFields)
+    //   : alert(validationMessage)
   }
 
   return (
-    <main>
+    <main className='pokemon-search-page-container'>
       <div className="pokemon-form-container">
         <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
             <InputFilter name="name" filter="pokemon" onChange={blockOtherInputs}/>
@@ -71,14 +70,16 @@ function PokemonQuery () {
       </div>
       {loadingStarted && (
         <div className='response-container'>
-          {foundedPokemon.length > 0
-            ? <div className='pokemon-response-container'>
-                {(foundedPokemon.map(pokemon => (
-                  <PokemonCard key={pokemon.dex_number} pokemonJson={pokemon} />
-                )))}
-              </div>
-            : (<NotPokemonMessage/>)
-          }
+          {loading
+            ? <ChargingGif className=''/>
+            : foundedPokemon.length > 0
+              ? <div className='pokemon-response-container'>
+                  {(foundedPokemon.map(pokemon => (
+                    <PokemonCard key={pokemon.dex_number} pokemonJson={pokemon} />
+                  )))}
+                </div>
+              : (<NotPokemonMessage/>)
+            }
         </div>
       )}
     </main>
