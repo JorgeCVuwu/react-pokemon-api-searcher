@@ -8,12 +8,6 @@ import { InputFilter } from './components/InputFilter.jsx'
 
 import { toKebabCase } from './utils/utils.js'
 
-// const ExpandButton = () => {
-//   return (
-//     <button id='expand-pokemon-search' className='expand-search-button'>Expand search</button>
-//   )
-// }
-
 function PokemonQuery () {
   const { disabledInput, formRef, blockOtherInputs } = useBlockInputs('pokemon-name')
   const { foundedPokemon, loading, loadingStarted, queryPokemon } = useSearchPokemon()
@@ -27,7 +21,6 @@ function PokemonQuery () {
     const queryFields = {
       name: toKebabCase(fields.get('name')),
       move: toKebabCase(fields.get('move')),
-      // type: fields.getAll('type').filter(type => type !== ''),
       type1: toKebabCase(types[0]),
       type2: toKebabCase(types[1]),
       ability: toKebabCase(fields.get('ability')),
@@ -36,11 +29,6 @@ function PokemonQuery () {
     }
 
     queryPokemon(queryFields)
-
-    // const { validation, validationMessage } = validateForm(queryFields)
-    // validation
-    //   ? queryPokemon(queryFields)
-    //   : alert(validationMessage)
   }
 
   return (
@@ -65,13 +53,13 @@ function PokemonQuery () {
                 <input id="check-pokemon-forms" type="checkbox" name="pokemon-form-checkbox" disabled={disabledInput}/>
             </div>
 
-            <button id="pokemon-submit" type="submit">Search</button>
+            <button id="pokemon-submit" type="submit" disabled={loading}>Search</button>
         </form>
       </div>
       {loadingStarted && (
         <div className='response-container'>
           {loading
-            ? <ChargingGif className=''/>
+            ? <ChargingGif/>
             : foundedPokemon.length > 0
               ? <div className='pokemon-response-container'>
                   {(foundedPokemon.map(pokemon => (

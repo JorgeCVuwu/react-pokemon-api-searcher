@@ -2,32 +2,6 @@ h1 {
   text-align: center;
 }
 
-.pokemon-search-page-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.pokemon-card {
-  border: 5px solid rgb(255, 255, 10);
-  width: 150px;
-  text-align: center;
-  background: lightblue;
-  border-radius: 8px;
-  position: relative;
-  padding: 10px 0;
-}
-
-.pokemon-name {
-  font-family: cursive;
-  color:midnightblue;
-}
-
-.pokemon-img {
-  background: white;
-  border: thick double gray;
-}
-
 .no-pokemon-found {
   color: red;
 }
@@ -56,13 +30,37 @@ h1 {
 
 .pokemon-response-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 5px;
   justify-items: center;
   align-self: stretch;
 }
 
-/* audio-icon */
+
+.charging-gif {
+  width: 20px;
+  height: auto;
+}
+
+.pokemon-search-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* Pokémon card classes */
+
+.pokemon-card {
+  border: 5px solid rgb(255, 255, 10);
+  width: 150px;
+  text-align: center;
+  background: lightblue;
+  border-radius: 8px;
+  position: relative;
+  padding: 10px 0;
+}
+
 .pokemon-audio-button {
   all: unset;
   cursor: pointer;
@@ -89,16 +87,18 @@ h1 {
   height: auto;
 }
 
-.expand-search-button {
-  margin-top: 20px;
-  align-items: center;
-  width: 20%;
+.pokemon-name {
+  font-family: cursive;
+  color:midnightblue;
 }
 
-.charging-gif {
-  width: 20px;
-  height: auto;
+.pokemon-img {
+  background: white;
+  border: thick double gray;
 }
+
+
+/* Autocomplete classes */
 
 .autocomplete-container {
   list-style-type: none;
