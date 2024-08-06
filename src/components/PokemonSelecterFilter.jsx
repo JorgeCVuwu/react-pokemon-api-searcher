@@ -1,7 +1,7 @@
 import { POKEAPI_PREFIX } from '../constants/constants'
 import { useSelectorData } from '../hooks/useSelectorData.js'
 
-import { capitalizeStr, capitalizeRomanNumerals } from '../utils/utils.js'
+import { capitalizeStr, deleteDashes, capitalizeRomanNumerals } from '../utils/utils.js'
 
 export function PokemonSelectorFilter ({ id, name, filter, ignoreResults, disabled, romanNumerals = false }) {
   const url = `${POKEAPI_PREFIX}${filter}`
@@ -29,7 +29,7 @@ export function PokemonSelectorFilter ({ id, name, filter, ignoreResults, disabl
 
   return (
     <div className='input-container'>
-      <label htmlFor={id}>{`Pokémon ${name}:`}</label>
+      <label htmlFor={id}>{`Pokémon ${deleteDashes(name)}:`}</label>
       <select id={id} name={filter} disabled={disabled}>
           <option value=''>None</option>
           {ignoreResults

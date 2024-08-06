@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { searchPokemon } from '../services/pokemon.js'
 import { searchPokemonFilter } from '../services/pokemon_filter.js'
@@ -10,6 +10,21 @@ export function useSearchPokemon () {
   const [foundedPokemon, setFoundedPokemon] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingStarted, setLoadingStarted] = useState(false)
+  const [input, setInput] = useState(null)
+
+  const changeInputs = (currentInput) => {
+    setInput((previous) => {
+      if (!previous) return currentInput
+
+      return JSON.stringify(previous) === JSON.stringify(currentInput) // both object attr order always will be equal
+        ? previous
+        : currentInput
+    })
+  }
+
+  useEffect(() => {
+    if (input) { queryPokemon(input) }
+  }, [input])
 
   const queryPokemon = async (queryFields) => {
     setFoundedPokemon([])
@@ -69,8 +84,9 @@ export function useSearchPokemon () {
         }
       }
     }
+
     setLoading(false)
   }
 
-  return { foundedPokemon, loading, loadingStarted, queryPokemon }
+  return { foundedPokemon, loading, loadingStarted, input, queryPokemon, changeInputs }
 }

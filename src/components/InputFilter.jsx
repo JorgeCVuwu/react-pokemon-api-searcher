@@ -21,7 +21,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
     if (onChange) {
       onChange(event)
     }
-    // checkValidation(validationCallback)
+    checkValidation(event.target.value)
     filterAutocomplete()
   }
 
