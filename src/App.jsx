@@ -1,31 +1,29 @@
 import { IGNORED_TYPES } from './constants/constants.js'
 import { useBlockInputs } from './hooks/useBlockInputs.js'
 import { useSearchPokemon } from './hooks/useSearchPokemon.js'
+// import { useValidation } from './hooks/useValidation.js'
 
 import { PokemonSelectorFilter } from './components/PokemonSelecterFilter.jsx'
-import { PokemonCard, NotPokemonMessage } from './components/PokemonCard.jsx'
+import { PokemonCard, NotPokemonMessage, ChargingGif } from './components/PokemonCard.jsx'
 import { InputFilter } from './components/InputFilter.jsx'
 
 import { toKebabCase } from './utils/utils.js'
 
-// const ChargingGif = () => {
-//   return (
-//     <img className='charging-gif' src='./media/gifs/charging.gif' />
-//   )
-// }
-
-// const ExpandButton = () => {
-//   return (
-//     <button id='expand-pokemon-search' className='expand-search-button'>Expand search</button>
-//   )
-// }
-
 function PokemonQuery () {
   const { disabledInput, formRef, blockOtherInputs } = useBlockInputs('pokemon-name')
-  const { foundedPokemon, loadingStarted, queryPokemon } = useSearchPokemon()
+  const { foundedPokemon, loading, loadingStarted, changeInputs } = useSearchPokemon()
+
+  const handleChange = (event) => {
+    if (event.target.id === 'pokemon-name') {
+      blockOtherInputs(event)
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    const activeElement = document.activeElement
+    if (activeElement) activeElement.blur()
     const fields = new window.FormData(event.target)
     const types = fields.getAll('type')
 
@@ -33,7 +31,6 @@ function PokemonQuery () {
     const queryFields = {
       name: toKebabCase(fields.get('name')),
       move: toKebabCase(fields.get('move')),
-      // type: fields.getAll('type').filter(type => type !== ''),
       type1: toKebabCase(types[0]),
       type2: toKebabCase(types[1]),
       ability: toKebabCase(fields.get('ability')),
@@ -41,44 +38,46 @@ function PokemonQuery () {
       include_pokemon_forms: fields.get('pokemon-form-checkbox')
     }
 
-    queryPokemon(queryFields)
+    changeInputs(queryFields) // change input state in useSearchPokemon executes the search with certain conditions
+
+    // queryPokemon(queryFields)
   }
 
   return (
-    <main>
+    <main className='pokemon-search-page-container'>
       <div className="pokemon-form-container">
         <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
-            <InputFilter name="name" filter="pokemon" onChange={blockOtherInputs}/>
+            <InputFilter name="name" filter="pokemon" onChange={handleChange}/>
 
-            <label htmlFor="pokemon-type-1">Pokémon types:</label>
-            <PokemonSelectorFilter id="pokemon-type-1" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
-            <PokemonSelectorFilter id="pokemon-type-2" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
+            <PokemonSelectorFilter id="pokemon-type-1" name="type-1" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
+            <PokemonSelectorFilter id="pokemon-type-2"name="type-2" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
 
-            <InputFilter name="move" filter="move" disabled={disabledInput}/>
+            <InputFilter name="move" filter="move" onChange={handleChange} disabled={disabledInput}/>
 
-            <InputFilter name="ability" filter="ability" disabled={disabledInput}/>
+            <InputFilter name="ability" filter="ability" onChange={handleChange} disabled={disabledInput}/>
 
-            <label htmlFor="pokemon-generation">Pokémon generation:</label>
-            <PokemonSelectorFilter id="pokemon-generation" filter="generation" disabled={disabledInput} romanNumerals/>
+            <PokemonSelectorFilter id="pokemon-generation" name="generation" filter="generation" disabled={disabledInput} romanNumerals/>
 
             <div className="check-pokemon-forms-container">
                 <label htmlFor="check-pokemon-forms">Include alternative Pokémon forms?</label>
                 <input id="check-pokemon-forms" type="checkbox" name="pokemon-form-checkbox" disabled={disabledInput}/>
             </div>
 
-            <button id="pokemon-submit" type="submit">Search</button>
+            <button id="pokemon-submit" type="submit" disabled={loading}>Search</button>
         </form>
       </div>
       {loadingStarted && (
         <div className='response-container'>
-          {foundedPokemon.length > 0
-            ? <div className='pokemon-response-container'>
-                {(foundedPokemon.map(pokemon => (
-                  <PokemonCard key={pokemon.dex_number} pokemonJson={pokemon} />
-                )))}
-              </div>
-            : (<NotPokemonMessage/>)
-          }
+          {loading
+            ? <ChargingGif/>
+            : foundedPokemon.length > 0
+              ? <div className='pokemon-response-container'>
+                  {(foundedPokemon.map(pokemon => (
+                    <PokemonCard key={pokemon.dex_number} pokemonJson={pokemon} />
+                  )))}
+                </div>
+              : (<NotPokemonMessage/>)
+            }
         </div>
       )}
     </main>
