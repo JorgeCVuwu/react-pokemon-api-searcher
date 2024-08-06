@@ -121,3 +121,19 @@ h1 {
 .autocomplete-element:hover {
   background: whitesmoke;
 }
+
+
+/* Validation classes */
+
+.no-valid-campus {
+  color: red;
+  margin: 0;
+}
+
+/* Input classes */
+
+.input-container {
+  display: grid;
+  flex-direction: column;
+  gap: 10px;
+}

@@ -1,6 +1,7 @@
 import { IGNORED_TYPES } from './constants/constants.js'
 import { useBlockInputs } from './hooks/useBlockInputs.js'
 import { useSearchPokemon } from './hooks/useSearchPokemon.js'
+import { useValidation } from './hooks/useValidation.js'
 
 import { PokemonSelectorFilter } from './components/PokemonSelecterFilter.jsx'
 import { PokemonCard, NotPokemonMessage, ChargingGif } from './components/PokemonCard.jsx'
@@ -11,9 +12,17 @@ import { toKebabCase } from './utils/utils.js'
 function PokemonQuery () {
   const { disabledInput, formRef, blockOtherInputs } = useBlockInputs('pokemon-name')
   const { foundedPokemon, loading, loadingStarted, queryPokemon } = useSearchPokemon()
+  // const { validateForm, validationCallback } = useValidation()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    // if (!validateForm) {
+    //   alert('Por favor, inténtalo nuevamente')
+    //   return
+    // }
+    const activeElement = document.activeElement
+    if (activeElement) activeElement.blur()
     const fields = new window.FormData(event.target)
     const types = fields.getAll('type')
 
@@ -37,16 +46,14 @@ function PokemonQuery () {
         <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
             <InputFilter name="name" filter="pokemon" onChange={blockOtherInputs}/>
 
-            <label htmlFor="pokemon-type-1">Pokémon types:</label>
-            <PokemonSelectorFilter id="pokemon-type-1" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
-            <PokemonSelectorFilter id="pokemon-type-2" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
+            <PokemonSelectorFilter id="pokemon-type-1" name="type 1" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
+            <PokemonSelectorFilter id="pokemon-type-2"name="type 2" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
 
             <InputFilter name="move" filter="move" disabled={disabledInput}/>
 
             <InputFilter name="ability" filter="ability" disabled={disabledInput}/>
 
-            <label htmlFor="pokemon-generation">Pokémon generation:</label>
-            <PokemonSelectorFilter id="pokemon-generation" filter="generation" disabled={disabledInput} romanNumerals/>
+            <PokemonSelectorFilter id="pokemon-generation" name="generation" filter="generation" disabled={disabledInput} romanNumerals/>
 
             <div className="check-pokemon-forms-container">
                 <label htmlFor="check-pokemon-forms">Include alternative Pokémon forms?</label>

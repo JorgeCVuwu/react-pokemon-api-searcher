@@ -39,7 +39,9 @@ export function useSearchPokemon () {
               let returnedUrls
               if (pokemon.url.includes('/pokemon-species/')) {
                 const pokemonSpecies = await searchPokemonSpecies(pokemon.url)
-                pokemonSpecies.varieties.forEach(form => urls.push(form.url))
+                if (pokemonSpecies) {
+                  pokemonSpecies.varieties.forEach(form => urls.push(form.url))
+                }
               } else {
                 urls.push(pokemon.url)
               }

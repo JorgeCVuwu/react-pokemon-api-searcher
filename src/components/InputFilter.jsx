@@ -6,17 +6,23 @@ import { capitalizeStr } from '../utils/utils.js'
 
 export function InputFilter ({ name, filter, disabled, onChange }) {
   const url = `${POKEAPI_PREFIX}${filter}`
-  const { inputRef, autocompleteOptions, showAutoComplete, filterAutocomplete, autocompleteInputValue, checkFocusStatus } = useAutocomplete(url)
+  const {
+    inputRef,
+    autocompleteOptions, showAutoComplete, hideValidationError,
+    filterAutocomplete, autocompleteInputValue, checkFocusStatus, checkValidation
+  } = useAutocomplete({ url })
+
+  const handlePointerDown = (event) => {
+    autocompleteInputValue(event.target.textContent)
+    checkValidation(event.target.value)
+  }
 
   const handleChange = (event) => {
     if (onChange) {
       onChange(event)
     }
-    filterAutocomplete(event.target.value)
-  }
-
-  const handlePointerDown = (event) => {
-    autocompleteInputValue(event.target.textContent)
+    // checkValidation(validationCallback)
+    filterAutocomplete()
   }
 
   const handleFocus = () => {
@@ -40,7 +46,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
   const isName = name === 'name'
 
   return (
-    <>
+    <div className='input-container'>
       <label htmlFor={`pokemon-${filter}`}>{`Pokémon ${name}:`}</label>
       <input ref={inputRef} id={`pokemon-${name}`} name={name} placeholder={`Put a ${name}`} disabled={disabled} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} autoComplete="off"/>
       { showAutoComplete &&
@@ -50,6 +56,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
           ))}
         </ul>
       }
-    </>
+      <p className='no-valid-campus' hidden={hideValidationError}>Please, insert a valid {name}.</p>
+    </div>
   )
 }
