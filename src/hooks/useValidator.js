@@ -9,7 +9,10 @@ export function useValidator () {
 
   // useInput handles input elements using validation parameters (for example, hiding validation error message)
   useEffect(() => {
-    setValidated(Object.values(inputs).some(input => input.validated === true))
+    setValidated(
+      Object.values(inputs).some(input => input.value !== '') &&
+      Object.values(inputs).every(input => input.validated === true)
+    )
   }, [inputs])
 
   useEffect(() => {

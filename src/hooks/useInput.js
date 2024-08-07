@@ -33,10 +33,10 @@ export function useInput ({ url }) {
     setHideValidationError(inputRef.current.value === '' || inputs[inputRef.current.name].validated)
   }, [inputs])
 
-  const checkValidation = () => {
+  const updateInput = () => {
     if (data) {
-      const validate = data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
-      setInputs(input => ({ ...input, [inputRef.current.name]: { ...input[inputRef.current.name], validated: validate } }))
+      const validate = inputRef.current.value === '' || data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
+      setInputs(input => ({ ...input, [inputRef.current.name]: { ...input[inputRef.current.name], value: inputRef.current.value, validated: validate } }))
     }
   }
 
@@ -61,7 +61,7 @@ export function useInput ({ url }) {
     autocompleteOptions,
     showAutoComplete,
     hideValidationError,
-    checkValidation,
+    updateInput,
     filterAutocomplete,
     autocompleteInputValue,
     checkFocusStatus

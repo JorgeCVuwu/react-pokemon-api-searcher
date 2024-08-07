@@ -11,13 +11,6 @@ export function useSelectorData (url, allResults = true) {
 
   const { setInputs } = useContext(PokemonSearchContext)
 
-  const checkValidation = () => {
-    if (data) {
-      const validate = selectRef.current.value !== ''
-      setInputs(input => ({ ...input, [selectRef.current.name]: { ...input[selectRef.current.name], validated: validate } }))
-    }
-  }
-
   useEffect(() => {
     const filterUrl = allResults ? url + '?limit=100000&offset=0' : url
     searchFilterResults(filterUrl)
@@ -26,5 +19,19 @@ export function useSelectorData (url, allResults = true) {
       .finally(() => setLoading(false))
   }, [])
 
-  return { data, error, loading, selectRef, checkValidation }
+  const updateInput = () => {
+    if (data) {
+      // const validate = selectRef.current.value !== ''
+      setInputs(input => ({
+        ...input,
+        [selectRef.current.name]: {
+          ...input[selectRef.current.name],
+          value: selectRef.current.value,
+          validated: true
+        }
+      }))
+    }
+  }
+
+  return { data, error, loading, selectRef, updateInput }
 }

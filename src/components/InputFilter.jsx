@@ -9,19 +9,19 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
   const {
     inputRef,
     autocompleteOptions, showAutoComplete, hideValidationError,
-    filterAutocomplete, autocompleteInputValue, checkFocusStatus, checkValidation
+    filterAutocomplete, autocompleteInputValue, checkFocusStatus, updateInput
   } = useInput({ url })
 
   const handlePointerDown = (event) => {
     autocompleteInputValue(event.target.textContent)
-    checkValidation()
+    updateInput()
   }
 
   const handleChange = (event) => {
     if (onChange) {
       onChange(event)
     }
-    checkValidation()
+    updateInput()
     filterAutocomplete()
   }
 

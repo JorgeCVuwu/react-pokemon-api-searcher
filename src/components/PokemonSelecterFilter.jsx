@@ -5,7 +5,7 @@ import { capitalizeStr, deleteDashes, capitalizeRomanNumerals } from '../utils/u
 
 export function PokemonSelectorFilter ({ id, name, filter, ignoreResults, disabled, romanNumerals = false }) {
   const url = `${POKEAPI_PREFIX}${filter}`
-  const { data, error, loading, selectRef, checkValidation } = useSelectorData(url)
+  const { data, error, loading, selectRef, updateInput } = useSelectorData(url)
 
   const renderOption = (results) => {
     return (
@@ -16,7 +16,7 @@ export function PokemonSelectorFilter ({ id, name, filter, ignoreResults, disabl
   }
 
   const handleChange = () => {
-    checkValidation()
+    updateInput()
   }
 
   if (loading) {
