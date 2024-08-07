@@ -1,6 +1,6 @@
 import { POKEAPI_PREFIX } from '../constants/constants.js'
 
-import { useAutocomplete } from '../hooks/useAutocomplete.js'
+import { useInput } from '../hooks/useInput.js'
 
 import { capitalizeStr } from '../utils/utils.js'
 
@@ -10,7 +10,7 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
     inputRef,
     autocompleteOptions, showAutoComplete, hideValidationError,
     filterAutocomplete, autocompleteInputValue, checkFocusStatus, checkValidation
-  } = useAutocomplete({ url })
+  } = useInput({ url })
 
   const handlePointerDown = (event) => {
     autocompleteInputValue(event.target.textContent)

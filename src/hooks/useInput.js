@@ -1,15 +1,18 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 
-import { useSelectorData } from '../hooks/useSelectorData.js'
+import { useSelectorData } from './useSelectorData.js'
+
+import { PokemonSearchContext } from '../context/pokemonSearch.jsx'
 
 import { toKebabCase } from '../utils/utils.js'
 
-export function useAutocomplete ({ url, validationCallback }) {
+export function useInput ({ url, validationCallback }) {
   const [autocompleteOptions, setAutocompleteOptions] = useState([])
   const [showAutoComplete, setShowAutocomplete] = useState(false)
   const [focusedInput, setFocusedInput] = useState(false)
-  const [validateInput, setValidateInput] = useState(true)
   const [hideValidationError, setHideValidationError] = useState(true)
+
+  const { setInputs } = useContext(PokemonSearchContext)
 
   const inputRef = useRef()
 
@@ -30,16 +33,12 @@ export function useAutocomplete ({ url, validationCallback }) {
     }
   }, [focusedInput])
 
-  // useEffect(() => {
-  //   validationCallback(validateInput)
-  // }, [validateInput])
-
   const checkValidation = () => {
     if (data) {
       const validate = data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
 
-      setValidateInput(!validate)
       setHideValidationError(inputRef.current.value === '' || validate)
+      setInputs(inputs => ({ ...inputs, [inputRef.current.name]: { validated: !validate } }))
     }
   }
 
@@ -63,7 +62,6 @@ export function useAutocomplete ({ url, validationCallback }) {
     inputRef,
     autocompleteOptions,
     showAutoComplete,
-    validateInput,
     hideValidationError,
     checkValidation,
     filterAutocomplete,
