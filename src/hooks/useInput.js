@@ -38,7 +38,7 @@ export function useInput ({ url, validationCallback }) {
       const validate = data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
 
       setHideValidationError(inputRef.current.value === '' || validate)
-      setInputs(inputs => ({ ...inputs, [inputRef.current.name]: { validated: !validate } }))
+      setInputs(inputs => ({ ...inputs, [inputRef.current.name]: { validated: validate } }))
     }
   }
 

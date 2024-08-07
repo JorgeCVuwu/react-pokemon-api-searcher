@@ -7,7 +7,7 @@ export function useValidator () {
   const submitRef = useRef()
 
   useEffect(() => {
-    setValidated(!Object.values(inputs).every(input => input.validated === true))
+    setValidated(Object.values(inputs).some(input => input.validated === true))
   }, [inputs])
 
   useEffect(() => {
