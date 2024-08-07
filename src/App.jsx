@@ -1,17 +1,20 @@
 import { IGNORED_TYPES } from './constants/constants.js'
 import { useBlockInputs } from './hooks/useBlockInputs.js'
 import { useSearchPokemon } from './hooks/useSearchPokemon.js'
-// import { useValidation } from './hooks/useValidation.js'
+import { useValidator } from './hooks/useValidator.js'
 
 import { PokemonSelectorFilter } from './components/PokemonSelecterFilter.jsx'
 import { PokemonCard, NotPokemonMessage, ChargingGif } from './components/PokemonCard.jsx'
 import { InputFilter } from './components/InputFilter.jsx'
+
+import { PokemonSearchProvider } from './context/pokemonSearch.jsx'
 
 import { toKebabCase } from './utils/utils.js'
 
 function PokemonQuery () {
   const { disabledInput, formRef, blockOtherInputs } = useBlockInputs('pokemon-name')
   const { foundedPokemon, loading, loadingStarted, changeInputs } = useSearchPokemon()
+  const { submitRef } = useValidator()
 
   const handleChange = (event) => {
     if (event.target.id === 'pokemon-name') {
@@ -63,7 +66,7 @@ function PokemonQuery () {
                 <input id="check-pokemon-forms" type="checkbox" name="pokemon-form-checkbox" disabled={disabledInput}/>
             </div>
 
-            <button id="pokemon-submit" type="submit" disabled={loading}>Search</button>
+            <button ref={submitRef} id="pokemon-submit" type="submit" disabled={loading}>Search</button>
         </form>
       </div>
       {loadingStarted && (
@@ -86,9 +89,9 @@ function PokemonQuery () {
 
 function App () {
   return (
-    <>
+    <PokemonSearchProvider>
       <PokemonQuery/>
-    </>
+    </PokemonSearchProvider>
   )
 }
 

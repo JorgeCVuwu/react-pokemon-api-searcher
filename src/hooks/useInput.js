@@ -1,15 +1,18 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 
-import { useSelectorData } from '../hooks/useSelectorData.js'
+import { useSelectorData } from './useSelectorData.js'
+
+import { PokemonSearchContext } from '../context/pokemonSearch.jsx'
 
 import { toKebabCase } from '../utils/utils.js'
 
-export function useAutocomplete ({ url, validationCallback }) {
+export function useInput ({ url }) {
   const [autocompleteOptions, setAutocompleteOptions] = useState([])
   const [showAutoComplete, setShowAutocomplete] = useState(false)
   const [focusedInput, setFocusedInput] = useState(false)
-  const [validateInput, setValidateInput] = useState(true)
   const [hideValidationError, setHideValidationError] = useState(true)
+
+  const { inputs, setInputs } = useContext(PokemonSearchContext)
 
   const inputRef = useRef()
 
@@ -24,22 +27,16 @@ export function useAutocomplete ({ url, validationCallback }) {
     setTimeout(() => {
       setShowAutocomplete(current => current && focusedInput)
     }, 10)
-
-    if (focusedInput) {
-      setHideValidationError(true)
-    }
   }, [focusedInput])
 
-  // useEffect(() => {
-  //   validationCallback(validateInput)
-  // }, [validateInput])
+  useEffect(() => {
+    setHideValidationError(inputRef.current.value === '' || inputs[inputRef.current.name].validated)
+  }, [inputs])
 
-  const checkValidation = () => {
+  const updateInput = () => {
     if (data) {
-      const validate = data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
-
-      setValidateInput(!validate)
-      setHideValidationError(inputRef.current.value === '' || validate)
+      const validate = inputRef.current.value === '' || data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
+      setInputs(input => ({ ...input, [inputRef.current.name]: { ...input[inputRef.current.name], value: inputRef.current.value, validated: validate } }))
     }
   }
 
@@ -63,9 +60,8 @@ export function useAutocomplete ({ url, validationCallback }) {
     inputRef,
     autocompleteOptions,
     showAutoComplete,
-    validateInput,
     hideValidationError,
-    checkValidation,
+    updateInput,
     filterAutocomplete,
     autocompleteInputValue,
     checkFocusStatus
