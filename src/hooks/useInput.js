@@ -6,13 +6,13 @@ import { PokemonSearchContext } from '../context/pokemonSearch.jsx'
 
 import { toKebabCase } from '../utils/utils.js'
 
-export function useInput ({ url, validationCallback }) {
+export function useInput ({ url }) {
   const [autocompleteOptions, setAutocompleteOptions] = useState([])
   const [showAutoComplete, setShowAutocomplete] = useState(false)
   const [focusedInput, setFocusedInput] = useState(false)
   const [hideValidationError, setHideValidationError] = useState(true)
 
-  const { setInputs } = useContext(PokemonSearchContext)
+  const { inputs, setInputs } = useContext(PokemonSearchContext)
 
   const inputRef = useRef()
 
@@ -27,18 +27,16 @@ export function useInput ({ url, validationCallback }) {
     setTimeout(() => {
       setShowAutocomplete(current => current && focusedInput)
     }, 10)
-
-    if (focusedInput) {
-      setHideValidationError(true)
-    }
   }, [focusedInput])
+
+  useEffect(() => {
+    setHideValidationError(inputRef.current.value === '' || inputs[inputRef.current.name].validated)
+  }, [inputs])
 
   const checkValidation = () => {
     if (data) {
       const validate = data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
-
-      setHideValidationError(inputRef.current.value === '' || validate)
-      setInputs(inputs => ({ ...inputs, [inputRef.current.name]: { validated: validate } }))
+      setInputs(input => ({ ...input, [inputRef.current.name]: { ...input[inputRef.current.name], validated: validate } }))
     }
   }
 

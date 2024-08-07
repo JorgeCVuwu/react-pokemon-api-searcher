@@ -14,14 +14,14 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
 
   const handlePointerDown = (event) => {
     autocompleteInputValue(event.target.textContent)
-    checkValidation(event.target.value)
+    checkValidation()
   }
 
   const handleChange = (event) => {
     if (onChange) {
       onChange(event)
     }
-    checkValidation(event.target.value)
+    checkValidation()
     filterAutocomplete()
   }
 
