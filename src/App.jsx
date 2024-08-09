@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 import { PokemonQuery } from './routes/PokemonQuery.jsx'
+import { PokemonPage } from './routes/PokemonPage.jsx'
 
 function App () {
   return (
@@ -13,6 +14,7 @@ function App () {
         </nav>
         <Routes>
           <Route path='/' element={<PokemonQuery/>} />
+          <Route path='/pokemon/:name' element={<PokemonPage/>} />
         </Routes>
       </Router>
     </div>
