@@ -1,12 +1,16 @@
 import { searchPokemonSpecies } from '../services/pokemon_species.js'
 import { searchPokemon } from '../services/pokemon.js'
-import { useState, useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { POKEAPI_PREFIX } from '../constants/constants.js'
 
+import { PokemonPageContext } from '../context/pokemonPage.jsx'
+
 export function useGetPokemonInfo (name) {
-  const [pokemonFormsData, setPokemonFormsData] = useState([])
-  const [pokemonSpeciesData, setPokemonSpeciesData] = useState(null)
-  const [pokemonDefaultData, setPokemonDefaultData] = useState(null)
+  const {
+    pokemonFormsData, setPokemonFormsData,
+    pokemonSpeciesData, setPokemonSpeciesData,
+    pokemonDefaultData, setPokemonDefaultData
+  } = useContext(PokemonPageContext)
 
   useEffect(() => {
     const speciesUrl = `${POKEAPI_PREFIX}pokemon-species/${name}`

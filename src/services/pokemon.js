@@ -12,6 +12,7 @@ export async function searchPokemon (url) {
       const typeId = type.type.url.split('/').at(-2)
       return {
         id: typeId,
+        name: type.type.name,
         url: type.type.url,
         order: type.slot
       }
