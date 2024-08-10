@@ -24,3 +24,12 @@ export const POKEMON_TYPE_COLORS = {
   steel: '#B7B7CE',
   fairy: '#D685AD'
 }
+
+export const POKEMON_STATS_ABREVIATIONS = {
+  hp: 'HP',
+  attack: 'Atk',
+  defense: 'Def',
+  'special-attack': 'Sp.Atk',
+  'special-defense': 'Sp.Def',
+  speed: 'Speed'
+}

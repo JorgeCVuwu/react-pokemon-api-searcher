@@ -1,33 +1,13 @@
-import { searchPokemonSpecies } from '../services/pokemon_species.js'
-import { searchPokemon } from '../services/pokemon.js'
-import { useEffect, useContext } from 'react'
-import { POKEAPI_PREFIX } from '../constants/constants.js'
-
+import { useContext, useEffect } from 'react'
 import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
-export function useGetPokemonInfo (name) {
+export function useGetPokemonInfo () {
   const {
-    pokemonFormsData, setPokemonFormsData,
-    pokemonSpeciesData, setPokemonSpeciesData,
-    pokemonDefaultData, setPokemonDefaultData
+    pokemonSpeciesData,
+    pokemonDefaultData,
+    PokemonFormsData,
+    charged
   } = useContext(PokemonPageContext)
 
-  useEffect(() => {
-    const speciesUrl = `${POKEAPI_PREFIX}pokemon-species/${name}`
-    searchPokemonSpecies(speciesUrl)
-      .then(data => {
-        setPokemonSpeciesData(data)
-        return data
-      })
-      .then(jsonData => jsonData.varieties.forEach(pokemon => searchPokemon(pokemon.url)
-        .then(pokemonJson => {
-          setPokemonFormsData(current => [...current, pokemonJson])
-
-          if (pokemonJson.is_default) {
-            setPokemonDefaultData(pokemonJson)
-          }
-        })))
-  }, [])
-
-  return { pokemonSpeciesData, pokemonFormsData, pokemonDefaultData }
+  return { pokemonSpeciesData, pokemonDefaultData, PokemonFormsData, charged }
 }

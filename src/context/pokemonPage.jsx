@@ -3,18 +3,21 @@ import { createContext, useState } from 'react'
 export const PokemonPageContext = createContext()
 
 export function PokemonPageProvider ({ children }) {
-  const [pokemonFormsData, setPokemonFormsData] = useState([])
   const [pokemonSpeciesData, setPokemonSpeciesData] = useState(null)
   const [pokemonDefaultData, setPokemonDefaultData] = useState(null)
+  const [pokemonFormsData, setPokemonFormsData] = useState([])
+  const [charged, setCharged] = useState(false)
 
   return (
     <PokemonPageContext.Provider value={{
-      pokemonFormsData,
-      setPokemonFormsData,
       pokemonSpeciesData,
       setPokemonSpeciesData,
       pokemonDefaultData,
-      setPokemonDefaultData
+      setPokemonDefaultData,
+      pokemonFormsData,
+      setPokemonFormsData,
+      charged,
+      setCharged
     }}>
         {children}
     </PokemonPageContext.Provider>

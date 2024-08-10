@@ -1,26 +1,30 @@
 import { useParams } from 'react-router-dom'
-import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
+import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
 import { PokemonInfo } from '../components/PokemonInfo.jsx'
 
 import { PokemonPageProvider } from '../context/pokemonPage.jsx'
 
+import '../styles/pokemon-info.css'
+import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
+
+import { capitalizeStr } from '../utils/utils.js'
+
 function PokemonPageComponent () {
   const { name } = useParams()
 
-  const { pokemonSpeciesData, pokemonFormsData, pokemonDefaultData } = useGetPokemonInfo(name)
+  useSetPokemonInfo(name)
+
+  const { pokemonSpeciesData, pokemonDefaultData } = useGetPokemonInfo()
 
   return (
-    pokemonSpeciesData && pokemonFormsData.length > 0 && pokemonDefaultData && (
+    pokemonSpeciesData && pokemonDefaultData && (
       <main>
-          <article>
-            <h1>{pokemonSpeciesData.name}</h1>
-
+          <article className='pokemon-page'>
+            <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
             <aside className='pokemon-page-info-aside'>
-              <PokemonInfo pokemonSpeciesData={pokemonSpeciesData} pokemonFormsData={pokemonFormsData} pokemonDefaultData={pokemonDefaultData} />
+              <PokemonInfo/>
             </aside>
           </article>
-
-          {/* <img src={pokemonDefaultData.front_sprite}></img> */}
       </main>
     ))
 }
