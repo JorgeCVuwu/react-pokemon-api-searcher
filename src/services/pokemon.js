@@ -4,6 +4,7 @@ export async function searchPokemon (url) {
   const pokemonJson = await fetchData(url)
 
   return {
+    id: pokemonJson.id,
     name: pokemonJson.name,
     front_sprite: pokemonJson?.sprites?.front_default, // cambiar a futuro
     sprites: {

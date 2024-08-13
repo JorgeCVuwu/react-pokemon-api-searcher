@@ -15,10 +15,10 @@ function PokemonPageComponent () {
 
   useSetPokemonInfo(name)
 
-  const { pokemonSpeciesData, pokemonDefaultData } = useGetPokemonInfo()
+  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
 
   return (
-    pokemonSpeciesData && pokemonDefaultData && (
+    pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && (
       <main>
           <article className='pokemon-page'>
             <h1>{capitalizeStr(pokemonDefaultData.name)}</h1>

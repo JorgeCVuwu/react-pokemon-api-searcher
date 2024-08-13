@@ -4,14 +4,27 @@ import { POKEMON_TYPE_COLORS, POKEMON_STATS_ABREVIATIONS } from '../constants/co
 import { capitalizeStr } from '../utils/utils.js'
 
 export function PokemonInfo () {
-  const { pokemonSpeciesData, pokemonDefaultData, charged } = useGetPokemonInfo()
+  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
 
   return (
-    charged && (
+    (
         <div className='pokemon-page-info' style={{ backgroundColor: POKEMON_TYPE_COLORS[pokemonDefaultData.types[0].name] }}>
             <h2 className='two-col'>{capitalizeStr(pokemonDefaultData.name)}</h2>
-            <div className='two-col'>
-                <img className='pokemon-page-main-image pokemon-page-element two-col' src={pokemonDefaultData.sprites.front_default} alt={`Front sprite of ${pokemonDefaultData.name}.`}></img>
+            <div className='two-col pokemon-page-element'>
+                <div className='pokemon-multiple-forms-element'>
+                    <img className='pokemon-page-main-image' src={pokemonDefaultData.sprites.front_default} alt={`Front sprite of ${pokemonDefaultData.name}.`}></img>
+                    { pokemonFormsData.length > 0 && <small>{capitalizeStr(pokemonDefaultData.name, true)}</small> }
+                </div>
+                { pokemonFormsData.length > 0 && (
+                  <div className='pokemon-image-forms-container'>
+                        {pokemonFormsData.map(form => (
+                        <div key={form.id} className='pokemon-multiple-forms-element'>
+                            <img className='pokemon-page-forms-image' src={form.sprites.front_default} alt={form.name} />
+                            <small>{capitalizeStr(form.name, true)}</small>
+                        </div>
+                        ))}
+                  </div>
+                )}
             </div>
             <section className='two-col'>
                 <h3 className='pokemon-info-subtitle'>{pokemonDefaultData.types.length > 1 ? 'Types' : 'Type'}</h3>

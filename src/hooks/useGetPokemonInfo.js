@@ -6,9 +6,9 @@ export function useGetPokemonInfo () {
   const {
     pokemonSpeciesData,
     pokemonDefaultData,
-    PokemonFormsData,
+    pokemonFormsData,
     charged
   } = useContext(PokemonPageContext)
 
-  return { pokemonSpeciesData, pokemonDefaultData, PokemonFormsData, charged }
+  return { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, charged }
 }

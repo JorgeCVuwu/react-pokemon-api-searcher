@@ -14,22 +14,33 @@ export function useSetPokemonInfo (name) {
   } = useContext(PokemonPageContext)
 
   useEffect(() => {
-    setCharged(false)
-    setPokemonFormsData([])
+    let ignore = false
 
+    setPokemonFormsData([])
     const speciesUrl = `${POKEAPI_PREFIX}pokemon-species/${name}`
     searchPokemonSpecies(speciesUrl)
       .then(data => {
-        setPokemonSpeciesData(data)
+        if (!ignore) {
+          setPokemonSpeciesData(data)
+        }
         return data
       })
       .then(jsonData => jsonData.varieties.forEach(pokemon => searchPokemon(pokemon.url)
         .then(pokemonJson => {
-          pokemonJson.is_default
-            ? setPokemonDefaultData(pokemonJson)
-            : setPokemonFormsData(current => [...current, pokemonJson])
+          if (!ignore) {
+            pokemonJson.is_default
+              ? setPokemonDefaultData(pokemonJson)
+              : setPokemonFormsData(current => current.includes(pokemonJson)
+                ? current
+                : [...current, pokemonJson]
+              )
+          }
         })))
       .catch(err => console.error('Error loading page data: ', err))
       .finally(setCharged(true))
+
+    return () => {
+      ignore = true
+    }
   }, [])
 }
