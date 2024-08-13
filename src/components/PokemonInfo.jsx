@@ -43,6 +43,17 @@ export function PokemonInfo () {
                     ))}
                 </div>
             </section>
+            <section className='two-col'>
+                <h3 className='pokemon-info-subtitle'>EV yield</h3>
+                <div className='pokemon-page-element pokemon-page-flex-container'>
+                    {pokemonDefaultData.base_stats.map(stat => (
+                        <div key={stat.name} className='pokemon-page-ability-container'>
+                            <h4>{POKEMON_STATS_ABREVIATIONS[stat.name]}</h4>
+                            <p>{stat.effort}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
             <section>
                 <h3>Height</h3>
                 <div className='pokemon-page-element'>
