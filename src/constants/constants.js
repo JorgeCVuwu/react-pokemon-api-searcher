@@ -33,3 +33,5 @@ export const POKEMON_STATS_ABREVIATIONS = {
   'special-defense': 'Sp.Def',
   speed: 'Speed'
 }
+
+export const POKEMON_FORMS_ACCEPTED = ['alola', 'galar', 'hisui', 'mega']
