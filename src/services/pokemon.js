@@ -34,6 +34,8 @@ export async function searchPokemon (url) {
       base_stat: stat.base_stat,
       effort: stat.effort,
       url: stat.stat.url
-    }))
+    })),
+    height: pokemonJson.height,
+    weight: pokemonJson.weight
   }
 }

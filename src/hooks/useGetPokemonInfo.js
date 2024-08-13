@@ -1,4 +1,5 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
+
 import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
 export function useGetPokemonInfo () {

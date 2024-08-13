@@ -9,7 +9,7 @@ export function PokemonInfo () {
   return (
     charged && (
         <div className='pokemon-page-info' style={{ backgroundColor: POKEMON_TYPE_COLORS[pokemonDefaultData.types[0].name] }}>
-            <h2 className='two-col'>{capitalizeStr(pokemonSpeciesData.name)}</h2>
+            <h2 className='two-col'>{capitalizeStr(pokemonDefaultData.name)}</h2>
             <div className='two-col'>
                 <img className='pokemon-page-main-image pokemon-page-element two-col' src={pokemonDefaultData.sprites.front_default} alt={`Front sprite of ${pokemonDefaultData.name}.`}></img>
             </div>
@@ -41,6 +41,18 @@ export function PokemonInfo () {
                             <p>{stat.base_stat}</p>
                         </div>
                     ))}
+                </div>
+            </section>
+            <section>
+                <h3>Height</h3>
+                <div className='pokemon-page-element'>
+                    <p>{`${pokemonDefaultData.height / 10} m`}</p>
+                </div>
+            </section>
+            <section>
+                <h3>Weight</h3>
+                <div className='pokemon-page-element'>
+                    <p>{`${pokemonDefaultData.weight / 10} kg`}</p>
                 </div>
             </section>
 
