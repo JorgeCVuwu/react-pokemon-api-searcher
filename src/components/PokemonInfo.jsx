@@ -16,7 +16,7 @@ export function PokemonInfo () {
             <div className='two-col pokemon-page-element'>
                 <div className='pokemon-multiple-forms-element'>
                     <img className='pokemon-page-main-image' src={pokemonDefaultData.sprites.front_default} alt={`Front sprite of ${pokemonSpeciesData.name}.`}></img>
-                    { pokemonFormsData.length > 0 && <small>{capitalizeStr(pokemonSpeciesData.name, true)}</small> }
+                    { pokemonFormsData.length > 0 && <small>{capitalizeStr(pokemonDefaultData.name, true)}</small> }
                 </div>
                 { pokemonFormsData.length > 0 && (
                   <div className='pokemon-image-forms-container'>
