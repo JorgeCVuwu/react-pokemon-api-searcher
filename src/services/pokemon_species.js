@@ -7,6 +7,9 @@ export async function searchPokemonSpecies (url) {
     name: pokemonJson.name,
     varieties: pokemonJson.varieties.map(form => ({
       url: form.pokemon.url
-    }))
+    })),
+    generation: { name: pokemonJson.generation.name, url: pokemonJson.generation.url },
+    is_legendary: pokemonJson.is_legendary,
+    is_mythical: pokemonJson.is_mythical
   }
 }

@@ -32,12 +32,15 @@ export function toKebabCase (str) {
     .replace(/\s+/g, '-')
 }
 
-export function capitalizeStr (str, keepDash = false) {
+export function capitalizeStr (str, keepDash = false, romanNumerals = false) {
   if (!str) return str
   const res = str.replace(/\b\w/g, char => char.toUpperCase())
-  return keepDash
+  const res2 = keepDash
     ? res
     : res.replace(/-/g, ' ')
+  return romanNumerals
+    ? res2.replace(/\b(M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))\b/gi, match => match.toUpperCase())
+    : res2
 }
 
 export function deleteDashes (str) {
@@ -49,4 +52,17 @@ export function capitalizeRomanNumerals (str) {
   const romanNumeralRegex = /\b(M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))\b/gi
 
   return str.replace(romanNumeralRegex, match => match.toUpperCase())
+}
+
+export function compareArraysEqual (arr1, arr2) {
+  const set1 = new Set(arr1)
+  const set2 = new Set(arr2)
+
+  if (set1.size !== set2.size) return false
+
+  for (const value of set1) {
+    if (!set2.has(value)) return false
+  }
+
+  return true
 }
