@@ -1,13 +1,12 @@
 import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
-import { useShowFormAttributes } from '../hooks/useShowFormAttributes.js'
+
+import { PokemonFormsAttributes } from './PokemonFormsAttributes.jsx'
 
 import { POKEMON_TYPE_COLORS, POKEMON_STATS_ABREVIATIONS } from '../constants/constants.js'
 import { capitalizeStr } from '../utils/utils.js'
 
 export function PokemonInfo () {
-  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
-
-  const { showForm, showFormAttribute } = useShowFormAttributes()
+  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, charged } = useGetPokemonInfo()
 
   return (
     (
@@ -18,7 +17,7 @@ export function PokemonInfo () {
                     <img className='pokemon-page-main-image' src={pokemonDefaultData.sprites.front_default} alt={`Front sprite of ${pokemonSpeciesData.name}.`}></img>
                     { pokemonFormsData.length > 0 && <small>{capitalizeStr(pokemonDefaultData.name, true)}</small> }
                 </div>
-                { pokemonFormsData.length > 0 && (
+                { charged && pokemonFormsData.length > 0 && (
                   <div className='pokemon-image-forms-container'>
                         {pokemonFormsData.map(form => (
                         <div key={form.id} className='pokemon-multiple-forms-element'>
@@ -39,37 +38,7 @@ export function PokemonInfo () {
             </section>
             <section className='two-col'>
                 <h3 className='pokemon-info-subtitle'>{pokemonDefaultData.abilities.length > 1 ? 'Abilities' : 'Ability'}</h3>
-                <div className='pokemon-page-element pokemon-page-forms-flex'>
-                    <div className='pokemon-page-ability-container'>
-                        <div className='pokemon-page-flex-container'>
-                            {pokemonDefaultData.abilities.map(ability => (
-                                <div key={ability.name} className='pokemon-page-item-container'>
-                                    <div className=''>
-                                        <p>{capitalizeStr(ability.name)}</p>
-                                        {ability.is_hidden && <small className='pokemon-page-'>hidden ability</small>}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        {showForm?.abilities && <small>{capitalizeStr(pokemonDefaultData.name)}</small>}
-                    </div>
-                    {pokemonFormsData.length > 0 &&
-                    pokemonFormsData.map(form => (showFormAttribute('abilities', form) &&
-                    <div key={form.id} className='pokemon-page-ability-container'>
-                        <div className='pokemon-page-flex-container'>
-                            {form.abilities.map(ability => (
-                                <div key={ability.name} className='pokemon-page-item-container'>
-                                    <div className=''>
-                                        <p>{capitalizeStr(ability.name)}</p>
-                                        {ability.is_hidden && <small className='pokemon-page-'>hidden ability</small>}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        <small>{capitalizeStr(form.name)}</small>
-                    </div>
-                    ))}
-                </div>
+                <PokemonFormsAttributes parameter='abilities'/>
             </section>
             <section className='two-col'>
                 <h3 className='pokemon-info-subtitle'>Base stats</h3>
@@ -95,15 +64,11 @@ export function PokemonInfo () {
             </section>
             <section>
                 <h3>Height</h3>
-                <div className='pokemon-page-element'>
-                    <p>{`${pokemonDefaultData.height / 10} m`}</p>
-                </div>
+                <PokemonFormsAttributes parameter='height'/>
             </section>
             <section>
                 <h3>Weight</h3>
-                <div className='pokemon-page-element'>
-                    <p>{`${pokemonDefaultData.weight / 10} kg`}</p>
-                </div>
+                <PokemonFormsAttributes parameter='weight'/>
             </section>
 
         </div>

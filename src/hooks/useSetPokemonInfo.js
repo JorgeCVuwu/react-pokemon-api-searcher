@@ -14,30 +14,34 @@ export function useSetPokemonInfo (name) {
   } = useContext(PokemonPageContext)
 
   useEffect(() => {
+    setCharged(false)
     let ignore = false
 
-    setPokemonFormsData([])
-    const speciesUrl = `${POKEAPI_PREFIX}pokemon-species/${name}`
-    searchPokemonSpecies(speciesUrl)
-      .then(data => {
+    const searchAllPokemonInfo = async (speciesUrl) => {
+      setPokemonFormsData([])
+      const species = await searchPokemonSpecies(speciesUrl)
+      if (!ignore) {
+        await setPokemonSpeciesData(species)
+      }
+
+      for (const form of species.varieties) {
+        const pokemonJson = await searchPokemon(form.url)
         if (!ignore) {
-          setPokemonSpeciesData(data)
+          pokemonJson.is_default
+            ? setPokemonDefaultData(pokemonJson)
+            : setPokemonFormsData(current => current.includes(pokemonJson)
+              ? current
+              : [...current, pokemonJson]
+            )
         }
-        return data
-      })
-      .then(jsonData => jsonData.varieties.forEach(pokemon => searchPokemon(pokemon.url)
-        .then(pokemonJson => {
-          if (!ignore) {
-            pokemonJson.is_default
-              ? setPokemonDefaultData(pokemonJson)
-              : setPokemonFormsData(current => current.includes(pokemonJson)
-                ? current
-                : [...current, pokemonJson]
-              )
-          }
-        })))
-      .catch(err => console.error('Error loading page data: ', err))
-      .finally(setCharged(true))
+      }
+
+      setCharged(true)
+    }
+
+    const speciesUrl = `${POKEAPI_PREFIX}pokemon-species/${name}`
+
+    searchAllPokemonInfo(speciesUrl)
 
     return () => {
       ignore = true
