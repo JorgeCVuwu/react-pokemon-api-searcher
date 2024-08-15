@@ -34,6 +34,15 @@ export const POKEMON_STATS_ABREVIATIONS = {
   speed: 'Speed'
 }
 
+export const STAT_COLORS = {
+  hp: '#6390F0',
+  attack: '#EE8130',
+  defense: '#B7B7CE',
+  'special-attack': '#F95587',
+  'special-defense': '#96D9D6',
+  speed: '#7AC74C'
+}
+
 export const POKEMON_FORMS_ACCEPTED = ['-alola', '-galar', '-hisui', '-mega', '-mega-x', 'mega-y']
 
 export const NOT_CONSIDERED_FORMS = ['-totem']

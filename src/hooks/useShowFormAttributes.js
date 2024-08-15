@@ -46,7 +46,7 @@ export function useShowFormAttributes ({ parameter, mode }) {
         : modeStruct.structure !== pokemonDefaultData[parameter]
 
       const notConsideredForms = !NOT_CONSIDERED_FORMS.some(str => form.name.includes(str))
-      return (result || (isValidForm && modeStruct.consider_valid_forms))
+      return (result || (isValidForm && modeStruct.consider_valid_forms)) && notConsideredForms
     }
 
     pokemonFormsData.forEach(form => {
