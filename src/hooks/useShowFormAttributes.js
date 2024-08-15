@@ -17,30 +17,36 @@ export function useShowFormAttributes ({ parameter, mode }) {
     setChargedShowForm(false)
     let showFormObj = {}
 
-    const modeStructure = (form, parameter) => ({
-      default: { structure: form[parameter], considerValidForms: true },
-      stats: { structure: form.stats, considerValidForms: false } // always is an array
-    })
-
-    const dataModeStructure = (form) => {
-      const struct = {
-        default: Array.isArray(form[parameter]) ? form[parameter].map(value => value.name) : form[parameter],
-        stats: form.stats.map(stat => stat[parameter])
+    // struct form depending on mode, establishing the prpperty structure of data and displayable values
+    const modeStructures = ({ form, parameter, mode = 'default' }) => {
+      const result = {
+        default: {
+          consider_valid_forms: true,
+          structure: form[parameter],
+          data_values: Array.isArray(form[parameter]) ? form[parameter].map(value => value.name) : form[parameter]
+        },
+        stats: {
+          consider_valid_forms: false,
+          structure: form.stats,
+          data_values: form.stats.map(stat => stat[parameter])
+        }
       }
-      return struct[mode]
+      return result?.[mode] ?? result.default
     }
 
     const isValidForm = (form, parameter) => {
-      const modeStr = modeStructure(form, parameter)[mode]
-      const isValidForm = form.name.includes('-') &&
-      POKEMON_FORMS_ACCEPTED.some(suffix => (form.name.includes(suffix)))
+      const modeStruct = modeStructures({ form, parameter, mode })
+      const defaultFormStruct = modeStructures({ form: pokemonDefaultData, parameter, mode })
 
-      const result = Array.isArray(modeStr.structure)
-        ? (!compareArraysEqual(dataModeStructure(form), dataModeStructure(pokemonDefaultData)))
-        : modeStr.structure !== pokemonDefaultData[parameter]
+      const isValidForm = form.name.includes('-') &&
+      POKEMON_FORMS_ACCEPTED.some(suffix => (form.name.endsWith(suffix)))
+
+      const result = Array.isArray(modeStruct.structure)
+        ? (!compareArraysEqual(modeStruct.data_values, defaultFormStruct.data_values))
+        : modeStruct.structure !== pokemonDefaultData[parameter]
 
       const notConsideredForms = !NOT_CONSIDERED_FORMS.some(str => form.name.includes(str))
-      return (result || (isValidForm && modeStr.considerValidForms)) && notConsideredForms
+      return (result || (isValidForm && modeStruct.consider_valid_forms))
     }
 
     pokemonFormsData.forEach(form => {

@@ -11,6 +11,7 @@ const ATTRIBUTE_FUNCTIONS = {
 
 function PokemonAttributeData ({ form, parameter, showForm, isDefault = false }) {
   const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
+
   return (
         <div className={areMultipleForms ? 'pokemon-page-ability-container' : ''}>
                 {Array.isArray(form[parameter])
@@ -68,7 +69,7 @@ export function PokemonFormsAttributes ({ parameter, mode = 'default' }) {
     ),
     stats: (
         <>
-            <FormStats form={pokemonDefaultData} parameter={parameter}/>
+            <FormStats form={pokemonDefaultData} showForm={showForm} parameter={parameter} isDefault/>
             {pokemonFormsData.length > 0 && chargedShowForm && (
               pokemonFormsData.map(form => (showForm.forms[form.id] &&
                 <FormStats key={form.id} form={form} showForm={showForm} parameter={parameter}/>

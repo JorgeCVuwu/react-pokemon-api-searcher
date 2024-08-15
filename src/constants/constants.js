@@ -34,6 +34,6 @@ export const POKEMON_STATS_ABREVIATIONS = {
   speed: 'Speed'
 }
 
-export const POKEMON_FORMS_ACCEPTED = ['-alola', '-galar', '-hisui', '-mega']
+export const POKEMON_FORMS_ACCEPTED = ['-alola', '-galar', '-hisui', '-mega', '-mega-x', 'mega-y']
 
 export const NOT_CONSIDERED_FORMS = ['-totem']
