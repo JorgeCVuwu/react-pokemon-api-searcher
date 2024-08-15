@@ -30,11 +30,7 @@ export function PokemonInfo () {
             </div>
             <section className='two-col'>
                 <h3 className='pokemon-info-subtitle'>{pokemonDefaultData.types.length > 1 ? 'Types' : 'Type'}</h3>
-                <div className='pokemon-page-element pokemon-page-flex-container'>
-                {pokemonDefaultData.types.map(type => (
-                    <img key={type.id} className='pokemon-page-type-image' src={`../../public/media/types/sword-shield/${type.id}.png`} />
-                ))}
-                </div>
+                <PokemonFormsAttributes mode='types'/>
             </section>
             <section className='two-col'>
                 <h3 className='pokemon-info-subtitle'>{pokemonDefaultData.abilities.length > 1 ? 'Abilities' : 'Ability'}</h3>

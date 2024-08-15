@@ -51,6 +51,20 @@ function FormStats ({ form, parameter, showForm, isDefault = false }) {
   )
 }
 
+function FormTypes ({ form, showForm, isDefault = false }) {
+  const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
+  return (
+    <div>
+      <div className='pokemon-page-flex-container'>
+        {form.types.map(type => (
+          <img key={type.id} className='pokemon-page-type-image' src={`../../public/media/types/sword-shield/${type.id}.png`} />
+        ))}
+      </div>
+      <small>{areMultipleForms && capitalizeStr(form.name)}</small>
+    </div>
+  )
+}
+
 export function PokemonFormsAttributes ({ parameter, mode = 'default' }) {
   const { showForm, chargedShowForm } = useShowFormAttributes({ parameter, mode })
   const { pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
@@ -69,15 +83,12 @@ export function PokemonFormsAttributes ({ parameter, mode = 'default' }) {
   }
 
   const componentMode = {
-    default: (
-        <DefaultAndFormsComponent Component={PokemonAttributeData}/>
-    ),
-    stats: (
-        <DefaultAndFormsComponent Component={FormStats}/>
-    )
+    default: PokemonAttributeData,
+    stats: FormStats,
+    types: FormTypes
   }
 
   return (
-    componentMode[mode]
+    <DefaultAndFormsComponent Component={componentMode[mode]}/>
   )
 }

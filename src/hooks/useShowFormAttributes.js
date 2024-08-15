@@ -29,6 +29,11 @@ export function useShowFormAttributes ({ parameter, mode }) {
           consider_valid_forms: false,
           structure: form.stats,
           data_values: form.stats.map(stat => stat[parameter])
+        },
+        types: {
+          consider_valid_forms: true,
+          structure: form.types,
+          data_values: form.types.map(type => type.name)
         }
       }
       return result?.[mode] ?? result.default
