@@ -1,17 +1,23 @@
 body {
-    margin: 0 10px;
-}
-
-.pokemon-page {
     position: relative;
-    padding: 10px;
+    margin: 0 30px;
     font-family: sans-serif;
 }
 
+.pokemon-page-article {
+    position: relative;
+    padding: 10px;
+}
+
+.pokemon-page-flex {
+    display: flex;
+}
+
 .pokemon-page-info-aside {
-    position: absolute;
-    width: 400px;
-    right: 0;
+    float: right;
+    height: auto;
+    margin-left: 20px;
+    min-width: 300px;
 }
 
 .pokemon-page-info {
