@@ -30,7 +30,7 @@ export async function searchPokemon (url) {
       url: ability.ability.url,
       is_hidden: ability.is_hidden
     })),
-    base_stats: pokemonJson.stats.map(stat => ({
+    stats: pokemonJson.stats.map(stat => ({
       name: stat.stat.name,
       base_stat: stat.base_stat,
       effort: stat.effort,

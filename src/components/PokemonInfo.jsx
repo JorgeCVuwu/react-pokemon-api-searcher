@@ -2,7 +2,7 @@ import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
 
 import { PokemonFormsAttributes } from './PokemonFormsAttributes.jsx'
 
-import { POKEMON_TYPE_COLORS, POKEMON_STATS_ABREVIATIONS } from '../constants/constants.js'
+import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
 import { capitalizeStr } from '../utils/utils.js'
 
 export function PokemonInfo () {
@@ -42,25 +42,11 @@ export function PokemonInfo () {
             </section>
             <section className='two-col'>
                 <h3 className='pokemon-info-subtitle'>Base stats</h3>
-                <div className='pokemon-page-element pokemon-page-flex-container'>
-                    {pokemonDefaultData.base_stats.map(stat => (
-                        <div key={stat.name} className='pokemon-page-rectangle-container'>
-                            <h4>{POKEMON_STATS_ABREVIATIONS[stat.name]}</h4>
-                            <p>{stat.base_stat}</p>
-                        </div>
-                    ))}
-                </div>
+                <PokemonFormsAttributes parameter='base_stat' mode='stats'/>
             </section>
             <section className='two-col'>
                 <h3 className='pokemon-info-subtitle'>EV yield</h3>
-                <div className='pokemon-page-element pokemon-page-flex-container'>
-                    {pokemonDefaultData.base_stats.map(stat => (
-                        <div key={stat.name} className='pokemon-page-rectangle-container'>
-                            <h4>{POKEMON_STATS_ABREVIATIONS[stat.name]}</h4>
-                            <p>{stat.effort}</p>
-                        </div>
-                    ))}
-                </div>
+                <PokemonFormsAttributes parameter='effort' mode='stats'/>
             </section>
             <section>
                 <h3>Height</h3>

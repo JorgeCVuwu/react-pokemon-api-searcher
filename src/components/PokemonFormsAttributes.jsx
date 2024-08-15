@@ -2,6 +2,7 @@ import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
 import { useShowFormAttributes } from '../hooks/useShowFormAttributes.js'
 
 import { capitalizeStr } from '../utils/utils.js'
+import { POKEMON_STATS_ABREVIATIONS } from '../constants/constants.js'
 
 const ATTRIBUTE_FUNCTIONS = {
   height: (val) => `${val / 10} m`,
@@ -27,23 +28,60 @@ function PokemonAttributeData ({ form, parameter, showForm, isDefault = false })
                         <p>{ATTRIBUTE_FUNCTIONS?.[parameter] ? ATTRIBUTE_FUNCTIONS[parameter](form[parameter]) : form[parameter]}</p>
                     </div>
                 }
-
             <small>{areMultipleForms && capitalizeStr(form.name)}</small>
         </div>
   )
 }
 
-export function PokemonFormsAttributes ({ parameter }) {
-  const { showForm, chargedShowForm } = useShowFormAttributes({ parameter })
-  const { pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
+function FormStats ({ form, parameter, showForm, isDefault = false }) {
+  const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
   return (
-        <div className='pokemon-page-element pokemon-page-forms-flex'>
+        <div>
+            <div className='pokemon-page-flex-container'>
+                {form.stats.map(stat => (
+                    <div key={stat.name} className='pokemon-page-rectangle-container'>
+                        <p>{POKEMON_STATS_ABREVIATIONS[stat.name]}</p>
+                        <p>{stat[parameter]}</p>
+                    </div>
+                ))}
+            </div>
+            <small>{areMultipleForms && capitalizeStr(form.name)}</small>
+        </div>
+  )
+}
+
+export function PokemonFormsAttributes ({ parameter, mode = 'default' }) {
+  const { showForm, chargedShowForm } = useShowFormAttributes({ parameter, mode })
+  const { pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
+
+  const componentMode = {
+    default: (
+        <>
             <PokemonAttributeData form={pokemonDefaultData} showForm={showForm} parameter={parameter} isDefault/>
             {pokemonFormsData.length > 0 && chargedShowForm && (
               pokemonFormsData.map(form => (showForm.forms[form.id] &&
                     <PokemonAttributeData key={form.id} form={form} showForm={showForm} parameter={parameter}/>
               ))
             )}
-        </div>
+        </>
+
+    ),
+    stats: (
+        <>
+            <FormStats form={pokemonDefaultData} parameter={parameter}/>
+            {pokemonFormsData.length > 0 && chargedShowForm && (
+              pokemonFormsData.map(form => (showForm.forms[form.id] &&
+                <FormStats key={form.id} form={form} showForm={showForm} parameter={parameter}/>
+              ))
+            )}
+        </>
+    )
+  }
+
+  return (
+    <div className='pokemon-page-element pokemon-page-forms-flex'>
+        {componentMode[mode]}
+    </div>
+
   )
 }
