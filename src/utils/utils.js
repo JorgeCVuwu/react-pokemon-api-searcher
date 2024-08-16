@@ -55,6 +55,16 @@ export function capitalizeRomanNumerals (str) {
 }
 
 export function compareArraysEqual (arr1, arr2) {
+  if (arr1.length !== arr2.length) return false
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) return false
+  }
+
+  return true
+}
+
+export function compareArraysSameElements (arr1, arr2) {
   const set1 = new Set(arr1)
   const set2 = new Set(arr2)
 
