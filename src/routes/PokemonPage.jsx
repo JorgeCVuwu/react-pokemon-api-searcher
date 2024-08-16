@@ -20,14 +20,14 @@ function PokemonPageComponent () {
   return (
     pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && (
       <main>
-          <article className='pokemon-page-article'>
+          <article id='pokemon-page-article' className='pokemon-page-article'>
             <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
 
-            <aside className='pokemon-page-info-aside'>
+            <aside id='pokemon-page-aside' className='pokemon-page-info-aside'>
                 <PokemonInfo/>
             </aside>
 
-            <section>
+            <section id='pokemon-page-description'>
               <h2>Description</h2>
               <p>{`${capitalizeStr(pokemonSpeciesData.name)} is a ${pokemonDefaultData.types.map(type => capitalizeStr(type.name)).join('/')} 
               type ${pokemonSpeciesData.is_mythical ? 'Mythical' : pokemonSpeciesData.is_legendary ? 'Legendary' : ''} Pokémon 
