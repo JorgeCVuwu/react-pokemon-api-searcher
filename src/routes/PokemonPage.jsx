@@ -7,6 +7,7 @@ import { PokemonInfo } from '../components/PokemonInfo.jsx'
 import { PokemonPageProvider } from '../context/pokemonPage.jsx'
 
 import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
+import { useEvolutions } from '../hooks/useEvolutions.js'
 
 import { capitalizeStr } from '../utils/utils.js'
 
@@ -16,6 +17,7 @@ function PokemonPageComponent () {
   useSetPokemonInfo(name)
 
   const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
+  useEvolutions()
 
   return (
     pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && (
@@ -35,6 +37,10 @@ function PokemonPageComponent () {
               <p>
 
               </p>
+            </section>
+
+            <section>
+              <h2>Evolutions</h2>
             </section>
 
           </article>

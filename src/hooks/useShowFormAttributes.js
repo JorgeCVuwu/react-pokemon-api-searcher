@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 
-import { useGetPokemonInfo } from './useGetPokemonInfo'
+import { useGetPokemonInfo } from './useGetPokemonInfo.js'
 
 import { PokemonPageContext } from '../context/pokemonPage.jsx'
 

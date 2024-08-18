@@ -21,7 +21,7 @@ export function PokemonInfo () {
                   <div className='pokemon-image-forms-container'>
                         {pokemonFormsData.map(form => (
                         <div key={form.id} className='pokemon-multiple-forms-element'>
-                            <img className='pokemon-page-forms-image' src={form.sprites.front_default} alt={form.name} />
+                            <img className='pokemon-page-forms-image' src={form.sprites.front_default} alt={`Front sprite of ${form.name}.`} />
                             <small>{capitalizeStr(form.name, true)}</small>
                         </div>
                         ))}

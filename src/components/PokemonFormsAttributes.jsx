@@ -57,7 +57,7 @@ function FormTypes ({ form, showForm, isDefault = false }) {
     <div>
       <div className='pokemon-page-flex-container'>
         {form.types.map(type => (
-          <img key={type.id} className='pokemon-page-type-image' src={`../../public/media/types/sword-shield/${type.id}.png`} />
+          <img key={type.id} className='pokemon-page-type-image' src={`../../public/media/types/sword-shield/${type.id}.png`} alt={`Image containing ${type.name} type.`} />
         ))}
       </div>
       <small>{areMultipleForms && capitalizeStr(form.name)}</small>
