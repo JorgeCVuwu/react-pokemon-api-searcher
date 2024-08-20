@@ -1,4 +1,5 @@
 import '../styles/pokemon-info.css'
+import '../styles/pokemon-page.css'
 
 import { useParams } from 'react-router-dom'
 import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
@@ -40,7 +41,7 @@ function PokemonPageComponent () {
 
             <section>
               <h2>Evolutions</h2>
-              <PokemonEvolutionChain/>
+              <PokemonEvolutionChain className={'pokemon-page-evol-chain'}/>
             </section>
 
           </article>

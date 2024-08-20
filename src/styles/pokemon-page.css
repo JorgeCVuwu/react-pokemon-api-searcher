@@ -1,0 +1,5 @@
+.pokemon-page-evol-chain {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}

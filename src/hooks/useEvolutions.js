@@ -10,7 +10,7 @@ import { POKEMON_REGIONAL_FORMS, NOT_CONSIDERED_FORMS } from '../constants/const
 
 export function useEvolutions () {
   const [evolutionChains, setEvolutionChains] = useState('')
-  const { pokemonSpeciesData, pokemonDefaultData } = useContext(PokemonPageContext)
+  const { pokemonSpeciesData } = useContext(PokemonPageContext)
 
   useEffect(() => {
     if (pokemonSpeciesData) {
@@ -98,6 +98,7 @@ export function useEvolutions () {
         const evolutionForms = await Promise.all(evolutionSpecies.map(async species => ({ species_name: species.name, forms: await setEvolutionForm(species) })))
 
         const formsChain = createFormsEvolutionChain({ speciesChain: speciesChain.chain, evolutionForms })
+        console.log('final: ', formsChain)
         setEvolutionChains(formsChain)
       }
 
