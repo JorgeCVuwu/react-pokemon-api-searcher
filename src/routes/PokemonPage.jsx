@@ -2,12 +2,12 @@ import '../styles/pokemon-info.css'
 
 import { useParams } from 'react-router-dom'
 import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
+import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
+
 import { PokemonInfo } from '../components/PokemonInfo.jsx'
+import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.jsx'
 
 import { PokemonPageProvider } from '../context/pokemonPage.jsx'
-
-import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
-import { useEvolutions } from '../hooks/useEvolutions.js'
 
 import { capitalizeStr } from '../utils/utils.js'
 
@@ -17,7 +17,6 @@ function PokemonPageComponent () {
   useSetPokemonInfo(name)
 
   const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
-  useEvolutions()
 
   return (
     pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && (
@@ -41,6 +40,7 @@ function PokemonPageComponent () {
 
             <section>
               <h2>Evolutions</h2>
+              <PokemonEvolutionChain/>
             </section>
 
           </article>

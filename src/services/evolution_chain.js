@@ -6,7 +6,7 @@ export async function searchEvolutionChain (url) {
   const chainEvolutions = { id: chainJson.id, chain: {} }
   const chain = chainEvolutions.chain
 
-  const recurseReading = (chainJson, chain) => {
+  const recursiveWriting = (chainJson, chain) => {
     chain.species = { name: chainJson.species.name, url: chainJson.species.url }
 
     chain.evolution_details = chainJson.evolution_details.map(evolInfo => ({
@@ -33,13 +33,13 @@ export async function searchEvolutionChain (url) {
     const evolvesToJson = chainJson.evolves_to
     const n = evolvesToJson.length
 
-    chain.evolves_to = Array(n).fill({})
+    chain.evolves_to = Array.from({ length: n }, () => ({}))
     for (let i = 0; i < n; i++) {
-      recurseReading(evolvesToJson[i], chain.evolves_to[i])
+      recursiveWriting(evolvesToJson[i], chain.evolves_to[i])
     }
 
     return chainEvolutions
   }
 
-  return recurseReading(chainJson.chain, chain)
+  return recursiveWriting(chainJson.chain, chain)
 }
