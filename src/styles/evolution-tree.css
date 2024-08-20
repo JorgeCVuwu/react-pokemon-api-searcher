@@ -1,7 +1,5 @@
 .pokemon-evolution-trees {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+
 }
 
 .pokemon-evolution-tree {
@@ -11,6 +9,7 @@
     gap: 3px;
     padding: 0 10px;
     justify-content: center;
+    text-align: center;
 }
 
 .pokemon-evolution-pokemon {

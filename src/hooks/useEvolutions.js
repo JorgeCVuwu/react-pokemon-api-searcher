@@ -98,7 +98,6 @@ export function useEvolutions () {
         const evolutionForms = await Promise.all(evolutionSpecies.map(async species => ({ species_name: species.name, forms: await setEvolutionForm(species) })))
 
         const formsChain = createFormsEvolutionChain({ speciesChain: speciesChain.chain, evolutionForms })
-        console.log('final: ', formsChain)
         setEvolutionChains(formsChain)
       }
 
