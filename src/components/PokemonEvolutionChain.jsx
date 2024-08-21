@@ -9,41 +9,66 @@ import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
 
 import '../styles/evolution-tree.css'
 
-const getNameDetails = (details, additionalString = '') => details ? (additionalString + details.name) : null
+const getNameDetails = (details, additionalString = '', additionalAfterString = '') => details
+  ? (additionalString + capitalizeStr(details.name) + additionalAfterString)
+  : null
+
+const relativePhysicalStats = {
+  0: 'with equal attack and defense stat',
+  1: 'with more attack than defense',
+  [-1]: 'with more defense than attack'
+}
+
+const genders = {
+  1: '♀',
+  2: '♂'
+}
 
 const pokemonEvolutionDetails = (evolutionDetails) => {
   const evolDetailsObj = {
-    min_level: evolutionDetails.min_level ? 'Level ' + evolutionDetails.min_level : null,
-    gender: evolutionDetails.gender === 1 ? '♀' : evolutionDetails.gender === 2 ? '♂' : null,
+    min_level: evolutionDetails.min_level
+      ? 'Level ' + evolutionDetails.min_level
+      : null,
+    gender: genders[evolutionDetails.gender] || null,
     held_item: getNameDetails(evolutionDetails.held_item, 'holding '),
     item: getNameDetails(evolutionDetails.item),
     known_move: getNameDetails(evolutionDetails.known_move, 'knowing '),
-    known_move_type: getNameDetails(evolutionDetails.known_move_type),
+    known_move_type: getNameDetails(evolutionDetails.known_move_type, 'knowing a ', ' type move'),
     location: getNameDetails(evolutionDetails.location, 'on '),
-    min_affection: evolutionDetails.min_affection,
-    min_beauty: evolutionDetails.min_beauty ? evolutionDetails.min_beauty + ' beauty' : null,
-    min_happiness: evolutionDetails.min_happiness ? evolutionDetails.min_happiness + ' happiness' : null,
-    needs_overworld_rain: evolutionDetails.needs_overworld_rain ? 'overworld rain' : null,
+    min_affection: evolutionDetails.min_affection
+      ? 'with ' + evolutionDetails.min_affection + ' affection'
+      : null,
+    min_beauty: evolutionDetails.min_beauty
+      ? evolutionDetails.min_beauty + ' beauty'
+      : null,
+    min_happiness: evolutionDetails.min_happiness
+      ? 'with ' + evolutionDetails.min_happiness + ' happiness'
+      : null,
+    needs_overworld_rain: evolutionDetails.needs_overworld_rain
+      ? 'overworld rain'
+      : null,
     party_species: evolutionDetails.party_species,
     party_type: evolutionDetails.party_type,
-    relative_physical_stats: evolutionDetails.relative_physical_stats,
-    time_of_day: evolutionDetails.time_of_day ? 'on ' + evolutionDetails.time_of_day : '',
-    trade_species: getNameDetails(evolutionDetails.trade_species, 'trading with '),
-    turn_upside_down: evolutionDetails.turn_upside_down ? 'upside down the game console' : null
+    relative_physical_stats: relativePhysicalStats[evolutionDetails.relative_physical_stats] || null,
+    time_of_day: evolutionDetails.time_of_day
+      ? 'on ' + evolutionDetails.time_of_day
+      : '',
+    trade_species: getNameDetails(evolutionDetails.trade_species, 'trading for '),
+    turn_upside_down: evolutionDetails.turn_upside_down
+      ? 'upsiding down the game console'
+      : null
   }
 
-  const evolutionDetailsString = Object.values(evolDetailsObj).filter(detail => detail).join(' ')
+  const evolutionDetailsString = Object.values(evolDetailsObj)
   const triggerConditions = {
-    'level-up': evolDetailsObj.min_level ? '' : 'Level-up with',
+    'level-up': evolDetailsObj.min_level ? '' : 'Level-up',
     trade: 'Trade',
     'use-item': ''
   }
 
-  const result = evolutionDetailsString
-    ? triggerConditions[evolutionDetails.trigger.name] + ' ' + evolutionDetailsString
-    : triggerConditions[evolutionDetails.trigger.name]
+  const arrResult = [triggerConditions[evolutionDetails.trigger.name], ...evolutionDetailsString].filter(detail => detail)
 
-  return result
+  return arrResult
 }
 
 const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
@@ -51,7 +76,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
     return (
       <div className='pokemon-evolution-pokemon' key={evolutionChains.form_data.id}>
         <Link to={`/pokemon/${evolutionChains.form_data.species_name}`}>
-          <p key={evolutionChains.form_data.id}>{capitalizeStr(evolutionChains.form_data.name)}</p>
+          <p key={evolutionChains.form_data.id}>{capitalizeStr(evolutionChains.form_data.species_name)}</p>
         </Link>
         <div className='pokemon-evolution-image-outline'>
           <img className='pokemon-evolution-image'
@@ -84,7 +109,9 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
         <div className='evolution-details-container'>
           {stageDetails.map((evoDetails, key) => (
             <div key={key}>
-              <p>{pokemonEvolutionDetails(evoDetails)}</p>
+              {pokemonEvolutionDetails(evoDetails).map((detail, key) => (
+                <p key={key} className={key > 0 ? 'evolution-secondary-text' : 'evolution-primary-text'}>{detail}</p>
+              ))}
               →
             </div>
           ))}

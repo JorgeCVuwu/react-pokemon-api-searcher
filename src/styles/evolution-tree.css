@@ -35,3 +35,11 @@
   flex-direction: column;
   justify-content: space-around;
 }
+
+.evolution-primary-text {
+  font-size: 0.8em;
+}
+
+.evolution-secondary-text {
+  font-size: 0.6em;
+}
