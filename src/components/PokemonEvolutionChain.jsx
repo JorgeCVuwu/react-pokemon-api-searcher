@@ -7,15 +7,42 @@ import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
 
 import '../styles/evolution-tree.css'
 
-const pokemonEvolutionTriggers = {
-  'level-up': 1,
-  trade: 2,
-  'use-item': 3
+const getNameDetails = (details, additionalString = '') => details ? (additionalString + details.name) : null
+
+const pokemonEvolutionDetails = (evolutionDetails) => {
+  const evolDetailsObj = {
+    min_level: evolutionDetails.min_level ? 'Level ' + evolutionDetails.min_level : null,
+    gender: evolutionDetails.gender === 1 ? '♀' : evolutionDetails.gender === 2 ? '♂' : null,
+    held_item: getNameDetails(evolutionDetails.held_item, 'holding '),
+    item: getNameDetails(evolutionDetails.item),
+    known_move: getNameDetails(evolutionDetails.known_move, 'knowing '),
+    known_move_type: getNameDetails(evolutionDetails.known_move_type),
+    location: getNameDetails(evolutionDetails.location, 'on '),
+    min_affection: evolutionDetails.min_affection,
+    min_beauty: evolutionDetails.min_beauty ? evolutionDetails.min_beauty + ' beauty' : null,
+    min_happiness: evolutionDetails.min_happiness ? evolutionDetails.min_happiness + ' happiness' : null,
+    needs_overworld_rain: evolutionDetails.needs_overworld_rain ? 'overworld rain' : null,
+    party_species: evolutionDetails.party_species,
+    party_type: evolutionDetails.party_type,
+    relative_physical_stats: evolutionDetails.relative_physical_stats,
+    time_of_day: evolutionDetails.time_of_day ? 'on ' + evolutionDetails.time_of_day : '',
+    trade_species: getNameDetails(evolutionDetails.trade_species, 'trading with '),
+    turn_upside_down: evolutionDetails.turn_upside_down ? 'upside down the game console' : null
+  }
+
+  const evolutionDetailsString = Object.values(evolDetailsObj).filter(detail => detail).join(' ')
+  const triggerConditions = {
+    'level-up': evolDetailsObj.min_level ? '' : 'Level-up with',
+    trade: 'Trade',
+    'use-item': ''
+  }
+
+  const result = evolutionDetailsString
+    ? triggerConditions[evolutionDetails.trigger.name] + ' ' + evolutionDetailsString
+    : triggerConditions[evolutionDetails.trigger.name]
+
+  return result
 }
-
-const pokemonEvolutionDetails = (pokemon) => ({
-
-})
 
 const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
   const CurrentPokemon = ({ evolutionChains }) => {
@@ -53,6 +80,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
         <div className='evolution-details-container'>
           {stageDetails.map((evoDetails, key) => (
             <div key={key}>
+              <p>{pokemonEvolutionDetails(evoDetails)}</p>
               →
             </div>
           ))}
