@@ -6,11 +6,12 @@
     background-color: aquamarine;
     border: 3px solid black;
     display: inline-flex;
-    gap: 5px;
+    gap: 10px;
     padding: 5px 10px;
     justify-content: center;
     text-align: center;
     border-radius: 5px;
+    align-items: stretch;
 }
 
 .pokemon-evolution-pokemon {
@@ -28,21 +29,9 @@
     padding: 15px;
 }
 
-.long-arrow-right{
-  display: block;
-  margin: 30px auto;
-  width: 25px;
-  height: 25px;
-  border-top: 2px solid #000;
-  border-left: 2px solid #000;
-}
-
-.long-arrow-right::after{
-  content: "";
-  display: block;
-  width: 2px;
-  height: 45px;
-  background-color: black;
-  left: 0;
-  top: 0;
+.evolution-column-container,
+.evolution-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }

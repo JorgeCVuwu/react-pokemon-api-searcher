@@ -7,6 +7,16 @@ import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
 
 import '../styles/evolution-tree.css'
 
+const pokemonEvolutionTriggers = {
+  'level-up': 1,
+  trade: 2,
+  'use-item': 3
+}
+
+const pokemonEvolutionDetails = (pokemon) => ({
+
+})
+
 const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
   const CurrentPokemon = ({ evolutionChains }) => {
     return (
@@ -40,7 +50,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
 
     const StageDetails = ({ stageDetails }) => (
       stageDetails.length > 0 &&
-        <div>
+        <div className='evolution-details-container'>
           {stageDetails.map((evoDetails, key) => (
             <div key={key}>
               →
@@ -51,7 +61,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
 
     const StageEvolutions = ({ stageEvolutions }) => (
       stageEvolutions.length > 0 &&
-      <div>
+      <div className='evolution-column-container'>
         {stageEvolutions.map((evol1, key) => (
           <React.Fragment key={key}>
           { evol1 }
@@ -62,7 +72,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
 
     return (
       <>
-        <div>
+        <div className='evolution-column-container'>
           <CurrentPokemon evolutionChains={evolutionChains}/>
         </div>
         <StageDetails stageDetails={stage1EvoDetails} />
