@@ -19,7 +19,7 @@ export function useSetPokemonInfo (name) {
     if (pokemonDefaultData) {
       setPokemonColors(POKEMON_TYPE_COLORS[pokemonDefaultData.types[0].name])
     }
-  }, [pokemonDefaultData])
+  }, [name, pokemonDefaultData])
 
   useEffect(() => {
     setCharged(false)
@@ -54,5 +54,5 @@ export function useSetPokemonInfo (name) {
     return () => {
       ignore = true
     }
-  }, [])
+  }, [name])
 }

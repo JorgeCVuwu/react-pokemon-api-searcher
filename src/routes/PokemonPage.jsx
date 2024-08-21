@@ -12,9 +12,7 @@ import { PokemonPageProvider } from '../context/pokemonPage.jsx'
 
 import { capitalizeStr } from '../utils/utils.js'
 
-function PokemonPageComponent () {
-  const { name } = useParams()
-
+function PokemonPageComponent ({ name }) {
   useSetPokemonInfo(name)
 
   const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
@@ -50,9 +48,10 @@ function PokemonPageComponent () {
 }
 
 export function PokemonPage () {
+  const { name } = useParams()
   return (
     <PokemonPageProvider>
-      <PokemonPageComponent/>
+      <PokemonPageComponent name={name}/>
     </PokemonPageProvider>
   )
 }

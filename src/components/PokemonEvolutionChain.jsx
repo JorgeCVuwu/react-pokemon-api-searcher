@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEvolutions } from '../hooks/useEvolutions.js'
 
+import { Link } from 'react-router-dom'
+
 import { capitalizeStr } from '../utils/utils.js'
 
 import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
@@ -48,7 +50,9 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
   const CurrentPokemon = ({ evolutionChains }) => {
     return (
       <div className='pokemon-evolution-pokemon' key={evolutionChains.form_data.id}>
-        <p key={evolutionChains.form_data.id}>{capitalizeStr(evolutionChains.form_data.name)}</p>
+        <Link to={`/pokemon/${evolutionChains.form_data.species_name}`}>
+          <p key={evolutionChains.form_data.id}>{capitalizeStr(evolutionChains.form_data.name)}</p>
+        </Link>
         <div className='pokemon-evolution-image-outline'>
           <img className='pokemon-evolution-image'
           src={evolutionChains.form_data.sprites.front_default}
