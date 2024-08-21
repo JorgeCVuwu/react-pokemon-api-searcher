@@ -6,6 +6,7 @@ export function PokemonPageProvider ({ children }) {
   const [pokemonSpeciesData, setPokemonSpeciesData] = useState(null)
   const [pokemonDefaultData, setPokemonDefaultData] = useState(null)
   const [pokemonFormsData, setPokemonFormsData] = useState([])
+  const [pokemonColors, setPokemonColors] = useState(null)
   const [charged, setCharged] = useState(false)
 
   return (
@@ -16,6 +17,8 @@ export function PokemonPageProvider ({ children }) {
       setPokemonDefaultData,
       pokemonFormsData,
       setPokemonFormsData,
+      pokemonColors,
+      setPokemonColors,
       charged,
       setCharged
     }}>

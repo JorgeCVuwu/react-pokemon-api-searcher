@@ -7,8 +7,9 @@ export function useGetPokemonInfo () {
     pokemonSpeciesData,
     pokemonDefaultData,
     pokemonFormsData,
+    pokemonColors,
     charged
   } = useContext(PokemonPageContext)
 
-  return { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, charged }
+  return { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, pokemonColors, charged }
 }

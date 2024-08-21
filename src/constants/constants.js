@@ -1,3 +1,5 @@
+import { lightenColor } from '../utils/utils.js'
+
 export const POKEAPI_PREFIX = 'https://pokeapi.co/api/v2/'
 export const IGNORED_TYPES = ['stellar', 'shadow', 'unknown']
 
@@ -5,24 +7,24 @@ export const POKEMON_LIST_KEY_IN_PROPERTY = { type: 'pokemon', ability: 'pokemon
 export const POKEMON_KEY_IN_PROPERTY = { type: 'pokemon', ability: 'pokemon' }
 
 export const POKEMON_TYPE_COLORS = {
-  normal: '#A8A77A',
-  fire: '#EE8130',
-  water: '#6390F0',
-  electric: '#F7D02C',
-  grass: '#7AC74C',
-  ice: '#96D9D6',
-  fighting: '#C22E28',
-  poison: '#A33EA1',
-  ground: '#E2BF65',
-  flying: '#A98FF3',
-  psychic: '#F95587',
-  bug: '#A6B91A',
-  rock: '#B6A136',
-  ghost: '#735797',
-  dragon: '#6F35FC',
-  dark: '#705746',
-  steel: '#B7B7CE',
-  fairy: '#D685AD'
+  normal: { primary: '#A8A77A', secondary: lightenColor('#A8A77A', 20) },
+  fire: { primary: '#EE8130', secondary: lightenColor('#EE8130', 20) },
+  water: { primary: '#6390F0', secondary: lightenColor('#6390F0', 20) },
+  electric: { primary: '#F7D02C', secondary: lightenColor('#F7D02C', 20) },
+  grass: { primary: '#7AC74C', secondary: lightenColor('#7AC74C', 20) },
+  ice: { primary: '#96D9D6', secondary: lightenColor('#96D9D6', 20) },
+  fighting: { primary: '#C22E28', secondary: lightenColor('#C22E28', 20) },
+  poison: { primary: '#A33EA1', secondary: lightenColor('#A33EA1', 20) },
+  ground: { primary: '#E2BF65', secondary: lightenColor('#E2BF65', 20) },
+  flying: { primary: '#A98FF3', secondary: lightenColor('#A98FF3', 20) },
+  psychic: { primary: '#F95587', secondary: lightenColor('#F95587', 20) },
+  bug: { primary: '#A6B91A', secondary: lightenColor('#A6B91A', 20) },
+  rock: { primary: '#B6A136', secondary: lightenColor('#B6A136', 20) },
+  ghost: { primary: '#735797', secondary: lightenColor('#735797', 20) },
+  dragon: { primary: '#6F35FC', secondary: lightenColor('#6F35FC', 20) },
+  dark: { primary: '#705746', secondary: lightenColor('#705746', 20) },
+  steel: { primary: '#B7B7CE', secondary: lightenColor('#B7B7CE', 20) },
+  fairy: { primary: '#D685AD', secondary: lightenColor('#D685AD', 20) }
 }
 
 export const POKEMON_STATS_ABREVIATIONS = {

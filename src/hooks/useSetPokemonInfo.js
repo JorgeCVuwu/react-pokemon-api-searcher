@@ -1,17 +1,25 @@
 import { searchPokemonSpecies } from '../services/pokemon_species.js'
 import { searchPokemon } from '../services/pokemon.js'
 import { useContext, useEffect } from 'react'
-import { POKEAPI_PREFIX } from '../constants/constants.js'
+import { POKEAPI_PREFIX, POKEMON_TYPE_COLORS } from '../constants/constants.js'
 
 import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
 export function useSetPokemonInfo (name) {
   const {
+    pokemonDefaultData,
     setPokemonSpeciesData,
     setPokemonDefaultData,
     setPokemonFormsData,
+    setPokemonColors,
     setCharged
   } = useContext(PokemonPageContext)
+
+  useEffect(() => {
+    if (pokemonDefaultData) {
+      setPokemonColors(POKEMON_TYPE_COLORS[pokemonDefaultData.types[0].name])
+    }
+  }, [pokemonDefaultData])
 
   useEffect(() => {
     setCharged(false)
