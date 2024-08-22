@@ -1,18 +1,18 @@
 import '../styles/pokemon-info.css'
+import '../styles/pokemon-page.css'
 
 import { useParams } from 'react-router-dom'
 import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
+import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
+
 import { PokemonInfo } from '../components/PokemonInfo.jsx'
+import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.jsx'
 
 import { PokemonPageProvider } from '../context/pokemonPage.jsx'
 
-import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
-
 import { capitalizeStr } from '../utils/utils.js'
 
-function PokemonPageComponent () {
-  const { name } = useParams()
-
+function PokemonPageComponent ({ name }) {
   useSetPokemonInfo(name)
 
   const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
@@ -37,15 +37,21 @@ function PokemonPageComponent () {
               </p>
             </section>
 
+            <section>
+              <h2>Evolutions</h2>
+              <PokemonEvolutionChain className={'pokemon-page-evol-chain'}/>
+            </section>
+
           </article>
       </main>
     ))
 }
 
 export function PokemonPage () {
+  const { name } = useParams()
   return (
     <PokemonPageProvider>
-      <PokemonPageComponent/>
+      <PokemonPageComponent name={name}/>
     </PokemonPageProvider>
   )
 }

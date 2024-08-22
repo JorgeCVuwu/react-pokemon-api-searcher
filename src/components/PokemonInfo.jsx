@@ -2,15 +2,14 @@ import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
 
 import { PokemonFormsAttributes } from './PokemonFormsAttributes.jsx'
 
-import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
 import { capitalizeStr } from '../utils/utils.js'
 
 export function PokemonInfo () {
-  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, charged } = useGetPokemonInfo()
+  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, pokemonColors, charged } = useGetPokemonInfo()
 
   return (
-    (
-        <div className='pokemon-page-info' style={{ backgroundColor: POKEMON_TYPE_COLORS[pokemonDefaultData.types[0].name] }}>
+    pokemonColors && (
+        <div className='pokemon-page-info' style={{ backgroundColor: pokemonColors.primary }}>
             <h2 className='two-col'>{capitalizeStr(pokemonSpeciesData.name)}</h2>
             <div className='two-col pokemon-page-element'>
                 <div className='pokemon-multiple-forms-element'>
@@ -21,7 +20,7 @@ export function PokemonInfo () {
                   <div className='pokemon-image-forms-container'>
                         {pokemonFormsData.map(form => (
                         <div key={form.id} className='pokemon-multiple-forms-element'>
-                            <img className='pokemon-page-forms-image' src={form.sprites.front_default} alt={form.name} />
+                            <img className='pokemon-page-forms-image' src={form.sprites.front_default} alt={`Front sprite of ${form.name}.`} />
                             <small>{capitalizeStr(form.name, true)}</small>
                         </div>
                         ))}
