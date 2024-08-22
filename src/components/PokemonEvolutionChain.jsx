@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
 import { useEvolutions } from '../hooks/useEvolutions.js'
-import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
+
+import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
 import { Link } from 'react-router-dom'
 
@@ -73,7 +75,7 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
 }
 
 const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
-  const { pokemonSpeciesData } = useGetPokemonInfo()
+  const { pokemonSpeciesData } = useContext(PokemonPageContext)
   const CurrentPokemon = ({ evolutionChains }) => {
     return (
       <div className='pokemon-evolution-pokemon'>

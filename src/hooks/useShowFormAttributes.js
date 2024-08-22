@@ -1,7 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
 
-import { useGetPokemonInfo } from './useGetPokemonInfo.js'
-
 import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
 import { POKEMON_FORMS_ACCEPTED, NOT_CONSIDERED_FORMS } from '../constants/constants.js'
@@ -9,9 +7,8 @@ import { compareArraysEqual } from '../utils/utils.js'
 
 export function useShowFormAttributes ({ parameter, mode }) {
   const [showForm, setShowForm] = useState()
-  const { pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
   const [chargedShowForm, setChargedShowForm] = useState(false)
-  const { charged } = useContext(PokemonPageContext)
+  const { pokemonDefaultData, pokemonFormsData, charged } = useContext(PokemonPageContext)
 
   useEffect(() => {
     setChargedShowForm(false)

@@ -1,11 +1,12 @@
-import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
+import { useContext } from 'react'
+import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
 import { PokemonFormsAttributes } from './PokemonFormsAttributes.jsx'
 
 import { capitalizeStr } from '../utils/utils.js'
 
 export function PokemonInfo () {
-  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, pokemonColors, charged } = useGetPokemonInfo()
+  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, pokemonColors, charged } = useContext(PokemonPageContext)
 
   return (
     pokemonColors && (
