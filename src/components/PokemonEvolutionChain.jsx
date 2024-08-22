@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEvolutions } from '../hooks/useEvolutions.js'
+import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
 
 import { Link } from 'react-router-dom'
 
@@ -72,12 +73,17 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
 }
 
 const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
+  const { pokemonSpeciesData } = useGetPokemonInfo()
   const CurrentPokemon = ({ evolutionChains }) => {
     return (
-      <div className='pokemon-evolution-pokemon' key={evolutionChains.form_data.id}>
-        <Link to={`/pokemon/${evolutionChains.form_data.species_name}`}>
-          <p key={evolutionChains.form_data.id}>{capitalizeStr(evolutionChains.form_data.species_name)}</p>
-        </Link>
+      <div className='pokemon-evolution-pokemon'>
+        {pokemonSpeciesData.name === evolutionChains.form_data.species_name
+          ? (<p className='evolution-pokemon-text'>{capitalizeStr(evolutionChains.form_data.species_name)}</p>)
+          : (<Link to={`/pokemon/${evolutionChains.form_data.species_name}`} className='evolution-pokemon-text'>
+              {capitalizeStr(evolutionChains.form_data.species_name)}
+            </Link>)
+      }
+
         <div className='pokemon-evolution-image-outline'>
           <img className='pokemon-evolution-image'
           src={evolutionChains.form_data.sprites.front_default}

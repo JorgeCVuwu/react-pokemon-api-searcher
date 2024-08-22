@@ -36,6 +36,14 @@
   justify-content: space-around;
 }
 
+.evolution-pokemon-text {
+  color: black;
+  font-size: 1em;
+  margin: 10px;
+  display: block;
+  text-decoration: none;
+}
+
 .evolution-primary-text {
   font-size: 0.8em;
 }
