@@ -19,6 +19,10 @@ export async function searchPokemonSpecies (url) {
       language: {
         name: textEntries.language.name,
         url: textEntries.language.url
+      },
+      version: {
+        name: textEntries.version.name,
+        url: textEntries.version.url
       }
     }))
   }

@@ -16,11 +16,11 @@ import { capitalizeStr } from '../utils/utils.js'
 function PokemonPageComponent ({ name }) {
   useSetPokemonInfo(name)
 
-  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useContext(PokemonPageContext)
+  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, pokemonColors } = useContext(PokemonPageContext)
 
   return (
-    pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && (
-      <main>
+    pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && pokemonColors && (
+      <main style={{ backgroundColor: pokemonColors.background }}>
           <article id='pokemon-page-article' className='pokemon-page-article'>
             <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
 

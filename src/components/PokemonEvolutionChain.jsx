@@ -157,11 +157,12 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
 
 export function PokemonEvolutionChain ({ className }) {
   const { evolutionChains } = useEvolutions()
+  const { pokemonColors } = useContext(PokemonPageContext)
 
   return evolutionChains && (
     <div className={`${className} pokemon-evolution-trees`}>
       {evolutionChains.map(evolTree => (
-        <div key={evolTree.form_data.id} className={`${className} pokemon-evolution-tree`} style={{ backgroundColor: POKEMON_TYPE_COLORS[evolTree.form_data.types[0].name].secondary }}>
+        <div key={evolTree.form_data.id} className={`${className} pokemon-evolution-tree`} style={{ backgroundColor: pokemonColors.secondary }}>
           <RecursiveEvolutionsComponent evolutionChains={evolTree} />
         </div>
       ))}
