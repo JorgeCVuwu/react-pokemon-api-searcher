@@ -12,16 +12,16 @@ export function PokedexEntries () {
   return (
         <table className='pokedex-entries-table' style={{ backgroundColor: pokemonColors.terciary, borderColor: pokemonColors.primary }}>
           <tbody>
-            {/* <tr className='pokedex-entries-row' hidden>
-              <th hidden>Game</th>
-              <th hidden>Description</th>
-            </tr> */}
+            <tr className='pokedex-entries-row'>
+              <th>Game</th>
+              <th>Description</th>
+            </tr>
             {
             pokemonSpeciesData.flavor_text_entries.filter(info => info.language.name === 'en')
               .map((info, key) => (
                 <tr key={key} className='pokedex-entries-row'>
                   <td style={{ backgroundColor: GAMES_DATA[info.version.name].color, color: GAMES_DATA[info.version.name].fontColor ?? '#FFFFFF' }}>{capitalizeStr(info.version.name)}</td>
-                  <td>{info.flavor_text}</td>
+                  <td>{info.flavor_text.replace('', ' ')}</td>
                 </tr>
               ))
             }

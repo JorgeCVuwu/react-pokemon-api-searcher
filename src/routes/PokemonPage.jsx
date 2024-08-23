@@ -8,6 +8,7 @@ import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
 import { PokemonInfo } from '../components/PokemonInfo.jsx'
 import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.jsx'
 import { PokedexEntries } from '../components/PokedexEntries.jsx'
+import { Moveset } from '../components/Moveset.jsx'
 
 import { PokemonPageProvider, PokemonPageContext } from '../context/pokemonPage.jsx'
 
@@ -46,6 +47,11 @@ function PokemonPageComponent ({ name }) {
             <section>
               <h2>Pokédex entries</h2>
               <PokedexEntries/>
+            </section>
+
+            <section>
+              <h2>Moveset</h2>
+              <Moveset/>
             </section>
 
           </article>
