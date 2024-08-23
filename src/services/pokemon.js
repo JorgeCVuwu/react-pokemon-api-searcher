@@ -37,6 +37,15 @@ export async function searchPokemon (url) {
       url: stat.stat.url
     })),
     height: pokemonJson.height,
-    weight: pokemonJson.weight
+    weight: pokemonJson.weight,
+    moves: pokemonJson.moves.map(move => ({
+      name: move.move.name,
+      url: move.move.url,
+      version_group_details: move.version_group_details.map(detail => ({
+        level_learned_at: detail.level_learned_at,
+        move_learn_method: { name: detail.move_learn_method.name, url: detail.move_learn_method.url },
+        version_group: { name: detail.version_group.name, url: detail.version_group.url }
+      }))
+    }))
   }
 }
