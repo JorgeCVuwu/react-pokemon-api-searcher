@@ -25,6 +25,12 @@ export const POKEMON_TYPE_COLORS = {
   fairy: '#D685AD'
 }
 
+export const TYPE_COLOR_FUNCTIONS = {
+  primary: 0,
+  secondary: 15,
+  terciary: 20
+}
+
 export const POKEMON_STATS_ABREVIATIONS = {
   hp: 'HP',
   attack: 'Atk',

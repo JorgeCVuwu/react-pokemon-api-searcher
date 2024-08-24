@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react'
 
 import { POKEAPI_PREFIX, POKEMON_TYPE_COLORS } from '../constants/constants.js'
 
-import { lightenColor } from '../utils/utils.js'
+import { defineColor } from '../utils/utils.js'
 
 import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
@@ -22,9 +22,9 @@ export function useSetPokemonInfo (name) {
     if (pokemonDefaultData) {
       const pokemonType = pokemonDefaultData.types[0].name
       const pokemonColors = {
-        primary: POKEMON_TYPE_COLORS[pokemonType],
-        secondary: lightenColor(POKEMON_TYPE_COLORS[pokemonType], 15),
-        terciary: lightenColor(POKEMON_TYPE_COLORS[pokemonType], 20)
+        primary: defineColor({ type: pokemonType, priority: 'primary' }),
+        secondary: defineColor({ type: pokemonType, priority: 'secondary' }),
+        terciary: defineColor({ type: pokemonType, priority: 'terciary' })
       }
       setPokemonColors(pokemonColors)
     }

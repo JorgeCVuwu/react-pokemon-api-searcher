@@ -6,9 +6,7 @@ import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
 import { Link } from 'react-router-dom'
 
-import { capitalizeStr } from '../utils/utils.js'
-
-import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
+import { capitalizeStr, defineColor } from '../utils/utils.js'
 
 import '../styles/evolution-tree.css'
 
@@ -157,12 +155,12 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
 
 export function PokemonEvolutionChain ({ className }) {
   const { evolutionChains } = useEvolutions()
-  const { pokemonColors } = useContext(PokemonPageContext)
 
   return evolutionChains && (
     <div className={`${className} pokemon-evolution-trees`}>
       {evolutionChains.map(evolTree => (
-        <div key={evolTree.form_data.id} className={`${className} pokemon-evolution-tree`} style={{ backgroundColor: pokemonColors.secondary }}>
+        <div key={evolTree.form_data.id} className={`${className} pokemon-evolution-tree`}
+        style={{ backgroundColor: defineColor({ type: evolTree.form_data.types[0].name, priority: 'secondary' }) }}>
           <RecursiveEvolutionsComponent evolutionChains={evolTree} />
         </div>
       ))}
