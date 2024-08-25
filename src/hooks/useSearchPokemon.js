@@ -75,13 +75,21 @@ export function useSearchPokemon () {
       const sortedPokemonArray = getSortedCommonElements(PokemonFilterArrays)
 
       if (sortedPokemonArray) {
-        for (let i = 0; i < sortedPokemonArray.length; i++) {
-          const url = sortedPokemonArray[i]
+        const pokemonUrlsPromises = sortedPokemonArray.map(async url => {
           const pokemonJson = await searchPokemon(url)
-          if (pokemonJson) {
-            setFoundedPokemon(prevState => [...prevState, pokemonJson])
-          }
-        }
+          return pokemonJson || null
+        })
+
+        const results = await Promise.all(pokemonUrlsPromises)
+
+        setFoundedPokemon(prevState => [...prevState, ...results.filter(result => result !== null)])
+        // for (let i = 0; i < sortedPokemonArray.length; i++) {
+        //   const url = sortedPokemonArray[i]
+        //   const pokemonJson = await searchPokemon(url)
+        //   if (pokemonJson) {
+        //     setFoundedPokemon(prevState => [...prevState, pokemonJson])
+        //   }
+        // }
       }
     }
 
