@@ -80,7 +80,7 @@ export function compareArraysSameElements (arr1, arr2) {
 }
 
 // función copiada de ChatGPT XD
-export function lightenColor (hex, percent) {
+function lightenColor (hex, percent) {
   const num = parseInt(hex.slice(1), 16)
   const amt = Math.round(2.55 * percent)
   const R = (num >> 16) + amt

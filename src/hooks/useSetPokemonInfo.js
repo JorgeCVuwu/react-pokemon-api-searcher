@@ -2,7 +2,7 @@ import { searchPokemonSpecies } from '../services/pokemon_species.js'
 import { searchPokemon } from '../services/pokemon.js'
 import { useContext, useEffect } from 'react'
 
-import { POKEAPI_PREFIX, POKEMON_TYPE_COLORS } from '../constants/constants.js'
+import { POKEAPI_PREFIX } from '../constants/constants.js'
 
 import { defineColor } from '../utils/utils.js'
 
