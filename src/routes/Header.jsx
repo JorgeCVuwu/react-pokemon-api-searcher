@@ -10,9 +10,7 @@ function HeaderComponent () {
             <ul>
                 <li><Link to='/'>Home</Link></li>
             </ul>
-            <form>
-                <InputFilter name="searchbar" filter="pokemon" pokemonSearcher={false}/>
-            </form>
+            <InputFilter name="searchbar" filter="pokemon" pokemonSearcher={false}/>
         </nav>
     </header>
   )
