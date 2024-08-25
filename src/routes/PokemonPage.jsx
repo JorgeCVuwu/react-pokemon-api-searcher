@@ -21,7 +21,7 @@ function PokemonPageComponent ({ name }) {
 
   return (
     pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && pokemonColors && (
-      <main style={{ backgroundColor: pokemonColors.background }}>
+      <div style={{ backgroundColor: pokemonColors.background }}>
           <article id='pokemon-page-article' className='pokemon-page-article'>
             <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
 
@@ -55,7 +55,7 @@ function PokemonPageComponent ({ name }) {
             </section>
 
           </article>
-      </main>
+      </div>
     ))
 }
 

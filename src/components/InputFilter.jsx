@@ -1,10 +1,10 @@
-import { POKEAPI_PREFIX } from '../constants/constants.js'
-
+import { useNavigate } from 'react-router-dom'
 import { useInput } from '../hooks/useInput.js'
 
-import { capitalizeStr } from '../utils/utils.js'
+import { POKEAPI_PREFIX } from '../constants/constants.js'
+import { capitalizeStr, toKebabCase } from '../utils/utils.js'
 
-export function InputFilter ({ name, filter, disabled, onChange }) {
+export function InputFilter ({ name, filter, disabled, onChange, pokemonSearcher = true }) {
   const url = `${POKEAPI_PREFIX}${filter}`
   const {
     inputRef,
@@ -16,6 +16,8 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
     autocompleteInputValue(event.target.textContent)
     updateInput()
   }
+
+  const navigate = useNavigate()
 
   const handleChange = (event) => {
     if (onChange) {
@@ -33,30 +35,49 @@ export function InputFilter ({ name, filter, disabled, onChange }) {
     checkFocusStatus(false)
   }
 
-  const autocompletePosition = () => {
-    if (inputRef.current) {
-      const topPosition = inputRef.current.offsetTop + inputRef.current.offsetHeight
+  const searchFromSearchBar = (event) => {
+    // const form = event.target.closest('form')
+    const inputInfo = inputRef.current.value
 
-      return { topPosition }
-    }
-    return null
+    hideValidationError
+      ? navigate(`/pokemon/${toKebabCase(inputInfo)}`)
+      : navigate('/not-found')
+
+    // form.submit()
   }
 
-  const autoCompPosition = autocompletePosition()
-  const isName = name === 'name'
+  const AutocompleteOptions = ({ inputRef }) => {
+    const autocompletePosition = () => {
+      if (inputRef.current) {
+        const topPosition = inputRef.current.offsetTop + inputRef.current.offsetHeight
+
+        return { topPosition }
+      }
+      return null
+    }
+
+    const autoCompPosition = autocompletePosition()
+    const isName = name === 'name'
+    return (
+      <ul className='autocomplete-container' style={{ top: autoCompPosition.topPosition }}>
+      {autocompleteOptions.map((json) => (
+        <li key={json.id} className='autocomplete-element' onPointerDown={handlePointerDown}>{capitalizeStr(json.name, isName)}</li>
+      ))}
+    </ul>
+    )
+  }
 
   return (
     <div className='input-container'>
       <label htmlFor={`pokemon-${filter}`}>{`Pokémon ${name}:`}</label>
       <input ref={inputRef} id={`pokemon-${name}`} name={name} placeholder={`Put a ${name}`} disabled={disabled} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} autoComplete="off"/>
       { showAutoComplete &&
-        <ul className='autocomplete-container' style={{ top: autoCompPosition.topPosition }}>
-          {autocompleteOptions.map((json) => (
-            <li key={json.id} className='autocomplete-element' onPointerDown={handlePointerDown}>{capitalizeStr(json.name, isName)}</li>
-          ))}
-        </ul>
+        <AutocompleteOptions inputRef={inputRef}/>
       }
-      <p className='no-valid-campus' hidden={hideValidationError}>Please, insert a valid {name}.</p>
+      {pokemonSearcher
+        ? <p className='no-valid-campus' hidden={hideValidationError}>Please, insert a valid {name}.</p>
+        : <button type='button' onClick={searchFromSearchBar}>Search Pokémon</button>
+      }
     </div>
   )
 }

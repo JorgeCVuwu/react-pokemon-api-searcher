@@ -47,7 +47,7 @@ function PokemonQueryComponent () {
   }
 
   return (
-        <main className='pokemon-search-page-container'>
+        <div className='pokemon-search-page-container'>
           <div className="pokemon-form-container">
             <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
                 <InputFilter name="name" filter="pokemon" onChange={handleChange}/>
@@ -83,7 +83,7 @@ function PokemonQueryComponent () {
                 }
             </div>
           )}
-        </main>
+        </div>
 
   )
 }
