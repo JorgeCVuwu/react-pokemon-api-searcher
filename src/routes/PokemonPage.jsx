@@ -1,25 +1,27 @@
 import '../styles/pokemon-info.css'
 import '../styles/pokemon-page.css'
 
+import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
-import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
 
 import { PokemonInfo } from '../components/PokemonInfo.jsx'
 import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.jsx'
+import { PokedexEntries } from '../components/PokedexEntries.jsx'
+import { PokemonMoveset } from '../components/PokemonMoveset.jsx'
 
-import { PokemonPageProvider } from '../context/pokemonPage.jsx'
+import { PokemonPageProvider, PokemonPageContext } from '../context/pokemonPage.jsx'
 
 import { capitalizeStr } from '../utils/utils.js'
 
 function PokemonPageComponent ({ name }) {
   useSetPokemonInfo(name)
 
-  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
+  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, pokemonColors } = useContext(PokemonPageContext)
 
   return (
-    pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && (
-      <main>
+    pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && pokemonColors && (
+      <main style={{ backgroundColor: pokemonColors.background }}>
           <article id='pokemon-page-article' className='pokemon-page-article'>
             <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
 
@@ -40,6 +42,16 @@ function PokemonPageComponent ({ name }) {
             <section>
               <h2>Evolutions</h2>
               <PokemonEvolutionChain className={'pokemon-page-evol-chain'}/>
+            </section>
+
+            <section>
+              <h2>Pokédex entries</h2>
+              <PokedexEntries/>
+            </section>
+
+            <section>
+              <h2>Moveset</h2>
+              <PokemonMoveset/>
             </section>
 
           </article>

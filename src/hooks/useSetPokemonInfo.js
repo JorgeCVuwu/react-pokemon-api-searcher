@@ -1,7 +1,10 @@
 import { searchPokemonSpecies } from '../services/pokemon_species.js'
 import { searchPokemon } from '../services/pokemon.js'
 import { useContext, useEffect } from 'react'
-import { POKEAPI_PREFIX, POKEMON_TYPE_COLORS } from '../constants/constants.js'
+
+import { POKEAPI_PREFIX } from '../constants/constants.js'
+
+import { defineColor } from '../utils/utils.js'
 
 import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
@@ -17,7 +20,13 @@ export function useSetPokemonInfo (name) {
 
   useEffect(() => {
     if (pokemonDefaultData) {
-      setPokemonColors(POKEMON_TYPE_COLORS[pokemonDefaultData.types[0].name])
+      const pokemonType = pokemonDefaultData.types[0].name
+      const pokemonColors = {
+        primary: defineColor({ type: pokemonType, priority: 'primary' }),
+        secondary: defineColor({ type: pokemonType, priority: 'secondary' }),
+        terciary: defineColor({ type: pokemonType, priority: 'terciary' })
+      }
+      setPokemonColors(pokemonColors)
     }
   }, [name, pokemonDefaultData])
 

@@ -1,5 +1,7 @@
-import { useGetPokemonInfo } from '../hooks/useGetPokemonInfo.js'
+import { useContext } from 'react'
 import { useShowFormAttributes } from '../hooks/useShowFormAttributes.js'
+
+import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
 import { capitalizeStr } from '../utils/utils.js'
 import { POKEMON_STATS_ABREVIATIONS, STAT_COLORS } from '../constants/constants.js'
@@ -67,7 +69,7 @@ function FormTypes ({ form, showForm, isDefault = false }) {
 
 export function PokemonFormsAttributes ({ parameter, mode = 'default' }) {
   const { showForm, chargedShowForm } = useShowFormAttributes({ parameter, mode })
-  const { pokemonDefaultData, pokemonFormsData } = useGetPokemonInfo()
+  const { pokemonDefaultData, pokemonFormsData } = useContext(PokemonPageContext)
 
   const DefaultAndFormsComponent = ({ Component }) => {
     return (
