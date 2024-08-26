@@ -67,7 +67,9 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
     'use-item': ''
   }
 
-  const arrResult = [triggerConditions[evolutionDetails.trigger.name], ...evolutionDetailsString].filter(detail => detail)
+  const arrResult = evolutionDetails.length > 0
+    ? [triggerConditions[evolutionDetails.trigger.name], ...evolutionDetailsString].filter(detail => detail)
+    : evolutionDetailsString
 
   return arrResult
 }

@@ -52,7 +52,9 @@ export function useEvolutions () {
 
           const formData = {
             form_data: form,
-            evolution_details: (regFormType ? speciesChain.evolution_details[1] : speciesChain.evolution_details[0]) ?? [],
+            evolution_details: (regFormType
+              ? (speciesChain.evolution_details[1] ?? speciesChain.evolution_details[0])
+              : speciesChain.evolution_details[0]) ?? [],
             evolves_to: evolForms.map(evol => setFormsChain(speciesChain.evolves_to.find(species => species.species.name === evol.species_name), evol))
           }
 
