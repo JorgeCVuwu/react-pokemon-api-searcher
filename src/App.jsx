@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, Outlet } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
 
 import { Header } from './routes/Header.jsx'
 import { PokemonQuery } from './routes/PokemonQuery.jsx'

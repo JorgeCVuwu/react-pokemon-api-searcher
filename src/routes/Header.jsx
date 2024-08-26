@@ -5,8 +5,8 @@ import { PokemonSearchProvider } from '../context/pokemonSearch.jsx'
 
 function HeaderComponent () {
   return (
-    <header>
-        <nav>
+    <header className='header-container'>
+        <nav className='header-nav'>
             <ul>
                 <li><Link to='/'>Home</Link></li>
             </ul>
