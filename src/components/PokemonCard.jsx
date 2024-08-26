@@ -1,4 +1,5 @@
 import { capitalizeStr } from '../utils/utils.js'
+import { Link } from 'react-router-dom'
 
 export function PokemonCard ({ pokemonJson }) {
   const typeSrcPrefix = './media/types/sword-shield/'
@@ -10,8 +11,11 @@ export function PokemonCard ({ pokemonJson }) {
 
   return (
       <div id='pokemon-card' className='pokemon-card'>
-        <p className='pokemon-name'>{capitalizeStr(pokemonJson.is_default ? pokemonJson.species.name : pokemonJson.name)}</p>
-        <img className='pokemon-img' src={pokemonJson.front_sprite}/>
+        <Link to={`/pokemon/${pokemonJson.species.name}`}>
+          <p className='pokemon-name'>{capitalizeStr(pokemonJson.is_default ? pokemonJson.species.name : pokemonJson.name)}</p>
+          <img className='pokemon-img' src={pokemonJson.front_sprite} alt={`The front sprite of ${pokemonJson.name}`}/>
+        </Link>
+
         <p className='pokemon-dex-number'>#{pokemonJson.dex_number}</p>
 
         <div className='pokemon-type-container'>

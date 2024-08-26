@@ -47,13 +47,14 @@ function PokemonQueryComponent () {
   }
 
   return (
-        <main className='pokemon-search-page-container'>
+        <div className='pokemon-search-page-container'>
           <div className="pokemon-form-container">
             <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
+
                 <InputFilter name="name" filter="pokemon" onChange={handleChange}/>
 
                 <PokemonSelectorFilter id="pokemon-type-1" name="type-1" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
-                <PokemonSelectorFilter id="pokemon-type-2"name="type-2" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
+                <PokemonSelectorFilter id="pokemon-type-2" name="type-2" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
 
                 <InputFilter name="move" filter="move" onChange={handleChange} disabled={disabledInput}/>
 
@@ -83,7 +84,7 @@ function PokemonQueryComponent () {
                 }
             </div>
           )}
-        </main>
+        </div>
 
   )
 }

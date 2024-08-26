@@ -1,7 +1,26 @@
 body {
-  position: relative;
-  margin: 0 30px;
   font-family: sans-serif;
+  margin: 0;
+}
+
+header {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  background-color: blue;
+  top: 0;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+main {
+  position: relative;
+  margin: 110px 30px;
 }
 
 h1 {
@@ -139,7 +158,12 @@ h1 {
 /* Input classes */
 
 .input-container {
-  display: grid;
+  display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.search-name-form {
+  display: flex;
+  flex-direction: row;
 }
