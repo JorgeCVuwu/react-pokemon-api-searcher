@@ -26,13 +26,15 @@ const genders = {
 }
 
 const pokemonEvolutionDetails = (evolutionDetails) => {
+  if (evolutionDetails.length === 0) return []
+
   const evolDetailsObj = {
     min_level: evolutionDetails.min_level
       ? 'Level ' + evolutionDetails.min_level
       : null,
-    gender: genders[evolutionDetails.gender] || null,
-    held_item: getNameDetails(evolutionDetails.held_item, 'holding '),
     item: getNameDetails(evolutionDetails.item),
+    held_item: getNameDetails(evolutionDetails.held_item, 'holding '),
+    gender: genders[evolutionDetails.gender] || null,
     known_move: getNameDetails(evolutionDetails.known_move, 'knowing '),
     known_move_type: getNameDetails(evolutionDetails.known_move_type, 'knowing a ', ' type move'),
     location: getNameDetails(evolutionDetails.location, 'on '),
@@ -67,13 +69,18 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
     'use-item': ''
   }
 
-  const arrResult = [triggerConditions[evolutionDetails.trigger.name], ...evolutionDetailsString].filter(detail => detail)
+  const arrResult = evolutionDetailsString
+    ? [triggerConditions[evolutionDetails.trigger.name], ...evolutionDetailsString].filter(detail => detail)
+    : triggerConditions[evolutionDetails.trigger.name]
+      ? [triggerConditions[evolutionDetails.trigger.name]]
+      : []
 
   return arrResult
 }
 
 const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
   const { pokemonSpeciesData } = useContext(PokemonPageContext)
+
   const CurrentPokemon = ({ evolutionChains }) => {
     return (
       <div className='pokemon-evolution-pokemon'>
@@ -94,62 +101,31 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
     )
   }
 
-  const EvolComponent = ({ evolutionChains }) => {
-    const stage1Evolutions = []
-    const stage2Evolutions = []
-
-    const stage1EvoDetails = []
-    const stage2EvoDetails = []
-
-    evolutionChains.evolves_to.forEach(evol1 => {
-      stage1Evolutions.push(<CurrentPokemon evolutionChains={evol1}/>)
-      stage1EvoDetails.push(evol1.evolution_details)
-      evol1.evolves_to.forEach(evol2 => {
-        stage2Evolutions.push(<CurrentPokemon evolutionChains={evol2}/>)
-        stage2EvoDetails.push(evol2.evolution_details)
-      })
-    })
-
-    const StageDetails = ({ stageDetails }) => (
-      stageDetails.length > 0 &&
-        <div className='evolution-details-container'>
-          {stageDetails.map((evoDetails, key) => (
-            <div key={key}>
-              {pokemonEvolutionDetails(evoDetails).map((detail, key) => (
-                <p key={key} className={key > 0 ? 'evolution-secondary-text' : 'evolution-primary-text'}>{detail}</p>
-              ))}
-              →
-            </div>
-          ))}
-        </div>
-    )
-
-    const StageEvolutions = ({ stageEvolutions }) => (
-      stageEvolutions.length > 0 &&
-      <div className='evolution-column-container'>
-        {stageEvolutions.map((evol1, key) => (
-          <React.Fragment key={key}>
-          { evol1 }
-          </React.Fragment>
-        ))}
+  const StageDetails = ({ stageDetails }) => (
+      <div className='evolution-details-container'>
+          <div>
+            {pokemonEvolutionDetails(stageDetails).map((detail, key) => (
+              <p key={key} className={key > 0 ? 'evolution-secondary-text' : 'evolution-primary-text'}>{detail}</p>
+            ))}
+            →
+          </div>
       </div>
-    )
+  )
 
-    return (
-      <>
-        <div className='evolution-column-container'>
-          <CurrentPokemon evolutionChains={evolutionChains}/>
-        </div>
-        <StageDetails stageDetails={stage1EvoDetails} />
-        <StageEvolutions stageEvolutions={stage1Evolutions} />
-        <StageDetails stageDetails={stage2EvoDetails} />
-        <StageEvolutions stageEvolutions={stage2Evolutions} />
-      </>
-    )
-  }
-
-  return evolutionChains && (
-      <EvolComponent evolutionChains={evolutionChains}/>
+  return (
+    <div className='evolution-chain-container'>
+      <CurrentPokemon evolutionChains={evolutionChains}/>
+        { evolutionChains.evolves_to.length > 0 &&
+          <div>
+            {evolutionChains.evolves_to.map((evol, key) => (
+              <div className='evolution-chain-branch' key={key}>
+                <StageDetails stageDetails={evol.evolution_details}/>
+                <RecursiveEvolutionsComponent evolutionChains={evol}/>
+              </div>
+            ))}
+          </div>
+        }
+    </div>
   )
 }
 
@@ -157,7 +133,7 @@ export function PokemonEvolutionChain ({ className }) {
   const { evolutionChains } = useEvolutions()
 
   return evolutionChains && (
-    <div className={`${className} pokemon-evolution-trees`}>
+    <div className={`${className}`}>
       {evolutionChains.map(evolTree => (
         <div key={evolTree.form_data.id} className={`${className} pokemon-evolution-tree`}
         style={{ backgroundColor: defineColor({ type: evolTree.form_data.types[0].name, priority: 'secondary' }) }}>
