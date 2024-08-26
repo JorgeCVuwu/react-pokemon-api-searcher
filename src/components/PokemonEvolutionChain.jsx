@@ -26,6 +26,8 @@ const genders = {
 }
 
 const pokemonEvolutionDetails = (evolutionDetails) => {
+  if (evolutionDetails.length === 0) return []
+
   const evolDetailsObj = {
     min_level: evolutionDetails.min_level
       ? 'Level ' + evolutionDetails.min_level
@@ -67,9 +69,11 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
     'use-item': ''
   }
 
-  const arrResult = evolutionDetails.length > 0
+  const arrResult = evolutionDetailsString
     ? [triggerConditions[evolutionDetails.trigger.name], ...evolutionDetailsString].filter(detail => detail)
-    : evolutionDetailsString
+    : triggerConditions[evolutionDetails.trigger.name]
+      ? [triggerConditions[evolutionDetails.trigger.name]]
+      : []
 
   return arrResult
 }

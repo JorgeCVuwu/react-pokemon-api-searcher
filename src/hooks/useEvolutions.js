@@ -40,7 +40,7 @@ export function useEvolutions () {
       const createFormsEvolutionChain = ({ speciesChain, evolutionForms }) => {
         const formsChain = []
 
-        const addEvolutions = ({ form, nextValidForms, speciesChain }) => {
+        const addEvolutions = ({ form, nextValidForms, speciesChain, initialForm }) => {
           const regFormType = POKEMON_REGIONAL_FORMS.find(region => form.name.endsWith(region.suffix))
           const currentValidForms = evolutionForms
             .find(species => species.species_name === speciesChain.species.name).forms
@@ -55,17 +55,21 @@ export function useEvolutions () {
             evolution_details: (regFormType
               ? (speciesChain.evolution_details[1] ?? speciesChain.evolution_details[0])
               : speciesChain.evolution_details[0]) ?? [],
-            evolves_to: evolForms.map(evol => setFormsChain(speciesChain.evolves_to.find(species => species.species.name === evol.species_name), evol))
+            evolves_to: evolForms.map(evol => setFormsChain({
+              speciesChain: speciesChain.evolves_to.find(species => species.species.name === evol.species_name),
+              currentForm: evol,
+              initialForm: false
+            }))
           }
 
-          if (speciesChain.evolution_details.length === 0) {
+          if (initialForm) {
             formsChain.push(formData)
           }
 
           return formData
         }
 
-        const setFormsChain = (speciesChain, currentForm = null) => {
+        const setFormsChain = ({ speciesChain, currentForm = null, initialForm = true }) => {
           const nextValidForms = evolutionForms
             .filter(evolSpec => speciesChain.evolves_to
               .some(species => species.species.name === evolSpec.species_name)
@@ -78,18 +82,18 @@ export function useEvolutions () {
 
             const regionalForms = currentValidForms.filter(form => POKEMON_REGIONAL_FORMS.some(regForm => form.name.endsWith(regForm.suffix)))
             if (regionalForms.length > 0) {
-              regionalForms.forEach(regForm => addEvolutions({ form: regForm, nextValidForms, speciesChain }))
+              regionalForms.forEach(regForm => addEvolutions({ form: regForm, nextValidForms, speciesChain, initialForm }))
             }
 
             const defaultForm = currentValidForms.find(form => form.is_default)
-            addEvolutions({ form: defaultForm, nextValidForms, speciesChain })
+            addEvolutions({ form: defaultForm, nextValidForms, speciesChain, initialForm })
             return
           }
 
-          return addEvolutions({ form: currentForm, nextValidForms, speciesChain })
+          return addEvolutions({ form: currentForm, nextValidForms, speciesChain, initialForm })
         }
 
-        setFormsChain(speciesChain)
+        setFormsChain({ speciesChain })
         return formsChain
       }
 
