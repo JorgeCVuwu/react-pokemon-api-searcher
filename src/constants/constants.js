@@ -49,7 +49,7 @@ export const STAT_COLORS = {
   speed: '#7AC74C'
 }
 
-export const POKEMON_FORMS_ACCEPTED = ['-alola', '-galar', '-hisui', '-mega', '-mega-x', 'mega-y']
+export const POKEMON_FORMS_ACCEPTED = ['-alola', '-galar', '-galar-standard', '-hisui', '-mega', '-mega-x', 'mega-y']
 
 export const POKEMON_REGIONAL_FORMS =
   [{ region: 'alola', suffix: '-alola', generation: 'generation-vii' },

@@ -10,7 +10,7 @@ function HeaderComponent () {
             <ul>
                 <li><Link to='/'>Home</Link></li>
             </ul>
-            <InputFilter name="searchbar" filter="pokemon" pokemonSearcher={false}/>
+            <InputFilter name="searchbar" filter="pokemon-species" pokemonSearcher={false}/>
         </nav>
     </header>
   )

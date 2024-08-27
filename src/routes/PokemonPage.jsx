@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
 
+import { NationalDex } from '../components/NationalDex.jsx'
 import { PokemonInfo } from '../components/PokemonInfo.jsx'
 import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.jsx'
 import { PokedexEntries } from '../components/PokedexEntries.jsx'
@@ -21,41 +22,43 @@ function PokemonPageComponent ({ name }) {
 
   return (
     pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && pokemonColors && (
-      <div style={{ backgroundColor: pokemonColors.background }}>
-          <article id='pokemon-page-article' className='pokemon-page-article'>
-            <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
+      <>
+        <NationalDex/>
 
-            <aside id='pokemon-page-aside' className='pokemon-page-info-aside'>
-                <PokemonInfo/>
-            </aside>
+        <article id='pokemon-page-article' className='pokemon-page-article'>
+          <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
 
-            <section id='pokemon-page-description'>
-              <h2>Description</h2>
-              <p>{`${capitalizeStr(pokemonSpeciesData.name)} is a ${pokemonDefaultData.types.map(type => capitalizeStr(type.name)).join('/')} 
-              type ${pokemonSpeciesData.is_mythical ? 'Mythical' : pokemonSpeciesData.is_legendary ? 'Legendary' : ''} Pokémon 
-              introduced in ${capitalizeStr(pokemonSpeciesData.generation.name, false, true)}.`}</p>
-              <p>
+          <aside id='pokemon-page-aside' className='pokemon-page-info-aside'>
+              <PokemonInfo/>
+          </aside>
 
-              </p>
-            </section>
+          <section id='pokemon-page-description'>
+            <h2>Description</h2>
+            <p>{`${capitalizeStr(pokemonSpeciesData.name)} is a ${pokemonDefaultData.types.map(type => capitalizeStr(type.name)).join('/')} 
+            type ${pokemonSpeciesData.is_mythical ? 'Mythical' : pokemonSpeciesData.is_legendary ? 'Legendary' : ''} Pokémon 
+            introduced in ${capitalizeStr(pokemonSpeciesData.generation.name, false, true)}.`}</p>
+            <p>
 
-            <section>
-              <h2>Evolutions</h2>
-              <PokemonEvolutionChain className={'pokemon-page-evol-chain'}/>
-            </section>
+            </p>
+          </section>
 
-            <section>
-              <h2>Pokédex entries</h2>
-              <PokedexEntries/>
-            </section>
+          <section>
+            <h2>Evolutions</h2>
+            <PokemonEvolutionChain className={'pokemon-page-evol-chain'}/>
+          </section>
 
-            <section>
-              <h2>Moveset</h2>
-              <PokemonMoveset/>
-            </section>
+          <section>
+            <h2>Pokédex entries</h2>
+            <PokedexEntries/>
+          </section>
 
-          </article>
-      </div>
+          <section>
+            <h2>Moveset</h2>
+            <PokemonMoveset/>
+          </section>
+
+        </article>
+      </>
     ))
 }
 
