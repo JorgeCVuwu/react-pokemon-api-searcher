@@ -80,7 +80,6 @@ export function useEvolutions () {
         }
 
         const setFormsChain = ({ speciesChain, currentForm = null, initialForm = true }) => {
-          console.log(evolutionForms)
           const nextValidForms = evolutionForms
             .filter(evolSpec => speciesChain.evolves_to
               .some(species => species.species.name === evolSpec.species_name)

@@ -10,7 +10,7 @@ export function NationalDex () {
 
   return (
     <div>
-        <img src={pokemonDefaultData.sprites.front_sprite}></img>
+        <img src={pokemonDefaultData.sprites.front_sprite} alt={`Front sprite of ${pokemonDefaultData.name}`}></img>
     </div>
   )
 }

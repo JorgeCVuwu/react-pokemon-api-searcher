@@ -84,10 +84,10 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
   const CurrentPokemon = ({ evolutionChains }) => {
     return (
       <div className='pokemon-evolution-pokemon'>
-        {pokemonSpeciesData.name === evolutionChains.form_data.species_name
-          ? (<p className='evolution-pokemon-text'>{capitalizeStr(evolutionChains.form_data.species_name)}</p>)
-          : (<Link to={`/pokemon/${evolutionChains.form_data.species_name}`} className='evolution-pokemon-text'>
-              {capitalizeStr(evolutionChains.form_data.species_name)}
+        {pokemonSpeciesData.name === evolutionChains.form_data.species.name
+          ? (<p className='evolution-pokemon-text'>{capitalizeStr(evolutionChains.form_data.species.name)}</p>)
+          : (<Link to={`/pokemon/${evolutionChains.form_data.species.name}`} className='evolution-pokemon-text'>
+              {capitalizeStr(evolutionChains.form_data.species.name)}
             </Link>)
       }
 

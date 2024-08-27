@@ -31,7 +31,9 @@ function PokemonAttributeData ({ form, parameter, showForm, isDefault = false })
                         <p>{ATTRIBUTE_FUNCTIONS?.[parameter] ? ATTRIBUTE_FUNCTIONS[parameter](form[parameter]) : form[parameter]}</p>
                     </div>
                 }
-            <small>{areMultipleForms && capitalizeStr(form.name)}</small>
+                {areMultipleForms && (
+                  <small>{capitalizeStr(form.name)}</small>
+                )}
         </div>
   )
 }
@@ -48,7 +50,9 @@ function FormStats ({ form, parameter, showForm, isDefault = false }) {
                     </div>
                 ))}
             </div>
-            <small>{areMultipleForms && capitalizeStr(form.name)}</small>
+            {areMultipleForms && (
+              <small>{capitalizeStr(form.name)}</small>
+            )}
         </div>
   )
 }
@@ -62,7 +66,9 @@ function FormTypes ({ form, showForm, isDefault = false }) {
           <img key={type.id} className='pokemon-page-type-image' src={`../../public/media/types/sword-shield/${type.id}.png`} alt={`Image containing ${type.name} type.`} />
         ))}
       </div>
-      <small>{areMultipleForms && capitalizeStr(form.name)}</small>
+      {areMultipleForms && (
+        <small>{capitalizeStr(form.name)}</small>
+      )}
     </div>
   )
 }
