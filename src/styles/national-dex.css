@@ -1,0 +1,67 @@
+.national-dex-container, 
+.national-dex-current-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.national-dex-attached-pokemon {
+    background-color: rgb(180, 176, 176);
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.national-dex-attached-pokemon:hover {
+    filter: brightness(1.05);
+}
+
+.national-dex-attached-pokemon.left {
+    border-radius: 10px 0 0 10px;
+}
+
+.national-dex-attached-pokemon.right {
+    border-radius: 0 10px 10px 0;
+}
+
+.national-dex-container {
+    background-color: #E33434;
+    border: 3px solid black;
+    border-radius: 30px;
+    width: 50%;
+}
+
+.national-dex-current-container {
+    flex-direction: column;
+}
+
+.national-dex-sprite {
+    animation: moveDexSprite 1s infinite;
+}
+
+.national-dex-sprite:hover {
+    animation-duration: 0.5s;
+}
+
+.national-dex-sprite-container {
+    background-color: #9BBC0F;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 20px;
+}
+
+
+@keyframes moveDexSprite {
+    0% {
+      transform: translateY(2px)
+    }
+    50% {
+      transform: translateY(-2px)
+    }
+    100% {
+      transform: translateY(2px)
+    }
+  }
