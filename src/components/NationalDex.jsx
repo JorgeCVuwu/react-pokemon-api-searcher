@@ -4,6 +4,8 @@ import { useNationalDex } from '../hooks/useNationalDex.js'
 import { Link } from 'react-router-dom'
 import { PokemonPageContext } from '../context/pokemonPage'
 
+import { capitalizeStr } from '../utils/utils.js'
+
 import '../styles/national-dex.css'
 
 export function NationalDex () {
@@ -11,13 +13,14 @@ export function NationalDex () {
   const { pokemonDefaultData, pokemonSpeciesData } = useContext(PokemonPageContext)
 
   return prevPokemonInfo && nextPokemonInfo && (
-    <div>
-      <p>{`#${pokemonSpeciesData.id}`}</p>
+    <div className='national-dex-component-container'>
+      <div className='national-dex-number'>{`#${pokemonSpeciesData.id}`}</div>
       <div className='national-dex-container'>
-        <Link to={`/pokemon/${prevPokemonInfo.name}`}>
+        <Link className='national-dex-link' to={`/pokemon/${prevPokemonInfo.name}`}>
           <div className='national-dex-attached-pokemon left'>
-            <p>#{prevPokemonInfo.id}</p>
-            <p>{prevPokemonInfo.name}</p>
+            {/* <p>#{prevPokemonInfo.id}</p> */}
+            <i className='left-arrow'></i>
+            <p>{capitalizeStr(prevPokemonInfo.name)}</p>
           </div>
         </Link>
 
@@ -27,10 +30,11 @@ export function NationalDex () {
           </div>
         </div>
 
-        <Link to={`/pokemon/${nextPokemonInfo.name}`}>
+        <Link className='national-dex-link' to={`/pokemon/${nextPokemonInfo.name}`}>
           <div className='national-dex-attached-pokemon right'>
-            <p>{nextPokemonInfo.name}</p>
-            <p>#{nextPokemonInfo.id}</p>
+            <p>{capitalizeStr(nextPokemonInfo.name)}</p>
+            <i className='right-arrow'></i>
+            {/* <p>#{nextPokemonInfo.id}</p> */}
           </div>
         </Link>
       </div>

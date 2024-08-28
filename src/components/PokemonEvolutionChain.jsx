@@ -50,7 +50,7 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
     needs_overworld_rain: evolutionDetails.needs_overworld_rain
       ? 'overworld rain'
       : null,
-    party_species: evolutionDetails.party_species,
+    party_species: getNameDetails(evolutionDetails.party_species, 'holding ', ' in team'),
     party_type: evolutionDetails.party_type,
     relative_physical_stats: relativePhysicalStats[evolutionDetails.relative_physical_stats] || null,
     time_of_day: evolutionDetails.time_of_day

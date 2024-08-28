@@ -1,13 +1,14 @@
 body {
   font-family: sans-serif;
   margin: 0;
+  background-color: #ECF0F1;
 }
 
 header {
   position: fixed;
   z-index: 10;
   width: 100%;
-  background-color: rgb(237, 11, 11);
+  background-color: #E33434;
   top: 0;
 }
 

@@ -23,10 +23,10 @@ function PokemonPageComponent ({ name }) {
   return (
     pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && pokemonColors && (
       <>
-        <NationalDex/>
 
         <article id='pokemon-page-article' className='pokemon-page-article'>
           <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
+          <NationalDex/>
 
           <aside id='pokemon-page-aside' className='pokemon-page-info-aside'>
               <PokemonInfo/>
