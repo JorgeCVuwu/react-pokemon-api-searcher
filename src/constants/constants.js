@@ -28,7 +28,8 @@ export const POKEMON_TYPE_COLORS = {
 export const TYPE_COLOR_FUNCTIONS = {
   primary: 0,
   secondary: 15,
-  terciary: 20
+  terciary: 20,
+  national_dex: -10
 }
 
 export const POKEMON_STATS_ABREVIATIONS = {

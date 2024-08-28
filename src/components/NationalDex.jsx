@@ -10,12 +10,11 @@ import '../styles/national-dex.css'
 
 export function NationalDex () {
   const { prevPokemonInfo, nextPokemonInfo } = useNationalDex()
-  const { pokemonDefaultData, pokemonSpeciesData } = useContext(PokemonPageContext)
+  const { pokemonDefaultData, pokemonSpeciesData, pokemonColors } = useContext(PokemonPageContext)
 
   return prevPokemonInfo && nextPokemonInfo && (
     <div className='national-dex-component-container'>
-      <div className='national-dex-number'>{`#${pokemonSpeciesData.id}`}</div>
-      <div className='national-dex-container'>
+      <div className='national-dex-container' style={{ backgroundColor: pokemonColors.national_dex }}>
         <Link className='national-dex-link' to={`/pokemon/${prevPokemonInfo.name}`}>
           <div className='national-dex-attached-pokemon left'>
             {/* <p>#{prevPokemonInfo.id}</p> */}
@@ -28,6 +27,7 @@ export function NationalDex () {
           <div className='national-dex-sprite-container'>
             <img className='national-dex-sprite' src={pokemonDefaultData.sprites.front_sprite} alt={`Front sprite of ${pokemonDefaultData.name}`}></img>
           </div>
+          <div className='national-dex-number'>{`#${pokemonSpeciesData.id}`}</div>
         </div>
 
         <Link className='national-dex-link' to={`/pokemon/${nextPokemonInfo.name}`}>

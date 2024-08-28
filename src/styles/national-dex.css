@@ -61,8 +61,8 @@
 }
 
 .national-dex-current-container {
-    display: flex;
-    justify-content: center; 
+    justify-content: center;
+    flex-direction: column; 
 }
 
 .national-dex-sprite {
@@ -83,11 +83,12 @@
 }
 
 .national-dex-number {
-    background-color: #D3D3D3;
-    border: 1px solid black;
-    border-bottom: 0;
-    width: 100px;
-    border-radius: 5px 5px 0 0;
+    background-color: #a5c711;
+    color: #2F2F2F;
+    border: 2px solid black;
+    border-radius: 3px;
+    padding: 2px;
+    font-size: 15px;
     text-align: center;
 }
 
