@@ -14,8 +14,10 @@ export function useNationalDex () {
       const url = `${POKEAPI_PREFIX}pokemon-species?limit=100000&offset=0`
       searchFilterResults(url)
         .then(results => {
-          const prevInfo = results.results.find(species => species.id === currentId - 1)
-          const nextInfo = results.results.find(species => species.id === currentId + 1)
+          const prevInfo = results.results.find(species => species.id === currentId - 1) ??
+            results.results.find(species => species.id === results.results.length - 1)
+          const nextInfo = results.results.find(species => species.id === currentId + 1) ??
+            results.results.find(species => species.id === 1)
           setPrevPokemonInfo(prevInfo)
           setNextPokemonInfo(nextInfo)
         })
