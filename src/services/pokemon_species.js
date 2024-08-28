@@ -4,6 +4,7 @@ export async function searchPokemonSpecies (url) {
   const pokemonJson = await fetchData(url)
 
   return {
+    id: pokemonJson.id,
     name: pokemonJson.name,
     varieties: pokemonJson.varieties.map(form => ({
       name: form.pokemon.name,

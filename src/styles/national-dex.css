@@ -1,0 +1,135 @@
+.national-dex-component-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.national-dex-container, 
+.national-dex-current-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.national-dex-container > div {
+    margin: 10px 0;
+}
+
+.national-dex-attached-pokemon {
+    background-color: #D3D3D3;
+    display: flex;
+    gap: 10px;
+    padding: 0 10px;
+    border: 1px solid black;
+    align-items: center;
+    width: 130px;
+}
+
+.attached-pokemon-container {
+    display: flex;
+    align-items: center;
+}
+
+.national-dex-attached-pokemon:hover {
+    filter: brightness(1.05);
+}
+
+.national-dex-attached-pokemon.left {
+    border-radius: 10px 0 0 10px;
+    justify-content: start;
+}
+
+.national-dex-attached-pokemon.right {
+    border-radius: 0 10px 10px 0;
+    justify-content: end;
+}
+
+.national-dex-link {
+    color: #2C2C2C;
+    text-decoration: none;
+}
+
+.national-dex-container {
+    background-color: #E33434;
+    border: 3px solid black;
+    border-radius: 30px;
+    min-width: 200px;
+    align-self: center;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.national-dex-current-container {
+    justify-content: center;
+    flex-direction: column; 
+}
+
+.national-dex-sprite {
+    height: 40px;
+    animation: moveDexSprite 1s infinite;
+}
+
+.national-dex-sprite:hover {
+    animation-duration: 0.5s;
+}
+
+.national-dex-sprite-container {
+    background-color: #9BBC0F;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 10px;
+}
+
+.national-dex-number {
+    background-color: #a5c711;
+    color: #2F2F2F;
+    border: 2px solid black;
+    border-radius: 3px;
+    padding: 2px;
+    font-size: 15px;
+    text-align: center;
+}
+
+
+@keyframes moveDexSprite {
+    0% {
+      transform: translateY(1px)
+    }
+    50% {
+      transform: translateY(-1px)
+    }
+    100% {
+      transform: translateY(1px)
+    }
+}
+
+@keyframes moveArrow {
+    0% {
+        transform: translateX(1px)
+      }
+      50% {
+        transform: translateX(-1px)
+      }
+      100% {
+        transform: translateX(1px)
+      }    
+}
+
+.left-arrow, .right-arrow {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    /* animation: moveArrow 1s infinite; */
+}
+
+.right-arrow {
+    transform: rotate(45deg);
+}
+
+.left-arrow {
+    transform: rotate(-135deg);
+}

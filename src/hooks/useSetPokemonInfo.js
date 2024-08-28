@@ -24,7 +24,8 @@ export function useSetPokemonInfo (name) {
       const pokemonColors = {
         primary: defineColor({ type: pokemonType, priority: 'primary' }),
         secondary: defineColor({ type: pokemonType, priority: 'secondary' }),
-        terciary: defineColor({ type: pokemonType, priority: 'terciary' })
+        terciary: defineColor({ type: pokemonType, priority: 'terciary' }),
+        national_dex: defineColor({ type: pokemonType, priority: 'national_dex' })
       }
       setPokemonColors(pokemonColors)
     }
