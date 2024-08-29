@@ -1,4 +1,4 @@
-import { POKEMON_TYPE_COLORS, TYPE_COLOR_FUNCTIONS } from '../constants/constants.js'
+import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
 
 export function getCommonElements (lists) {
   if (lists.length === 0 || lists.find(arr => arr.length === 0)) return []
@@ -96,5 +96,11 @@ function lightenColor (hex, percent) {
 }
 
 export function defineColor ({ type, priority }) {
+  const TYPE_COLOR_FUNCTIONS = {
+    primary: 0,
+    secondary: 15,
+    terciary: 20,
+    national_dex: 10
+  }
   return lightenColor(POKEMON_TYPE_COLORS[type], TYPE_COLOR_FUNCTIONS[priority])
 }
