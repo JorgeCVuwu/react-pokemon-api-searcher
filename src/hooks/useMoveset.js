@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import { PokemonPageContext } from '../context/pokemonPage'
 
 import { GAMES_DATA } from '../constants/constants.js'
@@ -14,7 +14,24 @@ const splitFirstHalf = (str) => {
 
 export function useMoveset () {
   const [pokemonLevelMoveset, setPokemonLevelMoveset] = useState(null)
+  const [selectedGen, setSelectedGen] = useState(null)
+  const tablesRef = useRef({})
+
   const { pokemonDefaultData, pokemonFormsData } = useContext(PokemonPageContext)
+
+  const changeSelectedTable = ({ genName }) => {
+    tablesRef.current[selectedGen].hidden = true
+    tablesRef.current[genName].hidden = false
+    setSelectedGen(genName)
+  }
+
+  useEffect(() => {
+    if (pokemonLevelMoveset) {
+      const initialTableGen = pokemonLevelMoveset[0].name
+      setSelectedGen(initialTableGen)
+      tablesRef.current[initialTableGen].hidden = false
+    }
+  }, [pokemonLevelMoveset])
 
   useEffect(() => {
     const learnedByLevelMoves = []
@@ -103,7 +120,7 @@ export function useMoveset () {
     setPokemonLevelMoveset(sortedLearnedByLevel)
   }, [pokemonDefaultData, pokemonFormsData])
 
-  return { pokemonLevelMoveset }
+  return { pokemonLevelMoveset, tablesRef, changeSelectedTable }
 }
 
 // Object structure:

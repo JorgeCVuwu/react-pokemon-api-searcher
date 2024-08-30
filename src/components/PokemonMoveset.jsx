@@ -5,34 +5,52 @@ import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
 import { capitalizeStr } from '../utils/utils.js'
 
+import '../styles/moveset.css'
+
 export function PokemonMoveset () {
-  const { pokemonLevelMoveset } = useMoveset()
+  const { pokemonLevelMoveset, tablesRef, changeSelectedTable } = useMoveset()
+
+  const { pokemonColors } = useContext(PokemonPageContext)
+
+  const onPointerDown = (event, genName) => {
+    changeSelectedTable({ genName })
+  }
+
   return pokemonLevelMoveset && (
-    pokemonLevelMoveset.map((genMove, key) => (
-      <table key={key}>
-        <caption>{capitalizeStr(genMove.name, true, true)}</caption>
-        <tbody>
-          <tr>
-            <th>Move</th>
-            {genMove.display_info.display_one_row
-              ? <th>{'Level'}</th>
-              : genMove.display_info.columns.map((column, key) => (
-                  <th key={key}>{capitalizeStr(column, true)}</th>
+    <div className='moveset-tables-container'>
+      <div>
+        {pokemonLevelMoveset.map((genMove, key) => (
+          <button key={key} onClick={event => onPointerDown(event, genMove.name)}>{capitalizeStr(genMove.name)}</button>
+        ))}
+      </div>
+      <div>
+        {pokemonLevelMoveset.map((genMove, key) => (
+          <table ref={element => (tablesRef.current[genMove.name] = element)} key={key} className='moveset-table' hidden>
+            <caption>{capitalizeStr(genMove.name, true, true)}</caption>
+            <tbody>
+              <tr style={{ backgroundColor: pokemonColors.terciary }}>
+                <th>Move</th>
+                {genMove.display_info.display_one_row
+                  ? <th>{'Level'}</th>
+                  : genMove.display_info.columns.map((column, key) => (
+                      <th key={key}>{capitalizeStr(column, true)}</th>
+                  ))}
+              </tr>
+              {genMove.moves.map((move, key) => (
+                <tr key={key} className={`${key % 2 !== 0 ? 'even-row' : ''}`}>
+                  <td>{capitalizeStr(move.name)}</td>
+                  {genMove.display_info.display_one_row
+                    ? <td key={key}>{move.min_level || 'Evo'}</td>
+                    : genMove.display_info.columns.map((column, key) => (
+                    <td key={key}>{move.games[column] || (move.games[column] === 0 ? 'Evo' : '')}</td>
+                    ))
+                  }
+                </tr>
               ))}
-          </tr>
-          {genMove.moves.map((move, key) => (
-            <tr key={key}>
-              <td>{capitalizeStr(move.name)}</td>
-              {genMove.display_info.display_one_row
-                ? <td key={key}>{move.min_level || 'Evo'}</td>
-                : genMove.display_info.columns.map((column, key) => (
-                <td key={key}>{move.games[column] || (move.games[column] === 0 ? 'Evo' : '')}</td>
-                ))
-              }
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    ))
+            </tbody>
+          </table>
+        ))}
+      </div>
+    </div>
   )
 }
