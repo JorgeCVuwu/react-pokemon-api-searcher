@@ -8,7 +8,7 @@ import { capitalizeStr } from '../utils/utils.js'
 import '../styles/moveset.css'
 
 export function PokemonMoveset () {
-  const { pokemonLevelMoveset, tablesRef, changeSelectedTable } = useMoveset()
+  const { pokemonLevelMoveset, selectedGen, changeSelectedTable } = useMoveset()
 
   const { pokemonColors } = useContext(PokemonPageContext)
 
@@ -25,7 +25,7 @@ export function PokemonMoveset () {
       </div>
       <div>
         {pokemonLevelMoveset.map((genMove, key) => (
-          <table ref={element => (tablesRef.current[genMove.name] = element)} key={key} className='moveset-table' hidden>
+          <table key={key} className='moveset-table' id={genMove.name} hidden={selectedGen !== genMove.name}>
             <caption>{capitalizeStr(genMove.name, true, true)}</caption>
             <tbody>
               <tr style={{ backgroundColor: pokemonColors.terciary }}>
