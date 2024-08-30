@@ -9,8 +9,9 @@ export function PokemonSearchProvider ({ children }) {
     <PokemonSearchContext.Provider value={{
       inputs,
       setInputs
-    }}>
-        {children}
+    }}
+    >
+      {children}
     </PokemonSearchContext.Provider>
   )
 }

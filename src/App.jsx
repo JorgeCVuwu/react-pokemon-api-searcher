@@ -8,9 +8,9 @@ import { NotFound } from './routes/NotFound.jsx'
 function Layout () {
   return (
     <>
-      <Header/>
+      <Header />
       <main>
-        <Outlet/>
+        <Outlet />
       </main>
     </>
   )
@@ -20,11 +20,11 @@ function App () {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Layout/>}>
-          <Route index element={<PokemonQuery/>} />
-          <Route path='/pokemon/:name' element={<PokemonPage/>} />
+        <Route path='/' element={<Layout />}>
+          <Route index element={<PokemonQuery />} />
+          <Route path='/pokemon/:name' element={<PokemonPage />} />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </Router>

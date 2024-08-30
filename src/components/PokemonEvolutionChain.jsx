@@ -85,16 +85,18 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
     return (
       <div className='pokemon-evolution-pokemon'>
         {pokemonSpeciesData.name === evolutionChains.form_data.species.name
-          ? (<p className='evolution-pokemon-text'>{capitalizeStr(evolutionChains.form_data.species.name)}</p>)
-          : (<Link to={`/pokemon/${evolutionChains.form_data.species.name}`} className='evolution-pokemon-text'>
+          ? <p className='evolution-pokemon-text'>{capitalizeStr(evolutionChains.form_data.species.name)}</p>
+          : (
+            <Link to={`/pokemon/${evolutionChains.form_data.species.name}`} className='evolution-pokemon-text'>
               {capitalizeStr(evolutionChains.form_data.species.name)}
-            </Link>)
-      }
+            </Link>
+            )}
 
         <div className='pokemon-evolution-image-outline'>
-          <img className='pokemon-evolution-image'
-          src={evolutionChains.form_data.sprites.front_default}
-          alt={`Image of ${evolutionChains.form_data.name} in evolution tree`}
+          <img
+            className='pokemon-evolution-image'
+            src={evolutionChains.form_data.sprites.front_default}
+            alt={`Image of ${evolutionChains.form_data.name} in evolution tree`}
           />
         </div>
       </div>
@@ -102,29 +104,28 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
   }
 
   const StageDetails = ({ stageDetails }) => (
-      <div className='evolution-details-container'>
-          <div>
-            {pokemonEvolutionDetails(stageDetails).map((detail, key) => (
-              <p key={key} className={key > 0 ? 'evolution-secondary-text' : 'evolution-primary-text'}>{detail}</p>
-            ))}
-            →
-          </div>
+    <div className='evolution-details-container'>
+      <div>
+        {pokemonEvolutionDetails(stageDetails).map((detail, key) => (
+          <p key={key} className={key > 0 ? 'evolution-secondary-text' : 'evolution-primary-text'}>{detail}</p>
+        ))}
+        →
       </div>
+    </div>
   )
 
   return (
     <div className='evolution-chain-container'>
-      <CurrentPokemon evolutionChains={evolutionChains}/>
-        { evolutionChains.evolves_to.length > 0 &&
-          <div>
-            {evolutionChains.evolves_to.map((evol, key) => (
-              <div className='evolution-chain-branch' key={key}>
-                <StageDetails stageDetails={evol.evolution_details}/>
-                <RecursiveEvolutionsComponent evolutionChains={evol}/>
-              </div>
-            ))}
-          </div>
-        }
+      <CurrentPokemon evolutionChains={evolutionChains} />
+      {evolutionChains.evolves_to.length > 0 &&
+        <div>
+          {evolutionChains.evolves_to.map((evol, key) => (
+            <div className='evolution-chain-branch' key={key}>
+              <StageDetails stageDetails={evol.evolution_details} />
+              <RecursiveEvolutionsComponent evolutionChains={evol} />
+            </div>
+          ))}
+        </div>}
     </div>
   )
 }
@@ -135,8 +136,10 @@ export function PokemonEvolutionChain ({ className }) {
   return evolutionChains && (
     <div className={`${className}`}>
       {evolutionChains.map(evolTree => (
-        <div key={evolTree.form_data.id} className={`${className} pokemon-evolution-tree`}
-        style={{ backgroundColor: defineColor({ type: evolTree.form_data.types[0].name, priority: 'secondary' }) }}>
+        <div
+          key={evolTree.form_data.id} className={`${className} pokemon-evolution-tree`}
+          style={{ backgroundColor: defineColor({ type: evolTree.form_data.types[0].name, priority: 'secondary' }) }}
+        >
           <RecursiveEvolutionsComponent evolutionChains={evolTree} />
         </div>
       ))}

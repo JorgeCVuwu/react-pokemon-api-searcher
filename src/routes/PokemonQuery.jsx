@@ -47,52 +47,53 @@ function PokemonQueryComponent () {
   }
 
   return (
-        <div className='pokemon-search-page-container'>
-          <div className="pokemon-form-container">
-            <form ref={formRef} id="pokemon-search" name="pokemon-search" className="pokemon-form" onSubmit={handleSubmit}>
+    <div className='pokemon-search-page-container'>
+      <div className='pokemon-form-container'>
+        <form ref={formRef} id='pokemon-search' name='pokemon-search' className='pokemon-form' onSubmit={handleSubmit}>
 
-                <InputFilter name="name" filter="pokemon" onChange={handleChange}/>
+          <InputFilter name='name' filter='pokemon' onChange={handleChange} />
 
-                <PokemonSelectorFilter id="pokemon-type-1" name="type-1" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
-                <PokemonSelectorFilter id="pokemon-type-2" name="type-2" filter="type" ignoreResults={IGNORED_TYPES} disabled={disabledInput}/>
+          <PokemonSelectorFilter id='pokemon-type-1' name='type-1' filter='type' ignoreResults={IGNORED_TYPES} disabled={disabledInput} />
+          <PokemonSelectorFilter id='pokemon-type-2' name='type-2' filter='type' ignoreResults={IGNORED_TYPES} disabled={disabledInput} />
 
-                <InputFilter name="move" filter="move" onChange={handleChange} disabled={disabledInput}/>
+          <InputFilter name='move' filter='move' onChange={handleChange} disabled={disabledInput} />
 
-                <InputFilter name="ability" filter="ability" onChange={handleChange} disabled={disabledInput}/>
+          <InputFilter name='ability' filter='ability' onChange={handleChange} disabled={disabledInput} />
 
-                <PokemonSelectorFilter id="pokemon-generation" name="generation" filter="generation" disabled={disabledInput} romanNumerals/>
+          <PokemonSelectorFilter id='pokemon-generation' name='generation' filter='generation' disabled={disabledInput} romanNumerals />
 
-                <div className="check-pokemon-forms-container">
-                    <label htmlFor="check-pokemon-forms">Include alternative Pokémon forms?</label>
-                    <input id="check-pokemon-forms" type="checkbox" name="pokemon-form-checkbox" disabled={disabledInput}/>
-                </div>
-
-                <button ref={submitRef} id="pokemon-submit" type="submit" disabled={loading}>Search</button>
-            </form>
+          <div className='check-pokemon-forms-container'>
+            <label htmlFor='check-pokemon-forms'>Include alternative Pokémon forms?</label>
+            <input id='check-pokemon-forms' type='checkbox' name='pokemon-form-checkbox' disabled={disabledInput} />
           </div>
-          {loadingStarted && (
-            <div className='response-container'>
-              {loading
-                ? <ChargingGif/>
-                : foundedPokemon.length > 0
-                  ? <div className='pokemon-response-container'>
-                      {(foundedPokemon.map(pokemon => (
-                        <PokemonCard key={pokemon.dex_number} pokemonJson={pokemon} />
-                      )))}
-                    </div>
-                  : (<NotPokemonMessage/>)
-                }
-            </div>
-          )}
+
+          <button ref={submitRef} id='pokemon-submit' type='submit' disabled={loading}>Search</button>
+        </form>
+      </div>
+      {loadingStarted && (
+        <div className='response-container'>
+          {loading
+            ? <ChargingGif />
+            : foundedPokemon.length > 0
+              ? (
+                <div className='pokemon-response-container'>
+                  {(foundedPokemon.map(pokemon => (
+                    <PokemonCard key={pokemon.dex_number} pokemonJson={pokemon} />
+                  )))}
+                </div>
+                )
+              : (<NotPokemonMessage />)}
         </div>
+      )}
+    </div>
 
   )
 }
 
 export function PokemonQuery () {
   return (
-        <PokemonSearchProvider>
-            <PokemonQueryComponent/>
-        </PokemonSearchProvider>
+    <PokemonSearchProvider>
+      <PokemonQueryComponent />
+    </PokemonSearchProvider>
   )
 }

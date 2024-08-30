@@ -26,35 +26,34 @@ function PokemonPageComponent ({ name }) {
 
         <article id='pokemon-page-article' className='pokemon-page-article'>
           <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
-          <NationalDex/>
+          <NationalDex />
 
           <aside id='pokemon-page-aside' className='pokemon-page-info-aside'>
-              <PokemonInfo/>
+            <PokemonInfo />
           </aside>
 
           <section id='pokemon-page-description'>
             <h2>Description</h2>
             <p>{`${capitalizeStr(pokemonSpeciesData.name)} is a ${pokemonDefaultData.types.map(type => capitalizeStr(type.name)).join('/')} 
             type ${pokemonSpeciesData.is_mythical ? 'Mythical' : pokemonSpeciesData.is_legendary ? 'Legendary' : ''} Pokémon 
-            introduced in ${capitalizeStr(pokemonSpeciesData.generation.name, false, true)}.`}</p>
-            <p>
-
+            introduced in ${capitalizeStr(pokemonSpeciesData.generation.name, false, true)}.`}
             </p>
+            <p />
           </section>
 
           <section>
             <h2>Evolutions</h2>
-            <PokemonEvolutionChain className={'pokemon-page-evol-chain'}/>
+            <PokemonEvolutionChain className='pokemon-page-evol-chain' />
           </section>
 
           <section>
             <h2>Pokédex entries</h2>
-            <PokedexEntries/>
+            <PokedexEntries />
           </section>
 
           <section>
             <h2>Moveset</h2>
-            <PokemonMoveset/>
+            <PokemonMoveset />
           </section>
 
         </article>
@@ -66,7 +65,7 @@ export function PokemonPage () {
   const { name } = useParams()
   return (
     <PokemonPageProvider>
-      <PokemonPageComponent name={name}/>
+      <PokemonPageComponent name={name} />
     </PokemonPageProvider>
   )
 }

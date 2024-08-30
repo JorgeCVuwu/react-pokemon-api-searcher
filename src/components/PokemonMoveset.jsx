@@ -17,13 +17,17 @@ export function PokemonMoveset () {
   }
 
   return pokemonLevelMoveset && (
-    <div className='moveset-tables-container'>
-      <div>
+    <div className='moveset-container'>
+      <div className='moveset-buttons-container initial'>
         {pokemonLevelMoveset.map((genMove, key) => (
-          <button key={key} onClick={event => onPointerDown(event, genMove.name)}>{capitalizeStr(genMove.name)}</button>
+          <button
+            key={key} style={{ backgroundColor: pokemonColors.terciary, borderColor: pokemonColors.primary }}
+            onClick={event => onPointerDown(event, genMove.name)}
+          >{capitalizeStr(genMove.name)}
+          </button>
         ))}
       </div>
-      <div>
+      <div className='moveset-tables-container'>
         {pokemonLevelMoveset.map((genMove, key) => (
           <table key={key} className='moveset-table' id={genMove.name} hidden={selectedGen !== genMove.name}>
             <caption>{capitalizeStr(genMove.name, true, true)}</caption>
@@ -31,20 +35,19 @@ export function PokemonMoveset () {
               <tr style={{ backgroundColor: pokemonColors.terciary }}>
                 <th>Move</th>
                 {genMove.display_info.display_one_row
-                  ? <th>{'Level'}</th>
+                  ? <th>Level</th>
                   : genMove.display_info.columns.map((column, key) => (
-                      <th key={key}>{capitalizeStr(column, true)}</th>
+                    <th key={key}>{capitalizeStr(column, true)}</th>
                   ))}
               </tr>
               {genMove.moves.map((move, key) => (
                 <tr key={key} className={`${key % 2 !== 0 ? 'even-row' : ''}`}>
                   <td>{capitalizeStr(move.name)}</td>
                   {genMove.display_info.display_one_row
-                    ? <td key={key}>{move.min_level || 'Evo'}</td>
+                    ? <td key={key} className='level-data-column'>{move.min_level || 'Evo'}</td>
                     : genMove.display_info.columns.map((column, key) => (
-                    <td key={key}>{move.games[column] || (move.games[column] === 0 ? 'Evo' : '')}</td>
-                    ))
-                  }
+                      <td key={key} className='level-data-column'>{move.games[column] || (move.games[column] === 0 ? 'Evo' : '')}</td>
+                    ))}
                 </tr>
               ))}
             </tbody>

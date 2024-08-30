@@ -6,12 +6,12 @@ import { PokemonSearchProvider } from '../context/pokemonSearch.jsx'
 function HeaderComponent () {
   return (
     <header className='header-container'>
-        <nav className='header-nav'>
-            <ul>
-                <li><Link to='/'>Home</Link></li>
-            </ul>
-            <InputFilter name="searchbar" filter="pokemon-species" pokemonSearcher={false}/>
-        </nav>
+      <nav className='header-nav'>
+        <ul>
+          <li><Link to='/'>Home</Link></li>
+        </ul>
+        <InputFilter name='searchbar' filter='pokemon-species' pokemonSearcher={false} />
+      </nav>
     </header>
   )
 }
@@ -19,7 +19,7 @@ function HeaderComponent () {
 export function Header () {
   return (
     <PokemonSearchProvider>
-        <HeaderComponent/>
+      <HeaderComponent />
     </PokemonSearchProvider>
   )
 }

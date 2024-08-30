@@ -21,13 +21,13 @@ export function PokemonSelectorFilter ({ id, name, filter, ignoreResults, disabl
 
   if (loading) {
     return (
-    <select></select>
+      <select />
     )
   }
 
   if (error) {
     return (
-    <p>Error charging {filter} selector</p>
+      <p>Error charging {filter} selector</p>
     )
   }
 
@@ -35,11 +35,10 @@ export function PokemonSelectorFilter ({ id, name, filter, ignoreResults, disabl
     <div className='input-container'>
       <label htmlFor={id}>{`Pokémon ${deleteDashes(name)}:`}</label>
       <select ref={selectRef} id={id} name={filter} onChange={handleChange} disabled={disabled}>
-          <option value=''>None</option>
-          {ignoreResults
-            ? renderOption(data.results.filter(result => !ignoreResults.includes(result.name)))
-            : renderOption(data.results)
-          }
+        <option value=''>None</option>
+        {ignoreResults
+          ? renderOption(data.results.filter(result => !ignoreResults.includes(result.name)))
+          : renderOption(data.results)}
       </select>
     </div>
   )
