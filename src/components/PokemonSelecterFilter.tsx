@@ -1,4 +1,4 @@
-import { POKEAPI_PREFIX } from '../constants/constants'
+import { POKEAPI_PREFIX } from '../constants/constants.js'
 import { useSelectorData } from '../hooks/useSelectorData.js'
 
 import { capitalizeStr, deleteDashes, capitalizeRomanNumerals } from '../utils/utils.js'

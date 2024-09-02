@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { PokemonPageContext } from '../context/pokemonPage.jsx'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
 import { searchEvolutionChain } from '../services/evolution_chain.js'
 import { searchPokemon } from '../services/pokemon.js'

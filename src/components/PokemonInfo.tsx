@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { PokemonPageContext } from '../context/pokemonPage.jsx'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
-import { PokemonFormsAttributes } from './PokemonFormsAttributes.jsx'
+import { PokemonFormsAttributes } from './PokemonFormsAttributes.js'
 
 import { capitalizeStr } from '../utils/utils.js'
 

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useShowFormAttributes } from '../hooks/useShowFormAttributes.js'
 
-import { PokemonPageContext } from '../context/pokemonPage.jsx'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
 import { capitalizeStr } from '../utils/utils.js'
 import { POKEMON_STATS_ABREVIATIONS, STAT_COLORS } from '../constants/constants.js'

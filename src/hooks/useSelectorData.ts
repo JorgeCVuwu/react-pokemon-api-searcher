@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useContext } from 'react'
 import { searchFilterResults } from '../services/filters.js'
-import { PokemonSearchContext } from '../context/pokemonSearch.jsx'
+import { PokemonSearchContext } from '../context/pokemonSearch.js'
 
 export function useSelectorData (url, allResults = true) {
   const [data, setData] = useState(null)

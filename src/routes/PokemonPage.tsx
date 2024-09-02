@@ -5,13 +5,13 @@ import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
 
-import { NationalDex } from '../components/NationalDex.jsx'
-import { PokemonInfo } from '../components/PokemonInfo.jsx'
-import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.jsx'
-import { PokedexEntries } from '../components/PokedexEntries.jsx'
-import { PokemonMoveset } from '../components/PokemonMoveset.jsx'
+import { NationalDex } from '../components/NationalDex.js'
+import { PokemonInfo } from '../components/PokemonInfo.js'
+import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.js'
+import { PokedexEntries } from '../components/PokedexEntries.js'
+import { PokemonMoveset } from '../components/PokemonMoveset.js'
 
-import { PokemonPageProvider, PokemonPageContext } from '../context/pokemonPage.jsx'
+import { PokemonPageProvider, PokemonPageContext } from '../context/pokemonPage.js'
 
 import { capitalizeStr } from '../utils/utils.js'
 

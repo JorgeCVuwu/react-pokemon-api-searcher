@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { InputFilter } from '../components/InputFilter.jsx'
+import { InputFilter } from '../components/InputFilter.js'
 
-import { PokemonSearchProvider } from '../context/pokemonSearch.jsx'
+import { PokemonSearchProvider } from '../context/pokemonSearch.js'
 
 function HeaderComponent () {
   return (

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import { PokemonPageContext } from '../context/pokemonPage.jsx'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
 import { GAMES_DATA } from '../constants/constants.js'
 import { capitalizeStr } from '../utils/utils.js'

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 
-import { PokemonPageContext } from '../context/pokemonPage.jsx'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
 import { POKEMON_FORMS_ACCEPTED, NOT_CONSIDERED_FORMS } from '../constants/constants.js'
 import { compareArraysEqual } from '../utils/utils.js'

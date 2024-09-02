@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { useNationalDex } from '../hooks/useNationalDex.js'
 
 import { Link } from 'react-router-dom'
-import { PokemonPageContext } from '../context/pokemonPage'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
 import { capitalizeStr } from '../utils/utils.js'
 

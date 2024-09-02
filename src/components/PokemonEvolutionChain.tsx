@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import { useEvolutions } from '../hooks/useEvolutions.js'
 
-import { PokemonPageContext } from '../context/pokemonPage.jsx'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
 import { Link } from 'react-router-dom'
 

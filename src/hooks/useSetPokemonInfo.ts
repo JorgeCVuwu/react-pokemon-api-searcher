@@ -6,7 +6,7 @@ import { POKEAPI_PREFIX } from '../constants/constants.js'
 
 import { defineColor } from '../utils/utils.js'
 
-import { PokemonPageContext } from '../context/pokemonPage.jsx'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
 export function useSetPokemonInfo (name) {
   const {

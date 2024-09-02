@@ -3,11 +3,11 @@ import { useBlockInputs } from '../hooks/useBlockInputs.js'
 import { useSearchPokemon } from '../hooks/useSearchPokemon.js'
 import { useValidator } from '../hooks/useValidator.js'
 
-import { PokemonSearchProvider } from '../context/pokemonSearch.jsx'
+import { PokemonSearchProvider } from '../context/pokemonSearch.js'
 
-import { PokemonSelectorFilter } from '../components/PokemonSelecterFilter.jsx'
-import { PokemonCard, NotPokemonMessage, ChargingGif } from '../components/PokemonCard.jsx'
-import { InputFilter } from '../components/InputFilter.jsx'
+import { PokemonSelectorFilter } from '../components/PokemonSelecterFilter.js'
+import { PokemonCard, NotPokemonMessage, ChargingGif } from '../components/PokemonCard.js'
+import { InputFilter } from '../components/InputFilter.js'
 
 import { toKebabCase } from '../utils/utils.js'
 

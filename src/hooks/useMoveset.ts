@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { PokemonPageContext } from '../context/pokemonPage'
+import { PokemonPageContext } from '../context/pokemonPage.js'
 
 import { GAMES_DATA } from '../constants/constants.js'
 

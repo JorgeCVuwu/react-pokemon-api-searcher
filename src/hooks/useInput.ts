@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useContext } from 'react'
 
 import { useSelectorData } from './useSelectorData.js'
 
-import { PokemonSearchContext } from '../context/pokemonSearch.jsx'
+import { PokemonSearchContext } from '../context/pokemonSearch.js'
 
 import { toKebabCase } from '../utils/utils.js'
 
