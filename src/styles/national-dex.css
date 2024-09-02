@@ -17,7 +17,7 @@
 }
 
 .national-dex-attached-pokemon {
-    background-color: #D3D3D3;
+    background-color: #f4f4f9;
     display: flex;
     gap: 10px;
     padding: 0 10px;
@@ -32,17 +32,17 @@
 }
 
 .national-dex-attached-pokemon:hover {
-    filter: brightness(1.05);
+    filter: brightness(0.95);
 }
 
 .national-dex-attached-pokemon.left {
     border-radius: 10px 0 0 10px;
-    justify-content: start;
+    justify-content: space-between;
 }
 
 .national-dex-attached-pokemon.right {
     border-radius: 0 10px 10px 0;
-    justify-content: end;
+    justify-content: space-between;
 }
 
 .national-dex-link {
@@ -58,6 +58,7 @@
     align-self: center;
     margin-bottom: 20px;
     padding: 5px;
+    gap: 10px;
 }
 
 .national-dex-current-container {
@@ -90,6 +91,7 @@
     padding: 2px;
     font-size: 15px;
     text-align: center;
+    font-family: 'VT323', monospace;
 }
 
 

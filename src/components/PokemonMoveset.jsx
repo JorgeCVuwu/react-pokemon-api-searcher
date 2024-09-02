@@ -3,25 +3,57 @@ import { useContext } from 'react'
 import { useMoveset } from '../hooks/useMoveset.js'
 import { PokemonPageContext } from '../context/pokemonPage.jsx'
 
+import { capitalizeStr } from '../utils/utils.js'
+
+import '../styles/moveset.css'
+
 export function PokemonMoveset () {
-  const { pokemonDefaultData, pokemonFormsData } = useContext(PokemonPageContext)
-  return (
-        <table>
+  const { pokemonLevelMoveset, selectedGen, changeSelectedTable } = useMoveset()
+
+  const { pokemonColors } = useContext(PokemonPageContext)
+
+  const onPointerDown = (event, genName) => {
+    changeSelectedTable({ genName })
+  }
+
+  return pokemonLevelMoveset && (
+    <div className='moveset-container'>
+      <div className='moveset-buttons-container initial'>
+        {pokemonLevelMoveset.map((genMove, key) => (
+          <button
+            key={key} style={{ backgroundColor: pokemonColors.terciary, borderColor: pokemonColors.primary }}
+            onClick={event => onPointerDown(event, genMove.name)}
+          >{capitalizeStr(genMove.name)}
+          </button>
+        ))}
+      </div>
+      <div className='moveset-tables-container'>
+        {pokemonLevelMoveset.map((genMove, key) => (
+          <table key={key} className='moveset-table' id={genMove.name} hidden={selectedGen !== genMove.name}>
+            <caption>{capitalizeStr(genMove.name, true, true)}</caption>
             <tbody>
-                <tr>
-                    <th>Move</th>
-                    <th>Level learned</th>
-                </tr>
-                {pokemonDefaultData.moves.filter(move => move.version_group_details
-                  .some(version => version.level_learned_at > 0 && version.version_group.name === 'red-blue'))
-                  .sort((move1, move2) => move1.version_group_details.find(version => version.version_group.name === 'red-blue').level_learned_at - move2.version_group_details.find(version => version.version_group.name === 'red-blue').level_learned_at)
-                  .map((move, key) => (
-                    <tr key={key}>
-                        <td>{move.name}</td>
-                        <td>{move.version_group_details.find(version => version.version_group.name === 'red-blue').level_learned_at}</td>
-                    </tr>
+              <tr style={{ backgroundColor: pokemonColors.terciary }}>
+                <th>Move</th>
+                {genMove.display_info.display_one_row
+                  ? <th>Level</th>
+                  : genMove.display_info.columns.map((column, key) => (
+                    <th key={key}>{capitalizeStr(column, true)}</th>
                   ))}
+              </tr>
+              {genMove.moves.map((move, key) => (
+                <tr key={key} className={`${key % 2 !== 0 ? 'even-row' : ''}`}>
+                  <td>{capitalizeStr(move.name)}</td>
+                  {genMove.display_info.display_one_row
+                    ? <td key={key} className='level-data-column'>{move.min_level || 'Evo'}</td>
+                    : genMove.display_info.columns.map((column, key) => (
+                      <td key={key} className='level-data-column'>{move.games[column] || (move.games[column] === 0 ? 'Evo' : '')}</td>
+                    ))}
+                </tr>
+              ))}
             </tbody>
-        </table>
+          </table>
+        ))}
+      </div>
+    </div>
   )
 }

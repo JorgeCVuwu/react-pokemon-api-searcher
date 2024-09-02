@@ -21,8 +21,9 @@ export function PokemonPageProvider ({ children }) {
       setPokemonColors,
       charged,
       setCharged
-    }}>
-        {children}
+    }}
+    >
+      {children}
     </PokemonPageContext.Provider>
   )
 }

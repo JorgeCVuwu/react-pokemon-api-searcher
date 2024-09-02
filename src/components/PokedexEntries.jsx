@@ -10,13 +10,13 @@ import '../styles/pokedex-entries.css'
 export function PokedexEntries () {
   const { pokemonSpeciesData, pokemonColors } = useContext(PokemonPageContext)
   return (
-        <table className='pokedex-entries-table' style={{ backgroundColor: pokemonColors.terciary, borderColor: pokemonColors.primary }}>
-          <tbody>
-            <tr className='pokedex-entries-row'>
-              <th>Game</th>
-              <th>Description</th>
-            </tr>
-            {
+    <table className='pokedex-entries-table' style={{ backgroundColor: pokemonColors.terciary, borderColor: pokemonColors.primary }}>
+      <tbody>
+        <tr className='pokedex-entries-row'>
+          <th>Game</th>
+          <th>Description</th>
+        </tr>
+        {
             pokemonSpeciesData.flavor_text_entries.filter(info => info.language.name === 'en')
               .map((info, key) => (
                 <tr key={key} className='pokedex-entries-row'>
@@ -25,7 +25,7 @@ export function PokedexEntries () {
                 </tr>
               ))
             }
-          </tbody>
-        </table>
+      </tbody>
+    </table>
   )
 }

@@ -18,14 +18,14 @@ export function NationalDex () {
         <Link className='national-dex-link' to={`/pokemon/${prevPokemonInfo.name}`}>
           <div className='national-dex-attached-pokemon left'>
             {/* <p>#{prevPokemonInfo.id}</p> */}
-            <i className='left-arrow'></i>
+            <i className='left-arrow' />
             <p>{capitalizeStr(prevPokemonInfo.name)}</p>
           </div>
         </Link>
 
         <div className='national-dex-current-container'>
           <div className='national-dex-sprite-container'>
-            <img className='national-dex-sprite' src={pokemonDefaultData.sprites.front_sprite} alt={`Front sprite of ${pokemonDefaultData.name}`}></img>
+            <img className='national-dex-sprite' src={pokemonDefaultData.sprites.front_sprite} alt={`Front sprite of ${pokemonDefaultData.name}`} />
           </div>
           <div className='national-dex-number'>{`#${pokemonSpeciesData.id}`}</div>
         </div>
@@ -33,7 +33,7 @@ export function NationalDex () {
         <Link className='national-dex-link' to={`/pokemon/${nextPokemonInfo.name}`}>
           <div className='national-dex-attached-pokemon right'>
             <p>{capitalizeStr(nextPokemonInfo.name)}</p>
-            <i className='right-arrow'></i>
+            <i className='right-arrow' />
             {/* <p>#{nextPokemonInfo.id}</p> */}
           </div>
         </Link>

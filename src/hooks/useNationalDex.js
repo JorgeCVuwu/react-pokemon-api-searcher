@@ -15,7 +15,7 @@ export function useNationalDex () {
       searchFilterResults(url)
         .then(results => {
           const prevInfo = results.results.find(species => species.id === currentId - 1) ??
-            results.results.find(species => species.id === results.results.length - 1)
+            results.results.find(species => species.id === results.results.length)
           const nextInfo = results.results.find(species => species.id === currentId + 1) ??
             results.results.find(species => species.id === 1)
           setPrevPokemonInfo(prevInfo)
