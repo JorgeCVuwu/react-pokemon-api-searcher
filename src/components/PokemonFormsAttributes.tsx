@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import { useShowFormAttributes } from '../hooks/useShowFormAttributes.js'
+import { useShowFormAttributes } from '../hooks/useShowFormAttributes.ts'
 
-import { PokemonPageContext } from '../context/pokemonPage.js'
+import { PokemonPageContext } from '../context/pokemonPage.tsx'
 
-import { capitalizeStr } from '../utils/utils.js'
-import { POKEMON_STATS_ABREVIATIONS, STAT_COLORS } from '../constants/constants.js'
+import { capitalizeStr } from '../utils/utils.ts'
+import { POKEMON_STATS_ABREVIATIONS, STAT_COLORS } from '../constants/constants.ts'
 
 const ATTRIBUTE_FUNCTIONS = {
   height: (val) => `${val / 10} m`,

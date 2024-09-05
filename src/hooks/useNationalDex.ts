@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
-import { PokemonPageContext } from '../context/pokemonPage.js'
-import { searchFilterResults } from '../services/filters.js'
-import { POKEAPI_PREFIX } from '../constants/constants.js'
+import { PokemonPageContext } from '../context/pokemonPage.tsx'
+import { searchFilterResults } from '../services/filters.ts'
+import { POKEAPI_PREFIX } from '../constants/constants.ts'
 
 export function useNationalDex () {
   const [prevPokemonInfo, setPrevPokemonInfo] = useState(null)

@@ -1,5 +1,5 @@
 import { useRef, useContext, useEffect, useState } from 'react'
-import { PokemonSearchContext } from '../context/pokemonSearch.js'
+import { PokemonSearchContext } from '../context/pokemonSearch.tsx'
 
 export function useValidator () {
   const [validated, setValidated] = useState(false)

@@ -1,4 +1,4 @@
-import { fetchData } from './fetch/fetch.js'
+import { fetchData } from './fetch/fetch.ts'
 import { POKEMON_LIST_KEY_IN_PROPERTY, POKEMON_KEY_IN_PROPERTY } from '../constants/constants.js'
 
 export async function searchPokemonFilter (url, filterName) {

@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef, useContext } from 'react'
-import { searchFilterResults } from '../services/filters.js'
-import { PokemonSearchContext } from '../context/pokemonSearch.js'
+import { searchFilterResults } from '../services/filters.ts'
+import { PokemonSearchContext } from '../context/pokemonSearch.tsx'
 
-export function useSelectorData (url, allResults = true) {
+export function useSelectorData(url: string, allResults = true) {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const selectRef = useRef()
+  const selectRef = useRef<HTMLSelectElement>()
 
   const { setInputs } = useContext(PokemonSearchContext)
 
@@ -20,7 +20,7 @@ export function useSelectorData (url, allResults = true) {
   }, [])
 
   const updateInput = () => {
-    if (data) {
+    if (data && selectRef.current) {
       // const validate = selectRef.current.value !== ''
       setInputs(input => ({
         ...input,

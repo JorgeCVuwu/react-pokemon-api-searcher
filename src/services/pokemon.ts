@@ -1,7 +1,10 @@
-import { fetchData } from './fetch/fetch.js'
+import { fetchData } from './fetch/fetch.ts'
+import { pokemonJsonDataProps } from '../interfaces/pokemon.ts'
 
-export async function searchPokemon (url) {
-  const pokemonJson = await fetchData(url)
+export async function searchPokemon(url: string) {
+  const pokemonJson: pokemonJsonDataProps | null = await fetchData(url)
+
+  if (pokemonJson === null) return
 
   return {
     id: pokemonJson.id,

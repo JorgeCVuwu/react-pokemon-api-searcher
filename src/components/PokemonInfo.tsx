@@ -1,9 +1,9 @@
 import { useContext } from 'react'
-import { PokemonPageContext } from '../context/pokemonPage.js'
+import { PokemonPageContext } from '../context/pokemonPage.tsx'
 
-import { PokemonFormsAttributes } from './PokemonFormsAttributes.js'
+import { PokemonFormsAttributes } from './PokemonFormsAttributes.tsx'
 
-import { capitalizeStr } from '../utils/utils.js'
+import { capitalizeStr } from '../utils/utils.ts'
 
 export function PokemonInfo () {
   const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, pokemonColors, charged } = useContext(PokemonPageContext)

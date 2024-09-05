@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
 
-import { Header } from './routes/Header.jsx'
-import { PokemonQuery } from './routes/PokemonQuery.jsx'
-import { PokemonPage } from './routes/PokemonPage.jsx'
-import { NotFound } from './routes/NotFound.jsx'
+import { Header } from './routes/Header.tsx'
+import { PokemonQuery } from './routes/PokemonQuery.tsx'
+import { PokemonPage } from './routes/PokemonPage.tsx'
+import { NotFound } from './routes/NotFound.tsx'
 
 function Layout () {
   return (

@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef, useContext } from 'react'
 
-import { useSelectorData } from './useSelectorData.js'
+import { useSelectorData } from './useSelectorData.ts'
 
-import { PokemonSearchContext } from '../context/pokemonSearch.js'
+import { PokemonSearchContext } from '../context/pokemonSearch.tsx'
 
-import { toKebabCase } from '../utils/utils.js'
+import { toKebabCase } from '../utils/utils.ts'
 
-export function useInput ({ url }) {
+interface UseInput {
+  url: string
+}
+
+export function useInput({ url }: UseInput) {
   const [autocompleteOptions, setAutocompleteOptions] = useState([])
   const [showAutoComplete, setShowAutocomplete] = useState(false)
   const [focusedInput, setFocusedInput] = useState(false)
@@ -14,13 +18,13 @@ export function useInput ({ url }) {
 
   const { inputs, setInputs } = useContext(PokemonSearchContext)
 
-  const inputRef = useRef()
+  const inputRef = useRef<HTMLInputElement>()
 
   const { data } = useSelectorData(url)
 
   useEffect(() =>
     setShowAutocomplete(autocompleteOptions.length > 0)
-  , [autocompleteOptions]
+    , [autocompleteOptions]
   )
 
   useEffect(() => {
@@ -30,26 +34,33 @@ export function useInput ({ url }) {
   }, [focusedInput])
 
   useEffect(() => {
-    setHideValidationError(inputRef.current.value === '' || inputs[inputRef.current.name].validated)
+    if (inputRef.current) {
+      setHideValidationError(inputRef.current.value === '' || inputs[inputRef.current.name].validated)
+    }
   }, [inputs])
 
   const updateInput = () => {
-    if (data) {
+    if (data && inputRef.current) {
       const validate = inputRef.current.value === '' || data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
       setInputs(input => ({ ...input, [inputRef.current.name]: { ...input[inputRef.current.name], value: inputRef.current.value, validated: validate } }))
     }
   }
 
   const filterAutocomplete = () => {
-    const input = inputRef.current.value
-    input === ''
-      ? setAutocompleteOptions([])
-      : setAutocompleteOptions(data.results.filter((value) => value.name.startsWith(toKebabCase(input))).slice(0, 10))
+    if (inputRef.current) {
+      const input = inputRef.current.value
+      return input === ''
+        ? setAutocompleteOptions([])
+        : setAutocompleteOptions(data.results.filter((value) => value.name.startsWith(toKebabCase(input))).slice(0, 10))
+    }
   }
 
-  const autocompleteInputValue = (value) => {
-    inputRef.current.value = value
-    setAutocompleteOptions([])
+  const autocompleteInputValue = (value: string) => {
+    if (inputRef.current) {
+      inputRef.current.value = value
+
+      setAutocompleteOptions([])
+    }
   }
 
   const checkFocusStatus = (isFocused) => {

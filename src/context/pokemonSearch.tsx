@@ -1,8 +1,12 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, ReactNode } from 'react'
 
 export const PokemonSearchContext = createContext()
 
-export function PokemonSearchProvider ({ children }) {
+interface PokemonSearchProviderProps {
+  children: ReactNode
+}
+
+export function PokemonSearchProvider({ children }: PokemonSearchProviderProps) {
   const [inputs, setInputs] = useState({})
 
   return (

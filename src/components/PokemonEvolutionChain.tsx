@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 
-import { useEvolutions } from '../hooks/useEvolutions.js'
+import { useEvolutions } from '../hooks/useEvolutions.ts'
 
-import { PokemonPageContext } from '../context/pokemonPage.js'
+import { PokemonPageContext } from '../context/pokemonPage.tsx'
 
 import { Link } from 'react-router-dom'
 
-import { capitalizeStr, defineColor } from '../utils/utils.js'
+import { capitalizeStr, defineColor } from '../utils/utils.ts'
 
 import '../styles/evolution-tree.css'
 

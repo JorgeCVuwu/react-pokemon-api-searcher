@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
-import { PokemonPageContext } from '../context/pokemonPage.js'
+import { PokemonPageContext } from '../context/pokemonPage.tsx'
 
-import { GAMES_DATA } from '../constants/constants.js'
+import { GAMES_DATA } from '../constants/constants.ts'
 
 const splitFirstHalf = (str) => {
   if (!str.includes('-')) return str

@@ -1,21 +1,21 @@
 import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
 
-export function getCommonElements (lists) {
+export function getCommonElements(lists) {
   if (lists.length === 0 || lists.find(arr => arr.length === 0)) return []
   return lists[0].filter(url =>
     lists.every(list => list.includes(url))
   )
 }
 
-export function sortPokemonUrlsById (list) {
+export function sortPokemonUrlsById(list) {
   return list.sort((url1, url2) => url1.split('/').at(-2) - url2.split('/').at(-2))
 }
 
-export function getSortedCommonElements (arr) {
+export function getSortedCommonElements(arr) {
   return sortPokemonUrlsById(getCommonElements(arr))
 }
 
-export function pushFilteringSpecialForms (urls) {
+export function pushFilteringSpecialForms(urls) {
   return urls.filter(url => {
     const urlId = url.split('/').at(-2)
     // PokemonAPI convention: id > 10000 => pokemon special form
@@ -23,18 +23,18 @@ export function pushFilteringSpecialForms (urls) {
   })
 }
 
-export function removeDigits (str) {
+export function removeDigits(str: string): string {
   return str.replace(/\d+/g, '')
 }
 
-export function toKebabCase (str) {
+export function toKebabCase(str: string): string {
   if (!str) return str
   return str
     .toLowerCase()
     .replace(/\s+/g, '-')
 }
 
-export function capitalizeStr (str, keepDash = false, romanNumerals = false) {
+export function capitalizeStr(str: string, keepDash = false, romanNumerals = false): string {
   if (!str) return str
   const res = str.replace(/\b\w/g, char => char.toUpperCase())
   const res2 = keepDash
@@ -45,18 +45,18 @@ export function capitalizeStr (str, keepDash = false, romanNumerals = false) {
     : res2
 }
 
-export function deleteDashes (str) {
+export function deleteDashes(str: string): string {
   if (!str) return str
   return str.replace(/-/g, ' ')
 }
 
-export function capitalizeRomanNumerals (str) {
+export function capitalizeRomanNumerals(str: string) {
   const romanNumeralRegex = /\b(M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))\b/gi
 
   return str.replace(romanNumeralRegex, match => match.toUpperCase())
 }
 
-export function compareArraysEqual (arr1, arr2) {
+export function compareArraysEqual(arr1, arr2) {
   if (arr1.length !== arr2.length) return false
 
   for (let i = 0; i < arr1.length; i++) {
@@ -66,7 +66,7 @@ export function compareArraysEqual (arr1, arr2) {
   return true
 }
 
-export function compareArraysSameElements (arr1, arr2) {
+export function compareArraysSameElements(arr1, arr2) {
   const set1 = new Set(arr1)
   const set2 = new Set(arr2)
 
@@ -80,7 +80,7 @@ export function compareArraysSameElements (arr1, arr2) {
 }
 
 // función copiada de ChatGPT XD
-function lightenColor (hex, percent) {
+function lightenColor(hex, percent) {
   const num = parseInt(hex.slice(1), 16)
   const amt = Math.round(2.55 * percent)
   const R = (num >> 16) + amt
@@ -95,7 +95,7 @@ function lightenColor (hex, percent) {
   ).toString(16).slice(1).toUpperCase()}`
 }
 
-export function defineColor ({ type, priority }) {
+export function defineColor({ type, priority }) {
   const TYPE_COLOR_FUNCTIONS = {
     primary: 0,
     secondary: 15,

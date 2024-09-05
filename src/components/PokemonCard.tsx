@@ -1,4 +1,4 @@
-import { capitalizeStr } from '../utils/utils.js'
+import { capitalizeStr } from '../utils/utils.ts'
 import { Link } from 'react-router-dom'
 
 export function PokemonCard ({ pokemonJson }) {

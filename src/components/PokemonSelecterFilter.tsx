@@ -1,5 +1,5 @@
-import { POKEAPI_PREFIX } from '../constants/constants.js'
-import { useSelectorData } from '../hooks/useSelectorData.js'
+import { POKEAPI_PREFIX } from '../constants/constants.ts'
+import { useSelectorData } from '../hooks/useSelectorData.ts'
 
 import { capitalizeStr, deleteDashes, capitalizeRomanNumerals } from '../utils/utils.js'
 

@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import { useNationalDex } from '../hooks/useNationalDex.js'
+import { useNationalDex } from '../hooks/useNationalDex.ts'
 
 import { Link } from 'react-router-dom'
-import { PokemonPageContext } from '../context/pokemonPage.js'
+import { PokemonPageContext } from '../context/pokemonPage.tsx'
 
-import { capitalizeStr } from '../utils/utils.js'
+import { capitalizeStr } from '../utils/utils.ts'
 
 import '../styles/national-dex.css'
 

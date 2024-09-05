@@ -1,6 +1,6 @@
-import { fetchData } from './fetch/fetch.js'
+import { fetchData } from './fetch/fetch.ts'
 
-export async function searchPokemonSpecies (url) {
+export async function searchPokemonSpecies(url: string) {
   const pokemonJson = await fetchData(url)
 
   return {

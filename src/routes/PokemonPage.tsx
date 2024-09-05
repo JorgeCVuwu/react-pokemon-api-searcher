@@ -5,11 +5,11 @@ import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
 
-import { NationalDex } from '../components/NationalDex.js'
-import { PokemonInfo } from '../components/PokemonInfo.js'
-import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.js'
-import { PokedexEntries } from '../components/PokedexEntries.js'
-import { PokemonMoveset } from '../components/PokemonMoveset.js'
+import { NationalDex } from '../components/NationalDex.tsx'
+import { PokemonInfo } from '../components/PokemonInfo.tsx'
+import { PokemonEvolutionChain } from '../components/PokemonEvolutionChain.tsx'
+import { PokedexEntries } from '../components/PokedexEntries.tsx'
+import { PokemonMoveset } from '../components/PokemonMoveset.tsx'
 
 import { PokemonPageProvider, PokemonPageContext } from '../context/pokemonPage.js'
 
@@ -38,7 +38,6 @@ function PokemonPageComponent ({ name }) {
             type ${pokemonSpeciesData.is_mythical ? 'Mythical' : pokemonSpeciesData.is_legendary ? 'Legendary' : ''} Pokémon 
             introduced in ${capitalizeStr(pokemonSpeciesData.generation.name, false, true)}.`}
             </p>
-            <p />
           </section>
 
           <section>

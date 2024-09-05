@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import { searchPokemon } from '../services/pokemon.js'
-import { searchPokemonFilter } from '../services/pokemon_filter.js'
-import { searchPokemonSpecies } from '../services/pokemon_species.js'
-import { POKEAPI_PREFIX } from '../constants/constants.js'
+import { searchPokemon } from '../services/pokemon.ts'
+import { searchPokemonFilter } from '../services/pokemon_filter.ts'
+import { searchPokemonSpecies } from '../services/pokemon_species.ts'
+import { POKEAPI_PREFIX } from '../constants/constants.ts'
 import { getSortedCommonElements, pushFilteringSpecialForms, removeDigits } from '../utils/utils.js'
 
 export function useSearchPokemon () {

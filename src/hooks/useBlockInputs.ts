@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 
-export function useBlockInputs (inputRefId) {
+export function useBlockInputs(inputRefId: string) {
   const [disabledInput, setDisabledInput] = useState(false)
-  const formRef = useRef()
+  const formRef = useRef<HTMLFormElement>()
 
   useEffect(() => {
-    if (disabledInput) {
+    if (disabledInput && formRef.current) {
       const inputs = formRef.current.querySelectorAll('input, select')
       const nameRef = formRef.current.querySelector(`#${inputRefId}`)
       inputs.forEach((input) => {

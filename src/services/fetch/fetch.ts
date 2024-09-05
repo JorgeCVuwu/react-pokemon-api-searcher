@@ -1,4 +1,8 @@
-export async function fetchData (url) {
+import { pokemonJsonDataProps } from "../pokemon.ts"
+
+type pokemonJsonFormats = pokemonJsonDataProps
+
+export async function fetchData(url: string): Promise<(pokemonJsonFormats | null)> {
   try {
     const response = await fetch(url)
     if (!response.ok) {
@@ -8,6 +12,6 @@ export async function fetchData (url) {
     return pokemonJson
   } catch (error) {
     console.error('Fetch error: ', error, 'searching', url)
-    return false
+    return null
   }
 }

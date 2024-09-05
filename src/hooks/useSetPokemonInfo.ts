@@ -1,12 +1,12 @@
-import { searchPokemonSpecies } from '../services/pokemon_species.js'
-import { searchPokemon } from '../services/pokemon.js'
+import { searchPokemonSpecies } from '../services/pokemon_species.ts'
+import { searchPokemon } from '../services/pokemon.ts'
 import { useContext, useEffect } from 'react'
 
-import { POKEAPI_PREFIX } from '../constants/constants.js'
+import { POKEAPI_PREFIX } from '../constants/constants.ts'
 
-import { defineColor } from '../utils/utils.js'
+import { defineColor } from '../utils/utils.ts'
 
-import { PokemonPageContext } from '../context/pokemonPage.js'
+import { PokemonPageContext } from '../context/pokemonPage.tsx'
 
 export function useSetPokemonInfo (name) {
   const {

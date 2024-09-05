@@ -1,4 +1,4 @@
-import { fetchData } from './fetch/fetch.js'
+import { fetchData } from './fetch/fetch.ts'
 
 export async function searchEvolutionChain (url) {
   const chainJson = await fetchData(url)

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import { useInput } from '../hooks/useInput.js'
+import { useInput } from '../hooks/useInput.ts'
 
-import { POKEAPI_PREFIX } from '../constants/constants.js'
-import { capitalizeStr, toKebabCase } from '../utils/utils.js'
+import { POKEAPI_PREFIX } from '../constants/constants.ts'
+import { capitalizeStr, toKebabCase } from '../utils/utils.ts'
 
 const AutocompleteOptions = ({ inputRef, autocompleteOptions, handlePointerDown }) => {
   const autocompletePosition = ({ inputRef }) => {
@@ -26,7 +26,7 @@ const AutocompleteOptions = ({ inputRef, autocompleteOptions, handlePointerDown 
   )
 }
 
-export function InputFilter ({ name, filter, disabled, onChange, pokemonSearcher = true }) {
+export function InputFilter({ name, filter, disabled, onChange, pokemonSearcher = true }) {
   const url = `${POKEAPI_PREFIX}${filter}`
   const {
     inputRef,
@@ -56,12 +56,12 @@ export function InputFilter ({ name, filter, disabled, onChange, pokemonSearcher
     checkFocusStatus(false)
   }
 
-  const searchFromSearchBar = (event) => {
+  const searchFromSearchBar = (event: Event) => {
     event.preventDefault()
     // const form = event.target.closest('form')
     const inputInfo = inputRef.current.value
 
-    hideValidationError
+    return hideValidationError
       ? navigate(`/pokemon/${toKebabCase(inputInfo)}`)
       : navigate('/not-found')
 
@@ -88,7 +88,7 @@ export function InputFilter ({ name, filter, disabled, onChange, pokemonSearcher
               <line x1='21' y1='21' x2='16.65' y2='16.65' />
             </svg>
           </button>
-          )}
+        )}
     </div>
   )
 
@@ -96,8 +96,8 @@ export function InputFilter ({ name, filter, disabled, onChange, pokemonSearcher
     ? inputFilter
 
     : (
-      <form onSubmit={searchFromSearchBar}>
+      <form onSubmit={searchFromSearchBar} >
         {inputFilter}
       </form>
-      )
+    )
 }

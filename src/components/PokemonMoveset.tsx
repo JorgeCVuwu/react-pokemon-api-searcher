@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 
-import { useMoveset } from '../hooks/useMoveset.js'
-import { PokemonPageContext } from '../context/pokemonPage.js'
+import { useMoveset } from '../hooks/useMoveset.ts'
+import { PokemonPageContext } from '../context/pokemonPage.tsx'
 
-import { capitalizeStr } from '../utils/utils.js'
+import { capitalizeStr } from '../utils/utils.ts'
 
 import '../styles/moveset.css'
 
