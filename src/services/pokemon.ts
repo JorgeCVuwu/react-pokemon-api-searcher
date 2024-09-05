@@ -1,8 +1,10 @@
 import { fetchData } from './fetch/fetch.ts'
-import { pokemonJsonDataProps, pokemonDataProps } from '../interfaces/pokemon.ts'
 
-export async function searchPokemon(url: string): Promise<pokemonDataProps | null> {
-  const pokemonJson: pokemonJsonDataProps = await fetchData(url)
+import { pokeapiType } from './interfaces/pokeapi.ts'
+import { pokemonProps } from './interfaces/project/pokemon.ts'
+
+export async function searchPokemon(url: string): Promise<pokemonProps | null> {
+  const pokemonJson: pokeapiType = await fetchData(url)
 
   if (pokemonJson === null) return null
 

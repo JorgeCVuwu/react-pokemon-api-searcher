@@ -24,34 +24,13 @@ interface pokemonMoveProps {
     version_group_details: moveDetailsProps[]
 }
 
-interface pokemonJsonTypeProps {
-    type: { name: string, url: string }
-    slot: number
-}
-
-interface pokemonJsonAbilityProps {
-    ability: { name: string, url: string },
-    is_hidden: boolean
-}
-
-interface pokemonJsonStatsProps {
-    stat: { name: string, url: string }
-    base_stat: number,
-    effort: number
-}
-
-interface pokemonJsonMoveProps {
-    move: { name: string, url: string },
-    version_group_details: moveDetailsProps[]
-}
-
 interface moveDetailsProps {
     level_learned_at: number,
     move_learn_method: { name: string, url: string },
     version_group: { name: string, url: string }
 }
 
-export interface pokemonDataProps {
+export interface pokemonProps {
     id: number,
     name: string,
     front_sprite: string,
@@ -66,22 +45,4 @@ export interface pokemonDataProps {
     height: number,
     weight: number,
     moves: pokemonMoveProps[],
-}
-
-export interface pokemonJsonDataProps {
-    id: number,
-    name: string,
-    sprites: {
-        front_default: string,
-        other: { 'official-artwork': { front_default: string, front_shiny: string } }
-    },
-    cries: { latest: string },
-    types: pokemonJsonTypeProps[],
-    is_default: boolean,
-    species: { name: string, url: string },
-    abilities: pokemonJsonAbilityProps[],
-    stats: pokemonJsonStatsProps[],
-    height: number,
-    weight: number,
-    moves: pokemonJsonMoveProps[]
 }
