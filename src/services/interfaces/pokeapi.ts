@@ -1,4 +1,13 @@
-import { pokemonProps } from "./pokeapi/pokemon.ts"
-import { pokemonSpeciesProps } from "./pokeapi/pokemon_species.ts"
+import { pokeapiPokemonProps } from "./pokeapi/pokemon.ts"
+import { pokeapiPokemonSpeciesProps } from "./pokeapi/pokemon_species.ts"
+import { pokeapiFiltersProps } from "./pokeapi/filters.ts"
+import { pokeapiGenerationProps } from "./pokeapi/generation.ts"
+import { pokeapiMoveProps } from "./pokeapi/move.ts"
+import { pokeapiAbilityProps } from "./pokeapi/ability.ts"
+import { pokeapiTypeProps } from "./pokeapi/type.ts"
+import { pokeapiEvolutionChainProps } from "./pokeapi/evolution_chain.ts"
 
-export type pokeapiType = (pokemonProps & pokemonSpeciesProps) | null
+type pokeapiTypes = pokeapiPokemonProps | pokeapiPokemonSpeciesProps | pokeapiFiltersProps |
+    pokeapiGenerationProps | pokeapiMoveProps | pokeapiAbilityProps | pokeapiTypeProps | pokeapiEvolutionChainProps
+
+export type pokeapiType = pokeapiTypes | null

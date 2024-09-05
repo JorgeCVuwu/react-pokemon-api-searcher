@@ -1,12 +1,23 @@
 import { fetchData } from './fetch/fetch.ts'
-import { POKEMON_LIST_KEY_IN_PROPERTY, POKEMON_KEY_IN_PROPERTY } from '../constants/constants.js'
+import { POKEMON_LIST_KEY_IN_PROPERTY, POKEMON_KEY_IN_PROPERTY, pokemonPropertyTypes, pokemonFilterProperties } from '../constants/constants.js'
 
-export async function searchPokemonFilter (url, filterName) {
-  const json = await fetchData(url)
+import { pokeapiType } from './interfaces/pokeapi.ts'
+import { pokemonFilterProps } from './interfaces/pokeapi/pokemon_filter.ts'
+
+export async function searchPokemonFilter(url: string, filterName: pokemonPropertyTypes) {
+  const json: pokeapiType = await fetchData(url) as pokemonFilterProps
+
+  if (json === null) return null
+
+  const propertyName: pokemonFilterProperties = POKEMON_LIST_KEY_IN_PROPERTY[filterName]
+  const jsonProperty = json[propertyName] ?? null
+  const keyInProperty: string | null = POKEMON_KEY_IN_PROPERTY?.[filterName] ?? null
+
+  if (jsonProperty === null) return null
 
   return {
-    pokemonList: json[POKEMON_LIST_KEY_IN_PROPERTY[filterName]].map(pokemon => {
-      const pokemonData = pokemon?.[POKEMON_KEY_IN_PROPERTY?.[filterName]] ?? pokemon
+    pokemonList: jsonProperty.map(pokemon => {
+      const pokemonData = keyInProperty !== null ? pokemon?.[keyInProperty] ?? pokemon : null
       return {
         url: pokemonData.url
       }

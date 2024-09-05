@@ -25,7 +25,7 @@ interface pokemonMoveProps {
     version_group_details: moveDetailsProps[]
 }
 
-export interface pokemonProps {
+export interface pokeapiPokemonProps {
     id: number,
     name: string,
     sprites: {

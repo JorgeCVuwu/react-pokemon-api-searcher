@@ -1,8 +1,10 @@
 export const POKEAPI_PREFIX = 'https://pokeapi.co/api/v2/'
 export const IGNORED_TYPES = ['stellar', 'shadow', 'unknown']
 
-export const POKEMON_LIST_KEY_IN_PROPERTY = { type: 'pokemon', ability: 'pokemon', move: 'learned_by_pokemon', generation: 'pokemon_species' }
-export const POKEMON_KEY_IN_PROPERTY = { type: 'pokemon', ability: 'pokemon' }
+export type pokemonPropertyTypes = 'type' | 'ability' | 'move' | 'generation'
+export type pokemonFilterProperties = 'pokemon' | 'learned_by_pokemon' | 'pokemon_species'
+export const POKEMON_LIST_KEY_IN_PROPERTY: Record<pokemonPropertyTypes, pokemonFilterProperties> = { type: 'pokemon', ability: 'pokemon', move: 'learned_by_pokemon', generation: 'pokemon_species' }
+export const POKEMON_KEY_IN_PROPERTY: Record<pokemonPropertyTypes, pokemonFilterProperties | null> = { type: 'pokemon', ability: 'pokemon', move: null, generation: null }
 
 export const POKEMON_TYPE_COLORS = {
   normal: '#A8A77A',
@@ -47,8 +49,8 @@ export const POKEMON_FORMS_ACCEPTED = ['-alola', '-galar', '-galar-standard', '-
 
 export const POKEMON_REGIONAL_FORMS =
   [{ region: 'alola', suffix: '-alola', generation: 'generation-vii' },
-    { region: 'galar', suffix: '-galar', generation: 'generation-viii' },
-    { region: 'hisui', suffix: '-hisui', generation: 'generation-viii' }]
+  { region: 'galar', suffix: '-galar', generation: 'generation-viii' },
+  { region: 'hisui', suffix: '-hisui', generation: 'generation-viii' }]
 
 export const NOT_CONSIDERED_FORMS = ['-totem']
 

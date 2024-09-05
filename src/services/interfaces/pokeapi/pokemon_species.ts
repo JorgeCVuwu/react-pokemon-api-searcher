@@ -9,7 +9,7 @@ interface speciesTextEntriesProps {
     version: { name: string, url: string }
 }
 
-export interface pokemonSpeciesProps {
+export interface pokeapiPokemonSpeciesProps {
     id: number,
     name: string,
     varieties: speciesTextEntriesProps[],
