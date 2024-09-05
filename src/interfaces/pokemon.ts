@@ -40,15 +40,32 @@ interface pokemonJsonStatsProps {
     effort: number
 }
 
+interface pokemonJsonMoveProps {
+    move: { name: string, url: string },
+    version_group_details: moveDetailsProps[]
+}
+
 interface moveDetailsProps {
     level_learned_at: number,
     move_learn_method: { name: string, url: string },
     version_group: { name: string, url: string }
 }
 
-interface pokemonJsonMoveProps {
-    move: { name: string, url: string },
-    version_group_details: moveDetailsProps[]
+export interface pokemonDataProps {
+    id: number,
+    name: string,
+    front_sprite: string,
+    sprites: { front_sprite: string, front_default: string, front_default_shiny: string }
+    dex_number: number,
+    cry: string,
+    types: pokemonTypeProps[],
+    is_default: boolean,
+    species: { name: string, url: string },
+    abilities: pokemonAbilityProps[],
+    stats: pokemonStatsProps[],
+    height: number,
+    weight: number,
+    moves: pokemonMoveProps[],
 }
 
 export interface pokemonJsonDataProps {
@@ -67,21 +84,4 @@ export interface pokemonJsonDataProps {
     height: number,
     weight: number,
     moves: pokemonJsonMoveProps[]
-}
-
-export interface pokemonDataProps {
-    id: number,
-    name: string,
-    front_sprite: string,
-    sprites: { front_sprite: string, front_default: string, front_default_shiny: string }
-    dex_number: number,
-    cry: string,
-    types: pokemonTypeProps[],
-    is_default: boolean,
-    species: { name: string, url: string },
-    abilities: pokemonAbilityProps[],
-    stats: pokemonStatsProps[],
-    height: number,
-    weight: number,
-    moves: pokemonMoveProps[],
 }
