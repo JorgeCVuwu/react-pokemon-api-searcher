@@ -1,5 +1,5 @@
 interface pokemonTypeProps {
-    id: number,
+    id: number | undefined,
     name: string,
     url: string,
     order: number
@@ -21,16 +21,12 @@ interface pokemonStatsProps {
 interface pokemonMoveProps {
     name: string,
     url: string,
-    version_group_details: {
-        level_learned_at: number,
-        move_learn_method: { name: string, url: string },
-        version_group: { name: string, url: string }
-    }
+    version_group_details: moveDetailsProps[]
 }
 
 interface pokemonJsonTypeProps {
     type: { name: string, url: string }
-    slot: string
+    slot: number
 }
 
 interface pokemonJsonAbilityProps {
@@ -57,7 +53,7 @@ interface pokemonJsonMoveProps {
 
 export interface pokemonJsonDataProps {
     id: number,
-    name: number,
+    name: string,
     sprites: {
         front_default: string,
         other: { 'official-artwork': { front_default: string, front_shiny: string } }
@@ -87,5 +83,5 @@ export interface pokemonDataProps {
     stats: pokemonStatsProps[],
     height: number,
     weight: number,
-    version_group_details: pokemonMoveProps[],
+    moves: pokemonMoveProps[],
 }

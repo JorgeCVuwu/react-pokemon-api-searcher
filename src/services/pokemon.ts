@@ -1,10 +1,10 @@
 import { fetchData } from './fetch/fetch.ts'
-import { pokemonJsonDataProps } from '../interfaces/pokemon.ts'
+import { pokemonJsonDataProps, pokemonDataProps } from '../interfaces/pokemon.ts'
 
-export async function searchPokemon(url: string) {
+export async function searchPokemon(url: string): Promise<pokemonDataProps | null> {
   const pokemonJson: pokemonJsonDataProps | null = await fetchData(url)
 
-  if (pokemonJson === null) return
+  if (pokemonJson === null) return null
 
   return {
     id: pokemonJson.id,
@@ -18,9 +18,9 @@ export async function searchPokemon(url: string) {
     dex_number: pokemonJson.id,
     cry: pokemonJson.cries.latest,
     types: pokemonJson.types.map(type => {
-      const typeId = type.type.url.split('/').at(-2)
+      const getId = type.type.url.split('/').at(-2)
       return {
-        id: typeId,
+        id: getId !== undefined ? +getId : undefined,
         name: type.type.name,
         url: type.type.url,
         order: type.slot
