@@ -12,7 +12,6 @@ import { pokemonSpeciesProps } from '../services/interfaces/project/pokemon_spec
 
 export function useSetPokemonInfo(name: string) {
   const {
-    pokemonData,
     setPokemonData,
     charged,
     setCharged,

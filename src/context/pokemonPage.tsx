@@ -1,7 +1,7 @@
 import { createContext, useState, ReactNode } from 'react'
 
 interface PokemonPageContextType {
-  pokemonData: Record<string, unknown>
+  pokemonData: Record<string, unknown>,
   setPokemonData: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
   charged: boolean,
   setCharged: React.Dispatch<React.SetStateAction<boolean>>,
@@ -13,7 +13,16 @@ interface PokemonPageProviderProps {
   children: ReactNode
 }
 
-export const PokemonPageContext = createContext<PokemonPageContextType | undefined>(undefined)
+const defaultPokemonPageContextValue = {
+  pokemonData: {},
+  setPokemonData: () => { },
+  charged: false,
+  setCharged: () => { },
+  changingCharge: false,
+  setChangingCharge: () => { }
+}
+
+export const PokemonPageContext = createContext<PokemonPageContextType>(defaultPokemonPageContextValue)
 
 
 export function PokemonPageProvider({ children }: PokemonPageProviderProps) {
