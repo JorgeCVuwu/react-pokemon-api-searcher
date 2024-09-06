@@ -1,9 +1,6 @@
-import { pokemonJsonDataProps } from "../../interfaces/pokemon.ts"
-import { pokemonJsonSpeciesProps } from "../../interfaces/pokemon_species.ts"
+import { pokeapiType } from "../interfaces/pokeapi.ts"
 
-type pokemonJsonFormats = pokemonJsonDataProps | pokemonJsonSpeciesProps
-
-export async function fetchData(url: string): Promise<(pokemonJsonFormats | null)> {
+export async function fetchData(url: string): Promise<(pokeapiType | null)> {
   try {
     const response = await fetch(url)
     if (!response.ok) {

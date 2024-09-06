@@ -1,23 +1,23 @@
-import { POKEMON_TYPE_COLORS } from '../constants/constants.js'
+import { POKEMON_TYPE_COLORS, POKEMON_TYPES_TYPE } from '../constants/constants.js'
 
-export function getCommonElements(lists) {
+export function getCommonElements(lists: string[][]): string[] {
   if (lists.length === 0 || lists.find(arr => arr.length === 0)) return []
   return lists[0].filter(url =>
     lists.every(list => list.includes(url))
   )
 }
 
-export function sortPokemonUrlsById(list) {
-  return list.sort((url1, url2) => url1.split('/').at(-2) - url2.split('/').at(-2))
+export function sortPokemonUrlsById(list: string[]): string[] {
+  return list.sort((url1, url2) => +(url1.split('/').at(-2) ?? 0) - +(url2.split('/').at(-2) ?? 0))
 }
 
-export function getSortedCommonElements(arr) {
+export function getSortedCommonElements(arr: string[][]): string[] {
   return sortPokemonUrlsById(getCommonElements(arr))
 }
 
-export function pushFilteringSpecialForms(urls) {
+export function pushFilteringSpecialForms(urls: string[]): string[] {
   return urls.filter(url => {
-    const urlId = url.split('/').at(-2)
+    const urlId: number | boolean = +(url.split('/').at(-2) ?? 99999)
     // PokemonAPI convention: id > 10000 => pokemon special form
     return urlId < 10000
   })
@@ -50,13 +50,13 @@ export function deleteDashes(str: string): string {
   return str.replace(/-/g, ' ')
 }
 
-export function capitalizeRomanNumerals(str: string) {
+export function capitalizeRomanNumerals(str: string): string {
   const romanNumeralRegex = /\b(M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))\b/gi
 
   return str.replace(romanNumeralRegex, match => match.toUpperCase())
 }
 
-export function compareArraysEqual(arr1, arr2) {
+export function compareArraysEqual(arr1: Array<unknown>, arr2: Array<unknown>): boolean {
   if (arr1.length !== arr2.length) return false
 
   for (let i = 0; i < arr1.length; i++) {
@@ -66,7 +66,7 @@ export function compareArraysEqual(arr1, arr2) {
   return true
 }
 
-export function compareArraysSameElements(arr1, arr2) {
+export function compareArraysSameElements(arr1: Array<unknown>, arr2: Array<unknown>): boolean {
   const set1 = new Set(arr1)
   const set2 = new Set(arr2)
 
@@ -80,7 +80,7 @@ export function compareArraysSameElements(arr1, arr2) {
 }
 
 // función copiada de ChatGPT XD
-function lightenColor(hex, percent) {
+function lightenColor(hex: string, percent: number): string {
   const num = parseInt(hex.slice(1), 16)
   const amt = Math.round(2.55 * percent)
   const R = (num >> 16) + amt
@@ -95,7 +95,7 @@ function lightenColor(hex, percent) {
   ).toString(16).slice(1).toUpperCase()}`
 }
 
-export function defineColor({ type, priority }) {
+export function defineColor({ type, priority }: { type: POKEMON_TYPES_TYPE, priority: 'primary' | 'secondary' | 'terciary' | 'national_dex' }): string {
   const TYPE_COLOR_FUNCTIONS = {
     primary: 0,
     secondary: 15,

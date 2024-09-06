@@ -6,6 +6,8 @@ export type pokemonFilterProperties = 'pokemon' | 'learned_by_pokemon' | 'pokemo
 export const POKEMON_LIST_KEY_IN_PROPERTY: Record<pokemonPropertyTypes, pokemonFilterProperties> = { type: 'pokemon', ability: 'pokemon', move: 'learned_by_pokemon', generation: 'pokemon_species' }
 export const POKEMON_KEY_IN_PROPERTY: Record<pokemonPropertyTypes, pokemonFilterProperties | null> = { type: 'pokemon', ability: 'pokemon', move: null, generation: null }
 
+export type POKEMON_TYPES_TYPE = 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' | 'ground' |
+  'flying' | 'psychic' | 'bug' | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy'
 export const POKEMON_TYPE_COLORS = {
   normal: '#A8A77A',
   fire: '#EE8130',
