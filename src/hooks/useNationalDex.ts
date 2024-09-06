@@ -3,14 +3,14 @@ import { PokemonPageContext } from '../context/pokemonPage.tsx'
 import { searchFilterResults } from '../services/filters.ts'
 import { POKEAPI_PREFIX } from '../constants/constants.ts'
 
-export function useNationalDex () {
+export function useNationalDex() {
   const [prevPokemonInfo, setPrevPokemonInfo] = useState(null)
   const [nextPokemonInfo, setNextPokemonInfo] = useState(null)
-  const { pokemonSpeciesData } = useContext(PokemonPageContext)
+  const { pokemonData } = useContext(PokemonPageContext)
 
   useEffect(() => {
-    if (pokemonSpeciesData) {
-      const currentId = pokemonSpeciesData.id
+    if (pokemonData) {
+      const currentId = pokemonData.species_data.id
       const url = `${POKEAPI_PREFIX}pokemon-species?limit=100000&offset=0`
       searchFilterResults(url)
         .then(results => {
@@ -22,7 +22,7 @@ export function useNationalDex () {
           setNextPokemonInfo(nextInfo)
         })
     }
-  }, [pokemonSpeciesData])
+  }, [pokemonData])
 
   return { prevPokemonInfo, nextPokemonInfo }
 }

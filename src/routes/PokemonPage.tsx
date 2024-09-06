@@ -15,52 +15,52 @@ import { PokemonPageProvider, PokemonPageContext } from '../context/pokemonPage.
 
 import { capitalizeStr } from '../utils/utils.js'
 
-function PokemonPageComponent ({ name }) {
+function PokemonPageComponent({ name }: { name: string }) {
   useSetPokemonInfo(name)
 
-  const { pokemonSpeciesData, pokemonDefaultData, pokemonFormsData, pokemonColors } = useContext(PokemonPageContext)
+  const { pokemonData, charged } = useContext(PokemonPageContext)
 
-  return (
-    pokemonSpeciesData && pokemonDefaultData && pokemonFormsData && pokemonColors && (
-      <>
+  const isEmptyData = Object.keys(pokemonData).length > 0
 
-        <article id='pokemon-page-article' className='pokemon-page-article'>
-          <h1>{capitalizeStr(pokemonSpeciesData.name)}</h1>
-          <NationalDex />
+  return charged && (
+    <>
+      <article id='pokemon-page-article' className='pokemon-page-article'>
+        <h1>{capitalizeStr(pokemonData.species_data.name)}</h1>
+        <NationalDex />
 
-          <aside id='pokemon-page-aside' className='pokemon-page-info-aside'>
-            <PokemonInfo />
-          </aside>
+        <aside id='pokemon-page-aside' className='pokemon-page-info-aside'>
+          <PokemonInfo />
+        </aside>
 
-          <section id='pokemon-page-description'>
-            <h2>Description</h2>
-            <p>{`${capitalizeStr(pokemonSpeciesData.name)} is a ${pokemonDefaultData.types.map(type => capitalizeStr(type.name)).join('/')} 
-            type ${pokemonSpeciesData.is_mythical ? 'Mythical' : pokemonSpeciesData.is_legendary ? 'Legendary' : ''} Pokémon 
-            introduced in ${capitalizeStr(pokemonSpeciesData.generation.name, false, true)}.`}
-            </p>
-          </section>
+        <section id='pokemon-page-description'>
+          <h2>Description</h2>
+          <p>{`${capitalizeStr(pokemonData.species_data.name)} is a ${pokemonData.default_data.types.map(type => capitalizeStr(type.name)).join('/')} 
+            type ${pokemonData.species_data.is_mythical ? 'Mythical' : pokemonData.species_data.is_legendary ? 'Legendary' : ''} Pokémon 
+            introduced in ${capitalizeStr(pokemonData.species_data.generation.name, false, true)}.`}
+          </p>
+        </section>
 
-          <section>
-            <h2>Evolutions</h2>
-            <PokemonEvolutionChain className='pokemon-page-evol-chain' />
-          </section>
+        <section>
+          <h2>Evolutions</h2>
+          <PokemonEvolutionChain className='pokemon-page-evol-chain' />
+        </section>
 
-          <section>
-            <h2>Pokédex entries</h2>
-            <PokedexEntries />
-          </section>
+        <section>
+          <h2>Pokédex entries</h2>
+          <PokedexEntries />
+        </section>
 
-          <section>
-            <h2>Moveset</h2>
-            <PokemonMoveset />
-          </section>
+        <section>
+          <h2>Moveset</h2>
+          <PokemonMoveset />
+        </section>
 
-        </article>
-      </>
-    ))
+      </article>
+    </>
+  )
 }
 
-export function PokemonPage () {
+export function PokemonPage() {
   const { name } = useParams()
   return (
     <PokemonPageProvider>

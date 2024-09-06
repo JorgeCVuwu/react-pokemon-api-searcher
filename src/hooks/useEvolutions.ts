@@ -18,14 +18,14 @@ const standarizeStr = (str: string) => {
 
 export function useEvolutions() {
   const [evolutionChains, setEvolutionChains] = useState('')
-  const { pokemonSpeciesData } = useContext(PokemonPageContext)
+  const { pokemonData } = useContext(PokemonPageContext)
 
   useEffect(() => {
-    if (pokemonSpeciesData) {
+    if (pokemonData) {
       const chainUrlPromises = (chain, arr = []) => {
-        chain.species.name !== pokemonSpeciesData.name
+        chain.species.name !== pokemonData.species_data.name
           ? arr.push(searchPokemonSpecies(chain.species.url))
-          : arr.push(pokemonSpeciesData)
+          : arr.push(pokemonData.species_data)
         chain.evolves_to.forEach(evol => chainUrlPromises(evol, arr))
 
         return arr
@@ -108,7 +108,7 @@ export function useEvolutions() {
       }
 
       const setEvolutions = async () => {
-        const speciesChainUrl = pokemonSpeciesData.evolution_chain.url
+        const speciesChainUrl = pokemonData.species_data.evolution_chain.url
         const speciesChain = await searchEvolutionChain(speciesChainUrl)
         const evolutionSpecies = await Promise.all(chainUrlPromises(speciesChain.chain))
         const evolutionForms = await Promise.all(evolutionSpecies.map(async species => ({ species_name: species.name, forms: await setEvolutionForm(species) })))
@@ -119,7 +119,7 @@ export function useEvolutions() {
 
       setEvolutions()
     }
-  }, [pokemonSpeciesData])
+  }, [pokemonData])
 
   return { evolutionChains }
 }

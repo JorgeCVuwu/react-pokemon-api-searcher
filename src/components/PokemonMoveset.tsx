@@ -7,10 +7,10 @@ import { capitalizeStr } from '../utils/utils.ts'
 
 import '../styles/moveset.css'
 
-export function PokemonMoveset () {
+export function PokemonMoveset() {
   const { pokemonLevelMoveset, selectedGen, changeSelectedTable } = useMoveset()
 
-  const { pokemonColors } = useContext(PokemonPageContext)
+  const { pokemonData } = useContext(PokemonPageContext)
 
   const onPointerDown = (event, genName) => {
     changeSelectedTable({ genName })
@@ -21,7 +21,7 @@ export function PokemonMoveset () {
       <div className='moveset-buttons-container initial'>
         {pokemonLevelMoveset.map((genMove, key) => (
           <button
-            key={key} style={{ backgroundColor: pokemonColors.terciary, borderColor: pokemonColors.primary }}
+            key={key} style={{ backgroundColor: pokemonData.colors.terciary, borderColor: pokemonData.colors.primary }}
             onClick={event => onPointerDown(event, genMove.name)}
           >{capitalizeStr(genMove.name)}
           </button>
@@ -32,7 +32,7 @@ export function PokemonMoveset () {
           <table key={key} className='moveset-table' id={genMove.name} hidden={selectedGen !== genMove.name}>
             <caption>{capitalizeStr(genMove.name, true, true)}</caption>
             <tbody>
-              <tr style={{ backgroundColor: pokemonColors.terciary }}>
+              <tr style={{ backgroundColor: pokemonData.colors.terciary }}>
                 <th>Move</th>
                 {genMove.display_info.display_one_row
                   ? <th>Level</th>

@@ -3,9 +3,15 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './styles/index.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root')
 
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  )
+} else {
+  console.error("Root element not found")
+}

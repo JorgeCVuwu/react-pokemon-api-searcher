@@ -79,18 +79,18 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
 }
 
 const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
-  const { pokemonSpeciesData } = useContext(PokemonPageContext)
+  const { pokemonData } = useContext(PokemonPageContext)
 
   const CurrentPokemon = ({ evolutionChains }) => {
     return (
       <div className='pokemon-evolution-pokemon'>
-        {pokemonSpeciesData.name === evolutionChains.form_data.species.name
+        {pokemonData.species_data.name === evolutionChains.form_data.species.name
           ? <p className='evolution-pokemon-text'>{capitalizeStr(evolutionChains.form_data.species.name)}</p>
           : (
             <Link to={`/pokemon/${evolutionChains.form_data.species.name}`} className='evolution-pokemon-text'>
               {capitalizeStr(evolutionChains.form_data.species.name)}
             </Link>
-            )}
+          )}
 
         <div className='pokemon-evolution-image-outline'>
           <img
@@ -130,7 +130,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
   )
 }
 
-export function PokemonEvolutionChain ({ className }) {
+export function PokemonEvolutionChain({ className }) {
   const { evolutionChains } = useEvolutions()
 
   return evolutionChains && (

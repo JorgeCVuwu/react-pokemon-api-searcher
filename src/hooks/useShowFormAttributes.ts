@@ -5,10 +5,10 @@ import { PokemonPageContext } from '../context/pokemonPage.tsx'
 import { POKEMON_FORMS_ACCEPTED, NOT_CONSIDERED_FORMS } from '../constants/constants.ts'
 import { compareArraysEqual } from '../utils/utils.ts'
 
-export function useShowFormAttributes ({ parameter, mode }) {
+export function useShowFormAttributes({ parameter, mode }) {
   const [showForm, setShowForm] = useState()
   const [chargedShowForm, setChargedShowForm] = useState(false)
-  const { pokemonDefaultData, pokemonFormsData, charged } = useContext(PokemonPageContext)
+  const { pokemonData, charged } = useContext(PokemonPageContext)
 
   useEffect(() => {
     setChargedShowForm(false)
@@ -38,20 +38,20 @@ export function useShowFormAttributes ({ parameter, mode }) {
 
     const isValidForm = (form, parameter) => {
       const modeStruct = modeStructures({ form, parameter, mode })
-      const defaultFormStruct = modeStructures({ form: pokemonDefaultData, parameter, mode })
+      const defaultFormStruct = modeStructures({ form: pokemonData.default_data, parameter, mode })
 
       const isValidForm = form.name.includes('-') &&
-      POKEMON_FORMS_ACCEPTED.some(suffix => (form.name.endsWith(suffix)))
+        POKEMON_FORMS_ACCEPTED.some(suffix => (form.name.endsWith(suffix)))
 
       const result = Array.isArray(modeStruct.structure)
         ? (!compareArraysEqual(modeStruct.data_values, defaultFormStruct.data_values))
-        : modeStruct.structure !== pokemonDefaultData[parameter]
+        : modeStruct.structure !== pokemonData.default_data[parameter]
 
       const notConsideredForms = !NOT_CONSIDERED_FORMS.some(str => form.name.includes(str))
       return (result || (isValidForm && modeStruct.consider_valid_forms)) && notConsideredForms
     }
 
-    pokemonFormsData.forEach(form => {
+    pokemonData.forms_data.forEach(form => {
       const result = isValidForm(form, parameter)
       showFormObj = {
         ...showFormObj,
@@ -64,7 +64,7 @@ export function useShowFormAttributes ({ parameter, mode }) {
     if (charged) {
       setChargedShowForm(true)
     }
-  }, [pokemonDefaultData, pokemonFormsData])
+  }, [charged])
 
   return { showForm, chargedShowForm }
 }

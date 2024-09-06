@@ -12,11 +12,11 @@ const splitFirstHalf = (str) => {
   return split.slice(0, middleIndex).join('-')
 }
 
-export function useMoveset () {
+export function useMoveset() {
   const [pokemonLevelMoveset, setPokemonLevelMoveset] = useState(null)
   const [selectedGen, setSelectedGen] = useState(null)
 
-  const { pokemonDefaultData, pokemonFormsData } = useContext(PokemonPageContext)
+  const { pokemonData } = useContext(PokemonPageContext)
 
   const changeSelectedTable = ({ genName }) => {
     setSelectedGen(genName)
@@ -32,7 +32,7 @@ export function useMoveset () {
   useEffect(() => {
     const learnedByLevelMoves = []
 
-    pokemonDefaultData.moves.forEach((move) => {
+    pokemonData.default_data.moves.forEach((move) => {
       const genMoveOcurrences = {} // {red-blue: 2, yellow: 1}
 
       move.version_group_details.forEach(detail => {
@@ -114,7 +114,7 @@ export function useMoveset () {
       }
     })
     setPokemonLevelMoveset(sortedLearnedByLevel)
-  }, [pokemonDefaultData, pokemonFormsData])
+  }, [pokemonData])
 
   return { pokemonLevelMoveset, selectedGen, changeSelectedTable }
 }
