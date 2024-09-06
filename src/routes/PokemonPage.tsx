@@ -22,7 +22,7 @@ function PokemonPageComponent({ name }: { name: string }) {
 
   const isEmptyData = Object.keys(pokemonData).length > 0
 
-  return charged && (
+  return isEmptyData && (
     <>
       <article id='pokemon-page-article' className='pokemon-page-article'>
         <h1>{capitalizeStr(pokemonData.species_data.name)}</h1>

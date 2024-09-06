@@ -6,7 +6,7 @@ export async function fetchData(url: string): Promise<(pokeapiType | null)> {
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status} ${url}`)
     }
-    const pokemonJson = await response.json() // bug con malamar al buscar por id (687), json invalido
+    const pokemonJson = await response.json()
     return pokemonJson
   } catch (error) {
     console.error('Fetch error: ', error, 'searching', url)

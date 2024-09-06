@@ -79,10 +79,10 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
 }
 
 const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
-  const { pokemonData } = useContext(PokemonPageContext)
+  const { pokemonData, charged } = useContext(PokemonPageContext)
 
   const CurrentPokemon = ({ evolutionChains }) => {
-    return (
+    return charged && (
       <div className='pokemon-evolution-pokemon'>
         {pokemonData.species_data.name === evolutionChains.form_data.species.name
           ? <p className='evolution-pokemon-text'>{capitalizeStr(evolutionChains.form_data.species.name)}</p>
@@ -132,8 +132,9 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
 
 export function PokemonEvolutionChain({ className }) {
   const { evolutionChains } = useEvolutions()
+  const { charged } = useContext(PokemonPageContext)
 
-  return evolutionChains && (
+  return charged && evolutionChains && (
     <div className={`${className}`}>
       {evolutionChains.map(evolTree => (
         <div

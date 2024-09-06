@@ -10,13 +10,13 @@ import '../styles/moveset.css'
 export function PokemonMoveset() {
   const { pokemonLevelMoveset, selectedGen, changeSelectedTable } = useMoveset()
 
-  const { pokemonData } = useContext(PokemonPageContext)
+  const { pokemonData, charged } = useContext(PokemonPageContext)
 
   const onPointerDown = (event, genName) => {
     changeSelectedTable({ genName })
   }
 
-  return pokemonLevelMoveset && (
+  return charged && pokemonLevelMoveset && (
     <div className='moveset-container'>
       <div className='moveset-buttons-container initial'>
         {pokemonLevelMoveset.map((genMove, key) => (

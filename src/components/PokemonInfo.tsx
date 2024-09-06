@@ -6,17 +6,26 @@ import { PokemonFormsAttributes } from './PokemonFormsAttributes.tsx'
 import { capitalizeStr } from '../utils/utils.ts'
 
 export function PokemonInfo() {
-  const { pokemonData, charged } = useContext(PokemonPageContext)
+  const { pokemonData, charged, changingCharge } = useContext(PokemonPageContext)
 
   return (
-    pokemonData && (
+    (
       <div className='pokemon-page-info' style={{ backgroundColor: pokemonData.colors.primary }}>
         <h2 className='two-col'>{capitalizeStr(pokemonData.species_data.name)}</h2>
         <div className='two-col pokemon-page-element'>
           <div className='pokemon-multiple-forms-element'>
-            <img className='pokemon-page-main-image' src={pokemonData.default_data.sprites.front_default}
-              alt={`Front sprite of ${pokemonData.species_data.name}.`} />
-            {pokemonData.forms_data.length > 0 && <small>{capitalizeStr(pokemonData.default_data.name, true)}</small>}
+            <div className="pokemon-page-main-image">
+              {!changingCharge && (
+                <img
+                  className="pokemon-page-main-image"
+                  src={pokemonData.default_data.sprites.front_default}
+                  alt={`Front sprite of ${pokemonData.species_data.name}.`}
+                />
+              )}
+            </div>
+            {pokemonData.forms_data.length > 0 && (
+              <small>{capitalizeStr(pokemonData.default_data.name, true)}</small>
+            )}
           </div>
           {charged && pokemonData.forms_data.length > 0 && (
             <div className='pokemon-image-forms-container'>

@@ -10,7 +10,7 @@ import '../styles/national-dex.css'
 
 export function NationalDex() {
   const { prevPokemonInfo, nextPokemonInfo } = useNationalDex()
-  const { pokemonData } = useContext(PokemonPageContext)
+  const { pokemonData, charged } = useContext(PokemonPageContext)
 
   return prevPokemonInfo && nextPokemonInfo && (
     <div className='national-dex-component-container'>

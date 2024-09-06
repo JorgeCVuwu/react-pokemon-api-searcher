@@ -1,13 +1,19 @@
 import { createContext, useState, ReactNode } from 'react'
 
-export const PokemonSearchContext = createContext()
+
+interface PokemonSearchContextType {
+  inputs: Record<string, unknown>
+  setInputs: React.Dispatch<React.SetStateAction<Record<string, unknown>>>
+}
+
+export const PokemonSearchContext = createContext<PokemonSearchContextType | undefined>(undefined)
 
 interface PokemonSearchProviderProps {
   children: ReactNode
 }
 
 export function PokemonSearchProvider({ children }: PokemonSearchProviderProps) {
-  const [inputs, setInputs] = useState({})
+  const [inputs, setInputs] = useState<Record<string, unknown>>({})
 
   return (
     <PokemonSearchContext.Provider value={{

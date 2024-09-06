@@ -14,23 +14,13 @@ export function useSetPokemonInfo(name: string) {
   const {
     pokemonData,
     setPokemonData,
-    setCharged
+    charged,
+    setCharged,
+    setChangingCharge
   } = useContext(PokemonPageContext)
 
-  // useEffect(() => {
-  //   if (pokemonData) {
-  //     const pokemonType = pokemonData.default_data.types[0].name
-  //     const pokemonColors = {
-  //       primary: defineColor({ type: pokemonType, priority: 'primary' }),
-  //       secondary: defineColor({ type: pokemonType, priority: 'secondary' }),
-  //       terciary: defineColor({ type: pokemonType, priority: 'terciary' }),
-  //       national_dex: defineColor({ type: pokemonType, priority: 'national_dex' })
-  //     }
-  //     setPokemonData(current => ({ ...current, colors: pokemonColors }))
-  //   }
-  // }, [name, pokemonData])
-
   useEffect(() => {
+    if (charged) setChangingCharge(true)
     setCharged(false)
     let ignore = false
 
@@ -87,13 +77,13 @@ export function useSetPokemonInfo(name: string) {
       if (!ignore) {
         setPokemonData(newPokemonData)
         setCharged(true)
+        setChangingCharge(false)
       }
     }
 
     const speciesUrl = `${POKEAPI_PREFIX}pokemon-species/${name}`
 
     searchAllPokemonInfo(speciesUrl)
-
     return () => {
       ignore = true
     }

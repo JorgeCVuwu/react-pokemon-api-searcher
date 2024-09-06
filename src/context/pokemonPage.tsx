@@ -1,38 +1,34 @@
 import { createContext, useState, ReactNode } from 'react'
 
-// interface PokemonPageContextType {
-
-// }
+interface PokemonPageContextType {
+  pokemonData: Record<string, unknown>
+  setPokemonData: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
+  charged: boolean,
+  setCharged: React.Dispatch<React.SetStateAction<boolean>>,
+  changingCharge: boolean,
+  setChangingCharge: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 interface PokemonPageProviderProps {
   children: ReactNode
 }
 
-export const PokemonPageContext = createContext()
+export const PokemonPageContext = createContext<PokemonPageContextType | undefined>(undefined)
 
 
 export function PokemonPageProvider({ children }: PokemonPageProviderProps) {
-  // const [pokemonSpeciesData, setPokemonSpeciesData] = useState(null)
-  // const [pokemonDefaultData, setPokemonDefaultData] = useState(null)
-  // const [pokemonFormsData, setPokemonFormsData] = useState([])
-  // const [pokemonColors, setPokemonColors] = useState(null)
   const [pokemonData, setPokemonData] = useState({})
   const [charged, setCharged] = useState(false)
+  const [changingCharge, setChangingCharge] = useState(false)
 
   return (
     <PokemonPageContext.Provider value={{
-      // pokemonSpeciesData,
-      // setPokemonSpeciesData,
-      // pokemonDefaultData,
-      // setPokemonDefaultData,
-      // pokemonFormsData,
-      // setPokemonFormsData,
       pokemonData,
       setPokemonData,
-      // pokemonColors,
-      // setPokemonColors,
       charged,
-      setCharged
+      setCharged,
+      changingCharge,
+      setChangingCharge
     }}
     >
       {children}

@@ -81,10 +81,10 @@ export function PokemonFormsAttributes({ parameter, mode = 'default' }) {
   const { pokemonData, charged } = useContext(PokemonPageContext)
 
   const DefaultAndFormsComponent = ({ Component }) => {
-    return (
+    return charged && (
       <div className='pokemon-page-element pokemon-page-forms-flex'>
         <Component form={pokemonData.default_data} showForm={showForm} parameter={parameter} isDefault />
-        {charged && chargedShowForm && (
+        {chargedShowForm && (
           pokemonData.forms_data.map(form => (showForm.forms[form.id] &&
             <Component key={form.id} form={form} showForm={showForm} parameter={parameter} />
           ))

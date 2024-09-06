@@ -8,8 +8,8 @@ import { capitalizeStr } from '../utils/utils.ts'
 import '../styles/pokedex-entries.css'
 
 export function PokedexEntries() {
-  const { pokemonData } = useContext(PokemonPageContext)
-  return (
+  const { pokemonData, charged } = useContext(PokemonPageContext)
+  return charged && (
     <table className='pokedex-entries-table'
       style={{ backgroundColor: pokemonData.colors.terciary, borderColor: pokemonData.colors.primary }}
     >

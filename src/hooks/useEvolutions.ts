@@ -22,6 +22,8 @@ export function useEvolutions() {
 
   useEffect(() => {
     if (pokemonData) {
+      console.time('useEvolutions time')
+      setEvolutionChains('')
       const chainUrlPromises = (chain, arr = []) => {
         chain.species.name !== pokemonData.species_data.name
           ? arr.push(searchPokemonSpecies(chain.species.url))
@@ -118,6 +120,7 @@ export function useEvolutions() {
       }
 
       setEvolutions()
+      console.timeEnd('useEvolutions time')
     }
   }, [pokemonData])
 
