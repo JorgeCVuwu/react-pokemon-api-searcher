@@ -6,13 +6,13 @@ import { searchPokemonSpecies } from '../services/pokemon_species.ts'
 import { POKEAPI_PREFIX } from '../constants/constants.ts'
 import { getSortedCommonElements, pushFilteringSpecialForms, removeDigits } from '../utils/utils.js'
 
-export function useSearchPokemon () {
+export function useSearchPokemon() {
   const [foundedPokemon, setFoundedPokemon] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingStarted, setLoadingStarted] = useState(false)
   const [input, setInput] = useState(null)
 
-  const changeInputs = (currentInput) => {
+  const changeInputs = (currentInput): void => {
     setInput((previous) => {
       if (!previous) return currentInput
 

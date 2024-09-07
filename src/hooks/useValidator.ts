@@ -1,11 +1,11 @@
 import { useRef, useContext, useEffect, useState } from 'react'
 import { PokemonSearchContext } from '../context/pokemonSearch.tsx'
 
-export function useValidator () {
+export function useValidator() {
   const [validated, setValidated] = useState(false)
   const { inputs } = useContext(PokemonSearchContext)
 
-  const submitRef = useRef()
+  const submitRef = useRef<HTMLFormElement>(null)
 
   // useInput handles input elements using validation parameters (for example, hiding validation error message)
   useEffect(() => {
@@ -16,7 +16,9 @@ export function useValidator () {
   }, [inputs])
 
   useEffect(() => {
-    submitRef.current.disabled = !validated
+    if (submitRef.current) {
+      submitRef.current.disabled = !validated
+    }
   }, [validated])
 
   return { submitRef }

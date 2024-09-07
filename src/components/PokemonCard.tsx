@@ -1,11 +1,13 @@
 import { capitalizeStr } from '../utils/utils.ts'
 import { Link } from 'react-router-dom'
 
-export function PokemonCard ({ pokemonJson }) {
+import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
+
+export function PokemonCard({ pokemonJson }: { pokemonJson: pokemonProps }) {
   const typeSrcPrefix = './media/types/sword-shield/'
 
-  const playAudio = (event) => {
-    const audio = event.currentTarget.nextElementSibling
+  const playAudio = (event: React.PointerEvent<HTMLButtonElement>): void => {
+    const audio = event.currentTarget.nextElementSibling as HTMLMediaElement
     audio.play()
   }
 
@@ -34,13 +36,13 @@ export function PokemonCard ({ pokemonJson }) {
   )
 }
 
-export function NotPokemonMessage () {
+export function NotPokemonMessage() {
   return (
     <p className='no-pokemon-found'>No se pudo encontrar el Pokémon solicitado.</p>
   )
 }
 
-export function ChargingGif ({ className = '' }) {
+export function ChargingGif({ className = '' }) {
   return (
     <img className={`charging-gif ${className}`} src='./media/gifs/charging.gif' />
   )

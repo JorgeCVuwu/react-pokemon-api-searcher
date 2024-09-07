@@ -1,9 +1,9 @@
 import '../styles/pokemon-info.css'
 import '../styles/pokemon-page.css'
 
-import { useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
+// import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
 
 import { NationalDex } from '../components/NationalDex.tsx'
 import { PokemonInfo } from '../components/PokemonInfo.tsx'
@@ -16,9 +16,12 @@ import { PokemonPageProvider, PokemonPageContext } from '../context/pokemonPage.
 import { capitalizeStr } from '../utils/utils.js'
 
 function PokemonPageComponent({ name }: { name: string }) {
-  useSetPokemonInfo(name)
 
-  const { pokemonData, charged } = useContext(PokemonPageContext)
+  const { pokemonData, setName } = useContext(PokemonPageContext)
+
+  useEffect(() => {
+    setName(name)
+  }, [name])
 
   const isEmptyData = Object.keys(pokemonData).length > 0
 

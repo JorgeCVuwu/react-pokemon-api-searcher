@@ -11,10 +11,10 @@ interface UseInput {
 }
 
 export function useInput({ url }: UseInput) {
-  const [autocompleteOptions, setAutocompleteOptions] = useState([])
-  const [showAutoComplete, setShowAutocomplete] = useState(false)
-  const [focusedInput, setFocusedInput] = useState(false)
-  const [hideValidationError, setHideValidationError] = useState(true)
+  const [autocompleteOptions, setAutocompleteOptions] = useState<string[]>([])
+  const [showAutoComplete, setShowAutocomplete] = useState<boolean>(false)
+  const [focusedInput, setFocusedInput] = useState<boolean>(false)
+  const [hideValidationError, setHideValidationError] = useState<boolean>(true)
 
   const { inputs, setInputs } = useContext(PokemonSearchContext)
 
@@ -39,23 +39,26 @@ export function useInput({ url }: UseInput) {
     }
   }, [inputs])
 
-  const updateInput = () => {
+  const updateInput = (): void => {
     if (data && inputRef.current) {
       const validate = inputRef.current.value === '' || data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
       setInputs(input => ({ ...input, [inputRef.current.name]: { ...input[inputRef.current.name], value: inputRef.current.value, validated: validate } }))
     }
   }
 
-  const filterAutocomplete = () => {
+  const filterAutocomplete = (): void => {
     if (inputRef.current) {
       const input = inputRef.current.value
-      return input === ''
-        ? setAutocompleteOptions([])
-        : setAutocompleteOptions(data.results.filter((value) => value.name.startsWith(toKebabCase(input))).slice(0, 10))
+      if (input === '') {
+        setAutocompleteOptions([])
+      }
+      else if (data !== null) {
+        setAutocompleteOptions(data.results.filter((value) => value.name.startsWith(toKebabCase(input))).slice(0, 10))
+      }
     }
   }
 
-  const autocompleteInputValue = (value: string) => {
+  const autocompleteInputValue = (value: string): void => {
     if (inputRef.current) {
       inputRef.current.value = value
 

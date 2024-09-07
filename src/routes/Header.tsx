@@ -3,7 +3,7 @@ import { InputFilter } from '../components/InputFilter.tsx'
 
 import { PokemonSearchProvider } from '../context/pokemonSearch.tsx'
 
-function HeaderComponent () {
+function HeaderComponent() {
   return (
     <header className='header-container'>
       <nav className='header-nav'>
@@ -16,7 +16,7 @@ function HeaderComponent () {
   )
 }
 
-export function Header () {
+export function Header() {
   return (
     <PokemonSearchProvider>
       <HeaderComponent />
