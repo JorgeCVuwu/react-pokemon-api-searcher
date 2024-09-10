@@ -3,7 +3,6 @@ import '../styles/pokemon-page.css'
 
 import { useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-// import { useSetPokemonInfo } from '../hooks/useSetPokemonInfo.js'
 
 import { NationalDex } from '../components/NationalDex.tsx'
 import { PokemonInfo } from '../components/PokemonInfo.tsx'
@@ -23,7 +22,7 @@ function PokemonPageComponent({ name }: { name: string }) {
     setName(name)
   }, [name])
 
-  const isEmptyData = Object.keys(pokemonData).length > 0
+  const isEmptyData = pokemonData && Object.keys(pokemonData).length > 0
 
   return isEmptyData && (
     <>
@@ -65,7 +64,7 @@ function PokemonPageComponent({ name }: { name: string }) {
 
 export function PokemonPage() {
   const { name } = useParams()
-  return (
+  return name && (
     <PokemonPageProvider>
       <PokemonPageComponent name={name} />
     </PokemonPageProvider>

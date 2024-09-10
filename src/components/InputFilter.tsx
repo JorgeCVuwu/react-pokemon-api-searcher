@@ -53,11 +53,11 @@ export function InputFilter({ name, filter, disabled = false, onChange = null, p
     filterAutocomplete()
   }
 
-  const handleFocus = () => {
+  const handleFocus = (): void => {
     checkFocusStatus(true)
   }
 
-  const handleBlur = () => {
+  const handleBlur = (): void => {
     checkFocusStatus(false)
   }
 

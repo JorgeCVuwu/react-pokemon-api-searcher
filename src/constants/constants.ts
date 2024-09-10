@@ -8,6 +8,7 @@ export const POKEMON_KEY_IN_PROPERTY: Record<pokemonPropertyTypes, pokemonFilter
 
 export type POKEMON_TYPES_TYPE = 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' | 'ground' |
   'flying' | 'psychic' | 'bug' | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy'
+
 export const POKEMON_TYPE_COLORS = {
   normal: '#A8A77A',
   fire: '#EE8130',
