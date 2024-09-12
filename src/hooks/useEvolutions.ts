@@ -8,7 +8,7 @@ import { searchPokemonSpecies } from '../services/pokemon_species.ts'
 
 import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
 import { pokemonSpeciesProps } from '../services/interfaces/project/pokemon_species.ts'
-import { jsonChainProps, evolutionDetailsProps } from '../services/interfaces/pokeapi/evolution_chain.ts'
+import { jsonChainProps, FormDataProps } from '../services/interfaces/pokeapi/evolution_chain.ts'
 
 import { POKEMON_REGIONAL_FORMS, NOT_CONSIDERED_FORMS } from '../constants/constants.js'
 
@@ -32,12 +32,6 @@ interface pokemonPropsInEvolution {
 interface createFormsProps {
   speciesChain: jsonChainProps | null,
   evolutionForms: pokemonPropsInEvolution[]
-}
-
-interface FormDataProps {
-  form_data: pokemonProps,
-  evolution_details: evolutionDetailsProps,
-  evolves_to: (FormDataProps | null)[]
 }
 
 export function useEvolutions() {
@@ -127,7 +121,6 @@ export function useEvolutions() {
               formsChain.push(formData)
             }
 
-            console.log(formData)
             return formData
           }
           return null

@@ -1,6 +1,8 @@
+import { POKEMON_TYPES_TYPE } from "../../../constants/constants.ts"
+
 interface pokemonTypeProps {
     id: number | undefined,
-    name: string,
+    name: POKEMON_TYPES_TYPE,
     url: string,
     order: number
 }

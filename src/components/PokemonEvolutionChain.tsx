@@ -8,9 +8,11 @@ import { Link } from 'react-router-dom'
 
 import { capitalizeStr, defineColor } from '../utils/utils.ts'
 
+import { evolutionDetailsProps, FormDataProps } from '../services/interfaces/pokeapi/evolution_chain.ts'
+
 import '../styles/evolution-tree.css'
 
-const getNameDetails = (details, additionalString = '', additionalAfterString = '') => details
+const getNameDetails = (details: { name: string, url: string } | null, additionalString = '', additionalAfterString = '') => details
   ? (additionalString + capitalizeStr(details.name) + additionalAfterString)
   : null
 
@@ -25,8 +27,7 @@ const genders = {
   2: '(♂)'
 }
 
-const pokemonEvolutionDetails = (evolutionDetails) => {
-  if (evolutionDetails.length === 0) return []
+const pokemonEvolutionDetails = (evolutionDetails: evolutionDetailsProps) => {
 
   const evolDetailsObj = {
     min_level: evolutionDetails.min_level
@@ -34,7 +35,7 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
       : null,
     item: getNameDetails(evolutionDetails.item),
     held_item: getNameDetails(evolutionDetails.held_item, 'holding '),
-    gender: genders[evolutionDetails.gender] || null,
+    gender: evolutionDetails.gender ? genders?.[evolutionDetails.gender] : null,
     known_move: getNameDetails(evolutionDetails.known_move, 'knowing '),
     known_move_type: getNameDetails(evolutionDetails.known_move_type, 'knowing a ', ' type move'),
     location: getNameDetails(evolutionDetails.location, 'on '),
@@ -51,8 +52,8 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
       ? 'overworld rain'
       : null,
     party_species: getNameDetails(evolutionDetails.party_species, 'holding ', ' in team'),
-    party_type: evolutionDetails.party_type,
-    relative_physical_stats: relativePhysicalStats[evolutionDetails.relative_physical_stats] || null,
+    party_type: evolutionDetails.party_type ? evolutionDetails.party_type.name : null,
+    relative_physical_stats: evolutionDetails.relative_physical_stats ? relativePhysicalStats[evolutionDetails.relative_physical_stats] : null,
     time_of_day: evolutionDetails.time_of_day
       ? 'on ' + evolutionDetails.time_of_day
       : '',
@@ -78,11 +79,11 @@ const pokemonEvolutionDetails = (evolutionDetails) => {
   return arrResult
 }
 
-const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
+const RecursiveEvolutionsComponent = ({ evolutionChains }: { evolutionChains: FormDataProps }) => {
   const { pokemonData, charged } = useContext(PokemonPageContext)
 
-  const CurrentPokemon = ({ evolutionChains }) => {
-    return charged && (
+  const CurrentPokemon = ({ evolutionChains }: { evolutionChains: FormDataProps }) => {
+    return charged && pokemonData && (
       <div className='pokemon-evolution-pokemon'>
         {pokemonData.species_data.name === evolutionChains.form_data.species.name
           ? <p className='evolution-pokemon-text'>{capitalizeStr(evolutionChains.form_data.species.name)}</p>
@@ -103,7 +104,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
     )
   }
 
-  const StageDetails = ({ stageDetails }) => (
+  const StageDetails = ({ stageDetails }: { stageDetails: evolutionDetailsProps }) => (
     <div className='evolution-details-container'>
       <div>
         {pokemonEvolutionDetails(stageDetails).map((detail, key) => (
@@ -119,7 +120,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
       <CurrentPokemon evolutionChains={evolutionChains} />
       {evolutionChains.evolves_to.length > 0 &&
         <div>
-          {evolutionChains.evolves_to.map((evol, key) => (
+          {evolutionChains.evolves_to.map((evol, key) => evol && (
             <div className='evolution-chain-branch' key={key}>
               <StageDetails stageDetails={evol.evolution_details} />
               <RecursiveEvolutionsComponent evolutionChains={evol} />

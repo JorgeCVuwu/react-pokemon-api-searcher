@@ -1,5 +1,7 @@
+import { pokemonProps } from "../project/pokemon"
+
 export interface evolutionDetailsProps {
-    gender: string | null,
+    gender: 1 | 2 | null,
     held_item: { name: string, url: string } | null,
     item: { name: string, url: string } | null,
     known_move: { name: string, url: string } | null,
@@ -12,10 +14,10 @@ export interface evolutionDetailsProps {
     needs_overworld_rain: boolean,
     party_species: { name: string, url: string } | null,
     party_type: { name: string, url: string } | null,
-    relative_physical_stats: number | null,
+    relative_physical_stats: 0 | 1 | -1 | null,
     time_of_day: string,
     trade_species: { name: string, url: string } | null,
-    trigger: { name: string, url: string },
+    trigger: { name: 'level-up' | 'trade' | 'use-item', url: string },
     turn_upside_down: boolean
 }
 
@@ -28,4 +30,10 @@ export interface jsonChainProps {
 export interface pokeapiEvolutionChainProps {
     id: number,
     chain: jsonChainProps
+}
+
+export interface FormDataProps {
+    form_data: pokemonProps,
+    evolution_details: evolutionDetailsProps,
+    evolves_to: (FormDataProps | null)[]
 }

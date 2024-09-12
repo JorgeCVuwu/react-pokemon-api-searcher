@@ -1,3 +1,5 @@
+import { POKEMON_TYPES_TYPE } from "../../../constants/constants"
+
 interface moveDetailsProps {
     level_learned_at: number,
     move_learn_method: { name: string, url: string },
@@ -5,7 +7,7 @@ interface moveDetailsProps {
 }
 
 interface pokemonTypeProps {
-    type: { name: string, url: string }
+    type: { name: POKEMON_TYPES_TYPE, url: string }
     slot: number
 }
 

@@ -102,5 +102,5 @@ export function defineColor({ type, priority }: { type: POKEMON_TYPES_TYPE, prio
     terciary: 20,
     national_dex: 10
   }
-  return lightenColor(POKEMON_TYPE_COLORS[type], TYPE_COLOR_FUNCTIONS[priority])
+  return lightenColor(POKEMON_TYPE_COLORS[type] ?? POKEMON_TYPE_COLORS.normal, TYPE_COLOR_FUNCTIONS[priority])
 }
