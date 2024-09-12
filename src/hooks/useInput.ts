@@ -34,7 +34,7 @@ export function useInput({ url }: UseInput) {
   }, [focusedInput])
 
   useEffect(() => {
-    if (inputRef.current) {
+    if (inputRef.current?.value && inputRef.current?.name) {
       setHideValidationError(inputRef.current.value === '' || inputs[inputRef.current.name].validated)
     }
   }, [inputs])
@@ -66,7 +66,7 @@ export function useInput({ url }: UseInput) {
     }
   }
 
-  const checkFocusStatus = (isFocused) => {
+  const checkFocusStatus = (isFocused: boolean): void => {
     setFocusedInput(isFocused)
   }
 

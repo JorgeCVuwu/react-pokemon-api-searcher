@@ -8,7 +8,7 @@ import { capitalizeStr } from '../utils/utils.ts'
 export function PokemonInfo() {
   const { pokemonData, charged, changingCharge } = useContext(PokemonPageContext)
 
-  return (
+  return pokemonData && (
     (
       <div className='pokemon-page-info' style={{ backgroundColor: pokemonData.colors.primary }}>
         <h2 className='two-col'>{capitalizeStr(pokemonData.species_data.name)}</h2>

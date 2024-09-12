@@ -9,7 +9,7 @@ import '../styles/pokedex-entries.css'
 
 export function PokedexEntries() {
   const { pokemonData, charged } = useContext(PokemonPageContext)
-  return charged && (
+  return charged && pokemonData && (
     <table className='pokedex-entries-table'
       style={{ backgroundColor: pokemonData.colors.terciary, borderColor: pokemonData.colors.primary }}
     >

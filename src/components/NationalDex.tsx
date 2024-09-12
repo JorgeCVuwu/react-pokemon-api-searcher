@@ -10,9 +10,9 @@ import '../styles/national-dex.css'
 
 export function NationalDex() {
   const { prevPokemonInfo, nextPokemonInfo } = useNationalDex()
-  const { pokemonData, charged } = useContext(PokemonPageContext)
+  const { pokemonData } = useContext(PokemonPageContext)
 
-  return prevPokemonInfo && nextPokemonInfo && (
+  return prevPokemonInfo && nextPokemonInfo && pokemonData && (
     <div className='national-dex-component-container'>
       <div className='national-dex-container' style={{ backgroundColor: pokemonData.colors.national_dex }}>
         <Link className='national-dex-link' to={`/pokemon/${prevPokemonInfo.name}`}>

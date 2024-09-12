@@ -130,7 +130,7 @@ const RecursiveEvolutionsComponent = ({ evolutionChains }) => {
   )
 }
 
-export function PokemonEvolutionChain({ className }) {
+export function PokemonEvolutionChain({ className }: { className: string }) {
   const { evolutionChains } = useEvolutions()
   const { charged } = useContext(PokemonPageContext)
 

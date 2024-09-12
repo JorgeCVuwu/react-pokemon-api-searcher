@@ -3,7 +3,7 @@ import { PokemonPageContext } from '../context/pokemonPage.tsx'
 
 import { GAMES_DATA } from '../constants/constants.ts'
 
-const splitFirstHalf = (str) => {
+const splitFirstHalf = (str: string): string => {
   if (!str.includes('-')) return str
 
   const split = str.split('-')
@@ -14,11 +14,11 @@ const splitFirstHalf = (str) => {
 
 export function useMoveset() {
   const [pokemonLevelMoveset, setPokemonLevelMoveset] = useState(null)
-  const [selectedGen, setSelectedGen] = useState(null)
+  const [selectedGen, setSelectedGen] = useState<string>('')
 
   const { pokemonData } = useContext(PokemonPageContext)
 
-  const changeSelectedTable = ({ genName }) => {
+  const changeSelectedTable = ({ genName }: { genName: string }) => {
     setSelectedGen(genName)
   }
 
@@ -30,90 +30,100 @@ export function useMoveset() {
   }, [pokemonLevelMoveset])
 
   useEffect(() => {
-    const learnedByLevelMoves = []
+    if (pokemonData) {
+      interface movesProps {
+        name: string,
+        moves: Record<string, number>,
+        display_info: { columns: string[], display_one_row: boolean }
+      }
 
-    pokemonData.default_data.moves.forEach((move) => {
-      const genMoveOcurrences = {} // {red-blue: 2, yellow: 1}
+      const learnedByLevelMoves: movesProps[] = []
 
-      move.version_group_details.forEach(detail => {
-        const gamesName = detail.version_group.name
-        const learnMethod = detail.move_learn_method.name
+      pokemonData.default_data.moves.forEach((move) => {
+        const genMoveOcurrences: Record<string, number> = {} // {red-blue: 2, yellow: 1}
 
-        if (learnMethod !== 'level-up') return
+        move.version_group_details.forEach(detail => {
+          const gamesName = detail.version_group.name
+          const learnMethod = detail.move_learn_method.name
 
-        const firstGenGame = splitFirstHalf(gamesName)
-        const gameObject = GAMES_DATA[firstGenGame]
-        if (!gameObject) return
+          if (learnMethod !== 'level-up') return
 
-        const currentGen = gameObject.alternative_gen ? gamesName : gameObject.generation
-        const genObj = learnedByLevelMoves.find(gen => gen.name === currentGen)
-        const moveGameInfo = { [gamesName]: detail.level_learned_at }
-        const genMoveInfo = {
-          name: move.name,
-          games: moveGameInfo,
-          min_level: detail.level_learned_at,
-          max_level: detail.level_learned_at
-        }
+          const firstGenGame = splitFirstHalf(gamesName)
+          const gameObject = GAMES_DATA[firstGenGame]
+          if (!gameObject) return
 
-        if (genObj) {
-          if (!genObj.display_info.columns.includes(gamesName)) genObj.display_info.columns.push(gamesName)
-          const moveObj = genObj.moves.find(genMove => genMove.name === move.name)
+          const currentGen = gameObject.alternative_gen ? gamesName : gameObject.generation
+          const genObj = learnedByLevelMoves.find(gen => gen.name === currentGen)
+          const moveGameInfo = { [gamesName]: detail.level_learned_at }
+          const genMoveInfo = {
+            name: move.name,
+            games: moveGameInfo,
+            min_level: detail.level_learned_at,
+            max_level: detail.level_learned_at
+          }
 
-          if (moveObj) {
-            const setLevelLearned = (move) => {
-              move.games[gamesName] = detail.level_learned_at
-              move.min_level = Math.min(move.min_level, detail.level_learned_at)
-              move.max_level = Math.max(move.max_level, detail.level_learned_at)
-              if (move.min_level !== move.max_level) {
-                genObj.display_info.display_one_row = false
+          if (genObj) {
+            if (!genObj.display_info.columns.includes(gamesName)) genObj.display_info.columns.push(gamesName)
+            const moveObj = genObj.moves.find(genMove => genMove.name === move.name)
+
+            if (moveObj) {
+              const setLevelLearned = (move) => {
+                move.games[gamesName] = detail.level_learned_at
+                move.min_level = Math.min(move.min_level, detail.level_learned_at)
+                move.max_level = Math.max(move.max_level, detail.level_learned_at)
+                if (move.min_level !== move.max_level) {
+                  genObj.display_info.display_one_row = false
+                }
               }
-            }
 
-            if (moveObj.games[gamesName] || moveObj.games[gamesName] === 0) {
-              const moveIndex = genMoveOcurrences[gamesName]
-              const newMoveObj = genObj.moves.filter(genMove => genMove.name === move.name)[moveIndex]
-              // controlling learning moves multiple times for level method
-              newMoveObj
-                ? setLevelLearned(newMoveObj)
-                : genObj.moves.push({
-                  name: move.name,
-                  games: { [gamesName]: detail.level_learned_at },
-                  min_level: detail.level_learned_at,
-                  max_level: detail.level_learned_at
-                })
+              if (moveObj.games[gamesName] || moveObj.games[gamesName] === 0) {
+                const moveIndex = genMoveOcurrences[gamesName]
+                const newMoveObj = genObj.moves.filter(genMove => genMove.name === move.name)[moveIndex]
+                // controlling learning moves multiple times for level method
+                if (newMoveObj) {
+                  setLevelLearned(newMoveObj)
+                } else {
+                  genObj.moves.push({
+                    name: move.name,
+                    games: { [gamesName]: detail.level_learned_at },
+                    min_level: detail.level_learned_at,
+                    max_level: detail.level_learned_at
+                  })
+                }
+              } else {
+                setLevelLearned(moveObj)
+              }
             } else {
-              setLevelLearned(moveObj)
+              genObj.moves.push(genMoveInfo)
             }
           } else {
-            genObj.moves.push(genMoveInfo)
+            learnedByLevelMoves.push({
+              name: currentGen,
+              moves: [genMoveInfo],
+              display_info: { columns: [gamesName], display_one_row: true }
+            })
           }
-        } else {
-          learnedByLevelMoves.push({
-            name: currentGen,
-            moves: [genMoveInfo],
-            display_info: { columns: [gamesName], display_one_row: true }
-          })
-        }
 
-        genMoveOcurrences[gamesName] ??= 0
-        genMoveOcurrences[gamesName]++
+          genMoveOcurrences[gamesName] ??= 0
+          genMoveOcurrences[gamesName]++
+        })
       })
-    })
 
-    const sortedLearnedByLevel = learnedByLevelMoves.map(gen => {
-      return {
-        ...gen,
-        moves: structuredClone(gen.moves)
-          .sort((move1, move2) => {
-            const firstCondition = move1.min_level - move2.min_level
-            return firstCondition !== 0
-              ? firstCondition
-              : move1.max_level - move2.max_level
-          }
-          )
-      }
-    })
-    setPokemonLevelMoveset(sortedLearnedByLevel)
+      const sortedLearnedByLevel = learnedByLevelMoves.map(gen => {
+        return {
+          ...gen,
+          moves: structuredClone(gen.moves)
+            .sort((move1, move2) => {
+              const firstCondition = move1.min_level - move2.min_level
+              return firstCondition !== 0
+                ? firstCondition
+                : move1.max_level - move2.max_level
+            }
+            )
+        }
+      })
+      setPokemonLevelMoveset(sortedLearnedByLevel)
+    }
   }, [pokemonData])
 
   return { pokemonLevelMoveset, selectedGen, changeSelectedTable }

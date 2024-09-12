@@ -1,5 +1,5 @@
 export const POKEAPI_PREFIX = 'https://pokeapi.co/api/v2/'
-export const IGNORED_TYPES = ['stellar', 'shadow', 'unknown']
+export const IGNORED_TYPES: string[] = ['stellar', 'shadow', 'unknown']
 
 export type pokemonPropertyTypes = 'type' | 'ability' | 'move' | 'generation'
 export type pokemonFilterProperties = 'pokemon' | 'learned_by_pokemon' | 'pokemon_species'
@@ -57,7 +57,7 @@ export const POKEMON_REGIONAL_FORMS =
 
 export const NOT_CONSIDERED_FORMS = ['-totem']
 
-export const GAMES_DATA = {
+export const GAMES_DATA: Record<string, { color: string, generation: string, fontColor?: string, alternative_gen?: boolean }> = {
   red: { color: '#DA3914', generation: 'generation-i' },
   blue: { color: '#0072BB', generation: 'generation-i' },
   yellow: { color: '#FFCC00', generation: 'generation-i' },

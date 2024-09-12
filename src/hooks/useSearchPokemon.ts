@@ -6,13 +6,24 @@ import { searchPokemonSpecies } from '../services/pokemon_species.ts'
 import { POKEAPI_PREFIX } from '../constants/constants.ts'
 import { getSortedCommonElements, pushFilteringSpecialForms, removeDigits } from '../utils/utils.js'
 
-export function useSearchPokemon() {
-  const [foundedPokemon, setFoundedPokemon] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [loadingStarted, setLoadingStarted] = useState(false)
-  const [input, setInput] = useState(null)
+import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
 
-  const changeInputs = (currentInput): void => {
+interface queryFieldsProps {
+  name: string,
+  move: string,
+  type1: string,
+  type2: string,
+  ability: string,
+  generation: string,
+  include_pokemon_forms: boolean
+}
+export function useSearchPokemon() {
+  const [foundedPokemon, setFoundedPokemon] = useState<pokemonProps[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [loadingStarted, setLoadingStarted] = useState<boolean>(false)
+  const [input, setInput] = useState<queryFieldsProps | null>(null)
+
+  const changeInputs = (currentInput: queryFieldsProps) => {
     setInput((previous) => {
       if (!previous) return currentInput
 
@@ -26,7 +37,7 @@ export function useSearchPokemon() {
     if (input) { queryPokemon(input) }
   }, [input])
 
-  const queryPokemon = async (queryFields) => {
+  const queryPokemon = async (queryFields: queryFieldsProps) => {
     setFoundedPokemon([])
     setLoading(true)
     setLoadingStarted(true)
@@ -34,7 +45,9 @@ export function useSearchPokemon() {
       const url = `${POKEAPI_PREFIX}pokemon/${queryFields.name}`
       try {
         const pokemonJson = await searchPokemon(url)
-        setFoundedPokemon(prevState => [pokemonJson, ...prevState])
+        if (pokemonJson) {
+          setFoundedPokemon(prevState => [pokemonJson, ...prevState])
+        }
       } catch {
         console.error('Pokemon name search not founded')
       }
@@ -60,9 +73,11 @@ export function useSearchPokemon() {
               } else {
                 urls.push(pokemon.url)
               }
-              queryFields.include_pokemon_forms
-                ? returnedUrls = urls
-                : returnedUrls = pushFilteringSpecialForms(urls)
+              if (queryFields.include_pokemon_forms) {
+                returnedUrls = urls
+              } else {
+                returnedUrls = pushFilteringSpecialForms(urls)
+              }
               return returnedUrls
             })
 
@@ -83,13 +98,6 @@ export function useSearchPokemon() {
         const results = await Promise.all(pokemonUrlsPromises)
 
         setFoundedPokemon(prevState => [...prevState, ...results.filter(result => result !== null)])
-        // for (let i = 0; i < sortedPokemonArray.length; i++) {
-        //   const url = sortedPokemonArray[i]
-        //   const pokemonJson = await searchPokemon(url)
-        //   if (pokemonJson) {
-        //     setFoundedPokemon(prevState => [...prevState, pokemonJson])
-        //   }
-        // }
       }
     }
 

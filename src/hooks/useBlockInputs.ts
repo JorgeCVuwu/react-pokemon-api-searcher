@@ -6,7 +6,7 @@ export function useBlockInputs(inputRefId: string) {
 
   useEffect(() => {
     if (disabledInput && formRef.current) {
-      const inputs = formRef.current.querySelectorAll('input, select')
+      const inputs: NodeListOf<HTMLFormElement> = formRef.current.querySelectorAll('input, select')
       const nameRef = formRef.current.querySelector(`#${inputRefId}`)
       inputs.forEach((input) => {
         if (input !== nameRef) {
@@ -16,7 +16,7 @@ export function useBlockInputs(inputRefId: string) {
     }
   }, [disabledInput])
 
-  const blockOtherInputs = (event) => {
+  const blockOtherInputs = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const name = event.target.value
     setDisabledInput(name !== '')
   }

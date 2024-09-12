@@ -3,7 +3,15 @@ import { useSelectorData } from '../hooks/useSelectorData.ts'
 
 import { capitalizeStr, deleteDashes, capitalizeRomanNumerals } from '../utils/utils.js'
 
-export function PokemonSelectorFilter ({ id, name, filter, ignoreResults, disabled, romanNumerals = false }) {
+interface PokemonSelecterFilterProps {
+  id: string,
+  name: string,
+  filter: string,
+  ignoreResults: string[],
+  disabled: boolean,
+  romanNumerals?: boolean
+}
+export function PokemonSelectorFilter({ id, name, filter, ignoreResults, disabled, romanNumerals = false }: PokemonSelecterFilterProps) {
   const url = `${POKEAPI_PREFIX}${filter}`
   const { data, error, loading, selectRef, updateInput } = useSelectorData(url)
 

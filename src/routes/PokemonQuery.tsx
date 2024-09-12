@@ -11,27 +11,27 @@ import { InputFilter } from '../components/InputFilter.js'
 
 import { toKebabCase } from '../utils/utils.js'
 
-function PokemonQueryComponent () {
+function PokemonQueryComponent() {
   const { disabledInput, formRef, blockOtherInputs } = useBlockInputs('pokemon-name')
   const { foundedPokemon, loading, loadingStarted, changeInputs } = useSearchPokemon()
   const { submitRef } = useValidator()
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.id === 'pokemon-name') {
       blockOtherInputs(event)
     }
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
-    const activeElement = document.activeElement
+    const activeElement: HTMLInputElement | null = document.activeElement ?? null
     if (activeElement) activeElement.blur()
     const fields = new window.FormData(event.target)
     const types = fields.getAll('type')
 
     // for filters with multiple fields you should use digits (ability1, ability2, ability3...)
-    const queryFields = {
+    const queryFields: queryFieldsProps = {
       name: toKebabCase(fields.get('name')),
       move: toKebabCase(fields.get('move')),
       type1: toKebabCase(types[0]),
@@ -81,7 +81,7 @@ function PokemonQueryComponent () {
                     <PokemonCard key={pokemon.dex_number} pokemonJson={pokemon} />
                   )))}
                 </div>
-                )
+              )
               : (<NotPokemonMessage />)}
         </div>
       )}
@@ -90,7 +90,7 @@ function PokemonQueryComponent () {
   )
 }
 
-export function PokemonQuery () {
+export function PokemonQuery() {
   return (
     <PokemonSearchProvider>
       <PokemonQueryComponent />

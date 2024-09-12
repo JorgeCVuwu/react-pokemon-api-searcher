@@ -1,4 +1,4 @@
-interface evolutionDetailsProps {
+export interface evolutionDetailsProps {
     gender: string | null,
     held_item: { name: string, url: string } | null,
     item: { name: string, url: string } | null,

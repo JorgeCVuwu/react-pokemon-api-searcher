@@ -6,12 +6,20 @@ import { PokemonPageContext } from '../context/pokemonPage.tsx'
 import { capitalizeStr } from '../utils/utils.ts'
 import { POKEMON_STATS_ABREVIATIONS, STAT_COLORS } from '../constants/constants.ts'
 
+import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
+
 const ATTRIBUTE_FUNCTIONS = {
-  height: (val) => `${val / 10} m`,
-  weight: (val) => `${val / 10} kg`
+  height: (val: number) => `${val / 10} m`,
+  weight: (val: number) => `${val / 10} kg`
 }
 
-function PokemonAttributeData({ form, parameter, showForm, isDefault = false }) {
+interface PokemonAttributeDataProps {
+  form: pokemonProps,
+  parameter?: string,
+  isDefault?: boolean
+}
+
+function PokemonAttributeData({ form, parameter, showForm, isDefault = false }: PokemonAttributeDataProps) {
   const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
 
   return (
@@ -41,7 +49,7 @@ function PokemonAttributeData({ form, parameter, showForm, isDefault = false }) 
   )
 }
 
-function FormStats({ form, parameter, showForm, isDefault = false }) {
+function FormStats({ form, parameter, showForm, isDefault = false }: PokemonAttributeDataProps) {
   const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
   return (
     <div>
@@ -60,7 +68,7 @@ function FormStats({ form, parameter, showForm, isDefault = false }) {
   )
 }
 
-function FormTypes({ form, showForm, isDefault = false }) {
+function FormTypes({ form, showForm, isDefault = false }: PokemonAttributeDataProps) {
   const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
   return (
     <div>
@@ -76,12 +84,12 @@ function FormTypes({ form, showForm, isDefault = false }) {
   )
 }
 
-export function PokemonFormsAttributes({ parameter, mode = 'default' }) {
+export function PokemonFormsAttributes({ parameter, mode = 'default' }: { parameter?: string, mode?: string }) {
   const { showForm, chargedShowForm } = useShowFormAttributes({ parameter, mode })
   const { pokemonData, charged } = useContext(PokemonPageContext)
 
   const DefaultAndFormsComponent = ({ Component }) => {
-    return charged && (
+    return charged && pokemonData && showForm && (
       <div className='pokemon-page-element pokemon-page-forms-flex'>
         <Component form={pokemonData.default_data} showForm={showForm} parameter={parameter} isDefault />
         {chargedShowForm && (
