@@ -1,9 +1,10 @@
 import { createContext, useState, ReactNode } from 'react'
 
+type inputProps = Record<string, { value: string, validated: boolean }>
 
 interface PokemonSearchContextType {
-  inputs: Record<string, unknown>,
-  setInputs: React.Dispatch<React.SetStateAction<Record<string, unknown>>>
+  inputs: inputProps,
+  setInputs: React.Dispatch<React.SetStateAction<inputProps>>
 }
 
 interface PokemonSearchProviderProps {
@@ -18,7 +19,7 @@ const defaultPokemonSearchContextValue = {
 export const PokemonSearchContext = createContext<PokemonSearchContextType>(defaultPokemonSearchContextValue)
 
 export function PokemonSearchProvider({ children }: PokemonSearchProviderProps) {
-  const [inputs, setInputs] = useState<Record<string, unknown>>({})
+  const [inputs, setInputs] = useState<inputProps>({})
 
   return (
     <PokemonSearchContext.Provider value={{

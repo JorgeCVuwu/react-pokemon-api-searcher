@@ -11,6 +11,8 @@ import { InputFilter } from '../components/InputFilter.js'
 
 import { toKebabCase } from '../utils/utils.js'
 
+import { queryFieldsProps } from '../interfaces/inputs.js'
+
 function PokemonQueryComponent() {
   const { disabledInput, formRef, blockOtherInputs } = useBlockInputs('pokemon-name')
   const { foundedPokemon, loading, loadingStarted, changeInputs } = useSearchPokemon()
@@ -22,23 +24,25 @@ function PokemonQueryComponent() {
     }
   }
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const activeElement: HTMLInputElement | null = document.activeElement ?? null
-    if (activeElement) activeElement.blur()
-    const fields = new window.FormData(event.target)
+    const activeElement = document.activeElement
+    if (activeElement && activeElement instanceof HTMLElement) {
+      activeElement.blur()
+    }
+    const fields = new window.FormData(event.currentTarget)
     const types = fields.getAll('type')
 
     // for filters with multiple fields you should use digits (ability1, ability2, ability3...)
     const queryFields: queryFieldsProps = {
-      name: toKebabCase(fields.get('name')),
-      move: toKebabCase(fields.get('move')),
-      type1: toKebabCase(types[0]),
-      type2: toKebabCase(types[1]),
-      ability: toKebabCase(fields.get('ability')),
-      generation: toKebabCase(fields.get('generation')),
-      include_pokemon_forms: fields.get('pokemon-form-checkbox')
+      name: toKebabCase(String(fields.get('name'))),
+      move: toKebabCase(String(fields.get('move'))),
+      type1: toKebabCase(String(types[0])),
+      type2: toKebabCase(String(types[1])),
+      ability: toKebabCase(String(fields.get('ability'))),
+      generation: toKebabCase(String(fields.get('generation'))),
+      include_pokemon_forms: fields.get('pokemon-form-checkbox') ? true : false
     }
 
     changeInputs(queryFields) // change input state in useSearchPokemon executes the search with certain conditions

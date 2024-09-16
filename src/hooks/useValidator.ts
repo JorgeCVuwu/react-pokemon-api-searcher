@@ -5,7 +5,7 @@ export function useValidator() {
   const [validated, setValidated] = useState(false)
   const { inputs } = useContext(PokemonSearchContext)
 
-  const submitRef = useRef<HTMLFormElement>(null)
+  const submitRef = useRef<HTMLButtonElement>(null)
 
   // useInput handles input elements using validation parameters (for example, hiding validation error message)
   useEffect(() => {

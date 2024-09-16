@@ -7,16 +7,9 @@ import { POKEAPI_PREFIX } from '../constants/constants.ts'
 import { getSortedCommonElements, pushFilteringSpecialForms, removeDigits } from '../utils/utils.js'
 
 import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
+import { queryFieldsProps } from '../interfaces/inputs.ts'
 
-interface queryFieldsProps {
-  name: string,
-  move: string,
-  type1: string,
-  type2: string,
-  ability: string,
-  generation: string,
-  include_pokemon_forms: boolean
-}
+
 export function useSearchPokemon() {
   const [foundedPokemon, setFoundedPokemon] = useState<pokemonProps[]>([])
   const [loading, setLoading] = useState<boolean>(false)
@@ -62,6 +55,7 @@ export function useSearchPokemon() {
             const url = `${POKEAPI_PREFIX}${noDigitFilter}/${value}`
             const pokemonFilter = await searchPokemonFilter(url, noDigitFilter)
 
+            if (!pokemonFilter) return null
             const pokemonPromises = pokemonFilter.pokemonList.map(async (pokemon) => {
               const urls = []
               let returnedUrls

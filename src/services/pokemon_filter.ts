@@ -4,7 +4,11 @@ import { POKEMON_LIST_KEY_IN_PROPERTY, POKEMON_KEY_IN_PROPERTY, pokemonPropertyT
 import { pokeapiType } from './interfaces/pokeapi.ts'
 import { pokemonFilterProps } from './interfaces/pokeapi/pokemon_filter.ts'
 
-export async function searchPokemonFilter(url: string, filterName: pokemonPropertyTypes): Promise<{ url: string }[] | null> {
+interface searchPokemonFilterProps {
+  pokemonList: { url: string }[]
+}
+
+export async function searchPokemonFilter(url: string, filterName: pokemonPropertyTypes): Promise<searchPokemonFilterProps | null> {
   const json: pokeapiType = await fetchData(url) as pokemonFilterProps
 
   if (json === null) return null

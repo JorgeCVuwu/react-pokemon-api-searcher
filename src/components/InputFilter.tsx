@@ -28,8 +28,15 @@ const AutocompleteOptions = ({ inputRef, autocompleteOptions, handlePointerDown 
   )
 }
 
-export function InputFilter({ name, filter, disabled = false, onChange = null, pokemonSearcher = true }
-  : { name: string, filter: string, disabled?: boolean, onChange?: ((event: React.ChangeEvent) => unknown) | null, pokemonSearcher: boolean }) {
+interface InputFilterProps {
+  name: string,
+  filter: string,
+  disabled?: boolean,
+  onChange?: ((event: React.ChangeEvent<HTMLInputElement>) => void) | null,
+  pokemonSearcher?: boolean
+}
+
+export function InputFilter({ name, filter, disabled = false, onChange = null, pokemonSearcher = true }: InputFilterProps) {
   const url = `${POKEAPI_PREFIX}${filter}`
   const {
     inputRef,

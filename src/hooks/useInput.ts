@@ -6,19 +6,21 @@ import { PokemonSearchContext } from '../context/pokemonSearch.tsx'
 
 import { toKebabCase } from '../utils/utils.ts'
 
+import { filtersProps } from '../services/interfaces/project/filters.ts'
+
 interface UseInput {
   url: string
 }
 
 export function useInput({ url }: UseInput) {
-  const [autocompleteOptions, setAutocompleteOptions] = useState<string[]>([])
+  const [autocompleteOptions, setAutocompleteOptions] = useState<filtersProps['results']>([])
   const [showAutoComplete, setShowAutocomplete] = useState<boolean>(false)
   const [focusedInput, setFocusedInput] = useState<boolean>(false)
   const [hideValidationError, setHideValidationError] = useState<boolean>(true)
 
   const { inputs, setInputs } = useContext(PokemonSearchContext)
 
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const { data } = useSelectorData(url)
 
@@ -34,15 +36,23 @@ export function useInput({ url }: UseInput) {
   }, [focusedInput])
 
   useEffect(() => {
-    if (inputRef.current?.value && inputRef.current?.name) {
+    if (inputRef.current) {
       setHideValidationError(inputRef.current.value === '' || inputs[inputRef.current.name].validated)
     }
   }, [inputs])
 
   const updateInput = (): void => {
     if (data && inputRef.current) {
-      const validate = inputRef.current.value === '' || data.results.some(value => toKebabCase(value.name) === toKebabCase(inputRef.current.value))
-      setInputs(input => ({ ...input, [inputRef.current.name]: { ...input[inputRef.current.name], value: inputRef.current.value, validated: validate } }))
+      const inputCurrent = inputRef.current
+      const validate = inputCurrent.value === '' || data.results.some(value => toKebabCase(value.name) === toKebabCase(inputCurrent.value))
+      setInputs(input => ({
+        ...input,
+        [inputCurrent.name]: {
+          ...input[inputCurrent.name],
+          value: inputCurrent.value,
+          validated: validate
+        }
+      }))
     }
   }
 

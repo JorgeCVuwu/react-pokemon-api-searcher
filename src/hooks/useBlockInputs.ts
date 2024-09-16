@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 
 export function useBlockInputs(inputRefId: string) {
   const [disabledInput, setDisabledInput] = useState<boolean>(false)
-  const formRef = useRef<HTMLFormElement>()
+  const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
     if (disabledInput && formRef.current) {

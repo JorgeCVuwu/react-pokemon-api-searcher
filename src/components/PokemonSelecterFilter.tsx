@@ -7,7 +7,7 @@ interface PokemonSelecterFilterProps {
   id: string,
   name: string,
   filter: string,
-  ignoreResults: string[],
+  ignoreResults?: string[],
   disabled: boolean,
   romanNumerals?: boolean
 }
