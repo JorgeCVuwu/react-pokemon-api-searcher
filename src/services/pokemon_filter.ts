@@ -10,18 +10,16 @@ interface searchPokemonFilterProps {
 
 export async function searchPokemonFilter(url: string, filterName: pokemonPropertyTypes): Promise<searchPokemonFilterProps | null> {
   const json: pokeapiType = await fetchData(url) as pokemonFilterProps
-
   if (json === null) return null
 
   const propertyName: pokemonFilterProperties = POKEMON_LIST_KEY_IN_PROPERTY[filterName]
   const jsonProperty = json[propertyName] ?? null
   const keyInProperty: string | null = POKEMON_KEY_IN_PROPERTY?.[filterName] ?? null
-
   if (jsonProperty === null) return null
 
   return {
     pokemonList: jsonProperty.map(pokemon => {
-      const pokemonData = keyInProperty !== null ? pokemon?.[keyInProperty] ?? pokemon : null
+      const pokemonData = keyInProperty !== null ? pokemon?.[keyInProperty] ?? pokemon : pokemon
       return {
         url: pokemonData.url
       }

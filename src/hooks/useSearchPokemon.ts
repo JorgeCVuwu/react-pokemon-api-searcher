@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { searchPokemon } from '../services/pokemon.ts'
 import { searchPokemonFilter } from '../services/pokemon_filter.ts'
 import { searchPokemonSpecies } from '../services/pokemon_species.ts'
-import { POKEAPI_PREFIX } from '../constants/constants.ts'
+import { POKEAPI_PREFIX, pokemonPropertyTypes } from '../constants/constants.ts'
 import { getSortedCommonElements, pushFilteringSpecialForms, removeDigits } from '../utils/utils.js'
 
 import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
@@ -51,11 +51,11 @@ export function useSearchPokemon() {
       const PokemonFilterArrays = await Promise.all(validEntries
         .map(async ([filter, value]) => {
           try {
-            const noDigitFilter = removeDigits(filter) //
+            const noDigitFilter = removeDigits(filter) as pokemonPropertyTypes
             const url = `${POKEAPI_PREFIX}${noDigitFilter}/${value}`
             const pokemonFilter = await searchPokemonFilter(url, noDigitFilter)
 
-            if (!pokemonFilter) return null
+            if (!pokemonFilter) return []
             const pokemonPromises = pokemonFilter.pokemonList.map(async (pokemon) => {
               const urls = []
               let returnedUrls
@@ -81,6 +81,7 @@ export function useSearchPokemon() {
             return []
           }
         }))
+
       const sortedPokemonArray = getSortedCommonElements(PokemonFilterArrays)
 
       if (sortedPokemonArray) {

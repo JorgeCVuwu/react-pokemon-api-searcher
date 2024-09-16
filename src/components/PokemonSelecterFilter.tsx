@@ -11,11 +11,11 @@ interface PokemonSelecterFilterProps {
   disabled: boolean,
   romanNumerals?: boolean
 }
-export function PokemonSelectorFilter({ id, name, filter, ignoreResults, disabled, romanNumerals = false }: PokemonSelecterFilterProps) {
+export function PokemonSelectorFilter({ id, name, filter, ignoreResults, disabled, romanNumerals = false }: PokemonSelecterFilterProps): JSX.Element {
   const url = `${POKEAPI_PREFIX}${filter}`
   const { data, error, loading, selectRef, updateInput } = useSelectorData(url)
 
-  const renderOption = (results) => {
+  const renderOption = (results: { name: string, id: number }[]) => {
     return (
       results.map(result => (
         <option key={result.id} value={result.id}>{capitalizeStr(romanNumerals ? capitalizeRomanNumerals(result.name) : result.name)}</option>
@@ -33,7 +33,7 @@ export function PokemonSelectorFilter({ id, name, filter, ignoreResults, disable
     )
   }
 
-  if (error) {
+  if (error || !data) {
     return (
       <p>Error charging {filter} selector</p>
     )

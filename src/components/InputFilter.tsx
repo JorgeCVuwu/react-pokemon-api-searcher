@@ -6,7 +6,15 @@ import { useInput } from '../hooks/useInput.ts'
 import { POKEAPI_PREFIX } from '../constants/constants.ts'
 import { capitalizeStr, toKebabCase } from '../utils/utils.ts'
 
-const AutocompleteOptions = ({ inputRef, autocompleteOptions, handlePointerDown }: { inputRef: RefObject<HTMLInputElement> }) => {
+import { filtersProps } from '../services/interfaces/project/filters.ts'
+
+interface AutocompleteOptionsProps {
+  inputRef: RefObject<HTMLInputElement>,
+  autocompleteOptions: filtersProps['results']
+  handlePointerDown: (event: React.PointerEvent<HTMLLIElement>) => void
+}
+
+const AutocompleteOptions = ({ inputRef, autocompleteOptions, handlePointerDown }: AutocompleteOptionsProps): JSX.Element | null => {
   const autocompletePosition = (): { topPosition: number, width: number } | null => {
     if (inputRef.current) {
       const topPosition = inputRef.current.offsetTop + inputRef.current.offsetHeight
@@ -45,14 +53,14 @@ export function InputFilter({ name, filter, disabled = false, onChange = null, p
   } = useInput({ url })
   const navigate = useNavigate()
 
-  const handlePointerDown = (event: PointerEvent): void => {
+  const handlePointerDown = (event: React.PointerEvent<HTMLLIElement>): void => {
     if (event.target && "textContent" in event.target && typeof event.target.textContent === 'string') {
       autocompleteInputValue(event.target.textContent)
       updateInput()
     }
   }
 
-  const handleChange = (event: React.ChangeEvent): void => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (onChange) {
       onChange(event)
     }
