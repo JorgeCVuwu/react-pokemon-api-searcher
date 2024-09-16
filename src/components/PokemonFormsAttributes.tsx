@@ -7,6 +7,7 @@ import { capitalizeStr } from '../utils/utils.ts'
 import { POKEMON_STATS_ABREVIATIONS, STAT_COLORS } from '../constants/constants.ts'
 
 import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
+import { modeType, parameterType } from '../interfaces/pokemonFormsAttributes.ts'
 
 const ATTRIBUTE_FUNCTIONS = {
   height: (val: number) => `${val / 10} m`,
@@ -15,16 +16,16 @@ const ATTRIBUTE_FUNCTIONS = {
 
 interface PokemonAttributeDataProps {
   form: pokemonProps,
-  parameter?: string,
+  parameter?: parameterType,
   isDefault?: boolean
 }
 
-function PokemonAttributeData({ form, parameter, showForm, isDefault = false }: PokemonAttributeDataProps) {
+function PokemonAttributeData({ form, parameter, showForm, isDefault = false }: PokemonAttributeDataProps): JSX.Element {
   const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
 
   return (
     <div className={areMultipleForms ? 'pokemon-page-default-container' : ''}>
-      {Array.isArray(form[parameter])
+      {parameter && Array.isArray(form[parameter])
         ? (
           <div className='pokemon-page-flex-container'>
             {form[parameter].map(value => (
@@ -49,7 +50,7 @@ function PokemonAttributeData({ form, parameter, showForm, isDefault = false }: 
   )
 }
 
-function FormStats({ form, parameter, showForm, isDefault = false }: PokemonAttributeDataProps) {
+function FormStats({ form, parameter, showForm, isDefault = false }: PokemonAttributeDataProps): JSX.Element {
   const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
   return (
     <div>
@@ -68,7 +69,7 @@ function FormStats({ form, parameter, showForm, isDefault = false }: PokemonAttr
   )
 }
 
-function FormTypes({ form, showForm, isDefault = false }: PokemonAttributeDataProps) {
+function FormTypes({ form, showForm, isDefault = false }: PokemonAttributeDataProps): JSX.Element {
   const areMultipleForms = (!isDefault || showForm?.existing_valid_forms)
   return (
     <div>
@@ -84,12 +85,19 @@ function FormTypes({ form, showForm, isDefault = false }: PokemonAttributeDataPr
   )
 }
 
-export function PokemonFormsAttributes({ parameter, mode = 'default' }: { parameter?: string, mode?: string }) {
+interface PokemonFormsAttributesProps {
+  parameter?: parameterType,
+  mode?: modeType
+}
+
+
+export function PokemonFormsAttributes({ parameter, mode = 'default' }: PokemonFormsAttributesProps): JSX.Element {
   const { showForm, chargedShowForm } = useShowFormAttributes({ parameter, mode })
   const { pokemonData, charged } = useContext(PokemonPageContext)
 
-  const DefaultAndFormsComponent = ({ Component }) => {
-    return charged && pokemonData && showForm && (
+  const DefaultAndFormsComponent = ({ Component }: { Component: JSX.Element }): JSX.Element | null => {
+    if (!(charged && pokemonData && showForm)) return null
+    return (
       <div className='pokemon-page-element pokemon-page-forms-flex'>
         <Component form={pokemonData.default_data} showForm={showForm} parameter={parameter} isDefault />
         {chargedShowForm && (

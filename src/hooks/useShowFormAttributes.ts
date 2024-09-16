@@ -6,10 +6,11 @@ import { POKEMON_FORMS_ACCEPTED, NOT_CONSIDERED_FORMS } from '../constants/const
 import { compareArraysEqual } from '../utils/utils.ts'
 
 import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
+import { modeType, parameterType } from '../interfaces/pokemonFormsAttributes.ts'
 
 interface useShowFormAttributesProps {
-  parameter: string,
-  mode: string
+  parameter: parameterType,
+  mode: modeType
 }
 export function useShowFormAttributes({ parameter, mode }: useShowFormAttributesProps) {
   const [showForm, setShowForm] = useState()
@@ -25,7 +26,7 @@ export function useShowFormAttributes({ parameter, mode }: useShowFormAttributes
       interface modeStructuresProps {
         form: pokemonProps,
         parameter: string,
-        mode: 'default' | 'types' | 'stats'
+        mode: modeType
       }
       const modeStructures = ({ form, parameter, mode = 'default' }: modeStructuresProps) => {
         const result = {
@@ -48,7 +49,7 @@ export function useShowFormAttributes({ parameter, mode }: useShowFormAttributes
         return result?.[mode] ?? result.default
       }
 
-      const isValidForm = (form: pokemonProps, parameter: string) => {
+      const isValidForm = (form: pokemonProps, parameter: parameterType): boolean => {
         const modeStruct = modeStructures({ form, parameter, mode })
         const defaultFormStruct = modeStructures({ form: pokemonData.default_data, parameter, mode })
 

@@ -12,8 +12,23 @@ const splitFirstHalf = (str: string): string => {
   return split.slice(0, middleIndex).join('-')
 }
 
+interface singleMoveStructure {
+  name: string,
+  games: Record<string, number>,
+  min_level: number,
+  max_level: number
+}
+
+interface moveStructure {
+  name: string,
+  display_info: {
+    columns: string[],
+    display_one_row: boolean
+  },
+  moves: singleMoveStructure[]
+}
 export function useMoveset() {
-  const [pokemonLevelMoveset, setPokemonLevelMoveset] = useState(null)
+  const [pokemonLevelMoveset, setPokemonLevelMoveset] = useState<moveStructure[] | null>(null)
   const [selectedGen, setSelectedGen] = useState<string>('')
 
   const { pokemonData } = useContext(PokemonPageContext)
@@ -31,13 +46,8 @@ export function useMoveset() {
 
   useEffect(() => {
     if (pokemonData) {
-      interface movesProps {
-        name: string,
-        moves: Record<string, number>,
-        display_info: { columns: string[], display_one_row: boolean }
-      }
 
-      const learnedByLevelMoves: movesProps[] = []
+      const learnedByLevelMoves: moveStructure[] = []
 
       pokemonData.default_data.moves.forEach((move) => {
         const genMoveOcurrences: Record<string, number> = {} // {red-blue: 2, yellow: 1}
@@ -67,7 +77,7 @@ export function useMoveset() {
             const moveObj = genObj.moves.find(genMove => genMove.name === move.name)
 
             if (moveObj) {
-              const setLevelLearned = (move) => {
+              const setLevelLearned = (move: singleMoveStructure) => {
                 move.games[gamesName] = detail.level_learned_at
                 move.min_level = Math.min(move.min_level, detail.level_learned_at)
                 move.max_level = Math.max(move.max_level, detail.level_learned_at)

@@ -7,7 +7,7 @@ import { capitalizeStr } from '../utils/utils.ts'
 
 import '../styles/moveset.css'
 
-export function PokemonMoveset() {
+export function PokemonMoveset(): JSX.Element | null {
   const { pokemonLevelMoveset, selectedGen, changeSelectedTable } = useMoveset()
 
   const { pokemonData, charged } = useContext(PokemonPageContext)
@@ -16,7 +16,9 @@ export function PokemonMoveset() {
     changeSelectedTable({ genName })
   }
 
-  return charged && pokemonData && pokemonLevelMoveset && (
+  if (!(charged && pokemonData && pokemonLevelMoveset)) return null
+
+  return (
     <div className='moveset-container'>
       <div className='moveset-buttons-container initial'>
         {pokemonLevelMoveset.map((genMove, key: number) => (
