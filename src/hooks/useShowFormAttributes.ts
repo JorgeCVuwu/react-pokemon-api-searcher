@@ -6,47 +6,64 @@ import { POKEMON_FORMS_ACCEPTED, NOT_CONSIDERED_FORMS } from '../constants/const
 import { compareArraysEqual } from '../utils/utils.ts'
 
 import { pokemonProps } from '../services/interfaces/project/pokemon.ts'
-import { modeType, parameterType } from '../interfaces/pokemonFormsAttributes.ts'
+import { modeType, parameterType, parameterProps, showFormProps } from '../interfaces/pokemonFormsAttributes.ts'
 
 interface useShowFormAttributesProps {
-  parameter: parameterType,
+  parameter?: parameterType,
   mode: modeType
 }
+
 export function useShowFormAttributes({ parameter, mode }: useShowFormAttributesProps) {
-  const [showForm, setShowForm] = useState()
+  const [showForm, setShowForm] = useState<showFormProps>()
   const [chargedShowForm, setChargedShowForm] = useState<boolean>(false)
   const { pokemonData, charged } = useContext(PokemonPageContext)
 
   useEffect(() => {
     if (pokemonData) {
       setChargedShowForm(false)
-      let showFormObj = {}
 
-      // struct form depending on mode, establishing the prpperty structure of data and displayable values
       interface modeStructuresProps {
         form: pokemonProps,
-        parameter: string,
-        mode: modeType
+        mode: modeType,
+        parameter: parameterType
       }
-      const modeStructures = ({ form, parameter, mode = 'default' }: modeStructuresProps) => {
-        const result = {
-          default: {
-            consider_valid_forms: true,
-            structure: form[parameter],
-            data_values: Array.isArray(form[parameter]) ? form[parameter].map(value => value.name) : form[parameter]
-          },
-          stats: {
-            consider_valid_forms: false,
-            structure: form.stats,
-            data_values: form.stats.map(stat => stat[parameter])
-          },
-          types: {
-            consider_valid_forms: true,
-            structure: form.types,
-            data_values: form.types.map(type => type.name)
-          }
+
+      const defaultStructure = ({ form, parameter }: { form: pokemonProps, parameter: parameterProps['default'] }) => {
+        return {
+          consider_valid_forms: true,
+          structure: parameter in form ? form[parameter] : null,
+          data_values: Array.isArray(form[parameter]) ? form[parameter].map(value => value.name) : form[parameter]
         }
-        return result?.[mode] ?? result.default
+      }
+
+      const statsStructure = ({ form, parameter }: { form: pokemonProps, parameter: parameterProps['stats'] }) => {
+        return {
+          consider_valid_forms: false,
+          structure: form.stats,
+          data_values: form.stats.map(stat => stat[parameter])
+        }
+      }
+
+      const typesStructure = ({ form }: { form: pokemonProps }) => {
+        return {
+          consider_valid_forms: true,
+          structure: form.types,
+          data_values: form.types.map(type => type.name)
+        }
+      }
+
+
+      const modeStructures = ({ form, parameter, mode = 'default' }: modeStructuresProps): { consider_valid_forms: boolean, structure: unknown, data_values: unknown } => {
+        switch (mode) {
+          case 'default':
+            return defaultStructure({ form, parameter: parameter as parameterProps['default'] })
+          case 'stats':
+            return statsStructure({ form, parameter: parameter as parameterProps['stats'] })
+          case 'types':
+            return typesStructure({ form })
+          default:
+            return defaultStructure({ form, parameter: parameter as parameterProps['default'] })
+        }
       }
 
       const isValidForm = (form: pokemonProps, parameter: parameterType): boolean => {
@@ -57,19 +74,21 @@ export function useShowFormAttributes({ parameter, mode }: useShowFormAttributes
           POKEMON_FORMS_ACCEPTED.some(suffix => (form.name.endsWith(suffix)))
 
         const result = Array.isArray(modeStruct.structure)
-          ? (!compareArraysEqual(modeStruct.data_values, defaultFormStruct.data_values))
-          : modeStruct.structure !== pokemonData.default_data[parameter]
+          ? (!compareArraysEqual(modeStruct.data_values as Array<number | string>, defaultFormStruct.data_values as Array<number | string>))
+          : modeStruct.structure !== pokemonData.default_data[parameter as parameterProps['default']]
 
         const notConsideredForms = !NOT_CONSIDERED_FORMS.some(str => form.name.includes(str))
         return (result || (isValidForm && modeStruct.consider_valid_forms)) && notConsideredForms
       }
 
+      let showFormObj: showFormProps = {}
+
       pokemonData.forms_data.forEach(form => {
-        const result = isValidForm(form, parameter)
+        const result = (parameter !== undefined) && isValidForm(form, parameter)
         showFormObj = {
           ...showFormObj,
           forms: { ...showFormObj?.forms, [form.id]: result },
-          existing_valid_forms: showFormObj?.existing_valid_forms || result
+          existing_valid_forms: showFormObj.existing_valid_forms || result
         }
       })
 

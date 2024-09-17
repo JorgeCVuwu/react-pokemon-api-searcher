@@ -9,7 +9,7 @@ export const POKEMON_KEY_IN_PROPERTY: Record<pokemonPropertyTypes, pokemonFilter
 export type POKEMON_TYPES_TYPE = 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' | 'ground' |
   'flying' | 'psychic' | 'bug' | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy'
 
-export const POKEMON_TYPE_COLORS = {
+export const POKEMON_TYPE_COLORS: Record<string, string> = {
   normal: '#A8A77A',
   fire: '#EE8130',
   water: '#6390F0',
@@ -30,7 +30,7 @@ export const POKEMON_TYPE_COLORS = {
   fairy: '#D685AD'
 }
 
-export const POKEMON_STATS_ABREVIATIONS = {
+export const POKEMON_STATS_ABREVIATIONS: Record<string, string> = {
   hp: 'HP',
   attack: 'Atk',
   defense: 'Def',
@@ -39,7 +39,7 @@ export const POKEMON_STATS_ABREVIATIONS = {
   speed: 'Speed'
 }
 
-export const STAT_COLORS = {
+export const STAT_COLORS: Record<string, string> = {
   hp: '#6390F0',
   attack: '#EE8130',
   defense: '#B7B7CE',

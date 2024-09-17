@@ -56,7 +56,7 @@ export function capitalizeRomanNumerals(str: string): string {
   return str.replace(romanNumeralRegex, match => match.toUpperCase())
 }
 
-export function compareArraysEqual(arr1: Array<unknown>, arr2: Array<unknown>): boolean {
+export function compareArraysEqual(arr1: Array<number | string>, arr2: Array<number | string>): boolean {
   if (arr1.length !== arr2.length) return false
 
   for (let i = 0; i < arr1.length; i++) {

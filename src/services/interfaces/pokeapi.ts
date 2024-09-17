@@ -10,4 +10,4 @@ import { pokeapiEvolutionChainProps } from "./pokeapi/evolution_chain.ts"
 type pokeapiTypes = pokeapiPokemonProps | pokeapiPokemonSpeciesProps | pokeapiFiltersProps |
     pokeapiGenerationProps | pokeapiMoveProps | pokeapiAbilityProps | pokeapiTypeProps | pokeapiEvolutionChainProps
 
-export type pokeapiType = pokeapiTypes | null
+export type pokeapiType = pokeapiTypes
