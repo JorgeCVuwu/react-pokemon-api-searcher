@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "useDefineForClassFields": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "strict": true,
+      "jsx": "react-jsx",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "allowImportingTsExtensions": true,
+      "noEmit": true,
+    },
+    "exclude": ["node_modules", "dist"]
+} 
